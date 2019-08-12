@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, StyleSheet, Image, ScrollView, Dimensions,} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import Map from '../../Map/Map';
-import {HomeHeader} from '../../Menu/screenNames';
+import {Shops} from '../../Menu/screenNames';
 
 export default class Location extends Component {
   static navigationOptions = { header: null };
@@ -15,7 +15,7 @@ export default class Location extends Component {
 
         <View style={styles.icon}>
           <Icon style={{marginBottom: 20, marginRight: 20}} name="ios-checkmark-circle-outline" size={60} color="#593196" 
-              onPress={() => this.props.navigation.navigate(HomeHeader)}   
+              onPress={() => this.props.navigation.navigate(Shops)}   
           />
         </View> 
 

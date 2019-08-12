@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { createStackNavigator, createAppContainer } from  'react-navigation';
-import {HomeHeader, ProductDetails, BuyIt, Locaton } from '../../Menu/screenNames';
-import HomeHeaderComponent from './HomeHeader';
+import {HomeHeader, ProductDetails, BuyIt, Locaton, ShopsList ,Shops, Products, SearchPlace } from '../../Menu/screenNames';
+import ProductsComponent from './Products';
 import ProductDetailsComponent from './ProductDetails';
 import BuyItComponent from './BuyIt';
 import LocatonComponent from '../../Customer/Home/Location';
+import ShopsComponent from './Shops';
+import SearchPlaceComponent from '../../Map/SearchPlace';
 
 const stackNav = createStackNavigator({
+  SearchPlace: {
+    screen: SearchPlaceComponent
+  },
+  Shops: {
+    screen: ShopsComponent
+  },
+  Products: {
+    screen: ProductsComponent,
+    navigationOptions: ({navigation}) => ({
+      //title: "Products by Shop",
+      headerTitleStyle: {
+        color: "#593196"
+      }
+    })  
+  },
   
-  HomeHeader: {
-    screen: HomeHeaderComponent
-  },
-  Locaton: {
-    screen: LocatonComponent
-  },
   ProductDetails: {
     screen: ProductDetailsComponent,
     navigationOptions: ({navigation}) => ({

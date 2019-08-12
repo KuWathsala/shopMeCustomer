@@ -4,41 +4,20 @@ import {
 } from 'react-native';
 import {Data} from '../Home/Data';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Swipeout from 'react-native-swipeout-longpressforandroid';
+import {connect} from 'react-redux';
 
 class VirticalFlatListItem extends Component{
     render(){
-
-        const swipeSettings={
-            autoClose: true,
-            onClose:(secId, rowId, Direction)=> {
-
-            },
-            onOpen:(secId, rowId, Direction)=> {
-
-            } ,
-            right: [
-                {
-                    onPress:()=>{},
-                    text: 'Delete', type: 'delete'
-                }
-            ],
-            rowId: this.props.index,
-            sectionId:1
-        }
-
         return(
-            <Swipeout {...swipeSettings}>
             <View style={{height:100,}}>
               <View style={{flexDirection:'row', flex:1, borderColor: 'black', borderWidth: 1}}>
-                <Image style={{width:100, height:100, margin: 5}} source={require('../../../Assets/food.jpg')}  />
+                <Image style={{width:100, height:100, margin: 5}}source={{uri: "data:image/jpeg;base64,"+this.props.item.image}}  />
                 <View style={{flex:1,flexDirection:'column', height: 100}}>
                     <Text>{this.props.item.name}</Text>
                     <Text>{this.props.item.unitPrice}</Text>
                 </View>
               </View>
             </View>
-            </Swipeout>
         );
     }
 }
@@ -46,8 +25,12 @@ class VirticalFlatListItem extends Component{
 const widthScreen=Dimensions.get('window').width;
 const heightScreen=Dimensions.get('window').height;
 
-export default class CartItems extends Component {
+class CartItems extends Component {
     static navigationOptions = { header: null };
+
+    componentDidMount(){
+        console.log(this.props);
+    }
 
     render () {
     return (
@@ -57,7 +40,8 @@ export default class CartItems extends Component {
 
             //numColumns = { widthScreen > heightScreen ? 2 : 1 }
             virtical={true}
-            data={Data}
+            //data={Data}
+            data={this.props.cart.arr}
             showsVerticalScrollIndicator={false} 
             renderItem={({item, index}) => {
                     return (
@@ -66,7 +50,7 @@ export default class CartItems extends Component {
                     </VirticalFlatListItem>
                 )
             }}
-            keyExtractor={(item, index) => item.name}
+            keyExtractor={(item, index) => index.toString()}
         >
             
         </FlatList>
@@ -75,6 +59,14 @@ export default class CartItems extends Component {
     );
   }
 }
+
+const mapStateToProps=state=>{
+    return {
+      cart: state.cart,
+    };
+}
+  
+export default connect(mapStateToProps)(CartItems);
 
 const styles = StyleSheet.create({
     

@@ -5,11 +5,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {ProductDetails} from '../../Menu/screenNames'; 
 
 
-const HorizontalFlatListItem = (props) => {
+const FlatListItem = (props) => {
     return(
         <TouchableOpacity 
             onPress={() => props.navigation.navigate(ProductDetails, props.item)}    
-        >
+        >  
             <View style={styles.listItem}>
                 <Text style={styles.text}>{props.item.name}</Text>
                 <Image style={styles.image} source={{uri: "data:image/jpeg;base64,"+props.item.image}}/>
@@ -34,14 +34,14 @@ export default class ProductsList extends Component {
             <View style={styles.container}>
                 <View>
                     <FlatList style={{backgroundColor: "white", opacity: 1}}
-                        horizontal={true}
+                        horizontal={false}
                         data={this.props.data}
                         showsHorizontalScrollIndicator={false} 
                         renderItem={({item, index}) => {
                             return (
-                                <HorizontalFlatListItem navigation={this.props.navigation}
+                                <FlatListItem navigation={this.props.navigation}
                                     item={item} index={index} parentFlatList={this}>
-                                </HorizontalFlatListItem>
+                                </FlatListItem>
                             )
                         }}
                         keyExtractor={(item, index) => item.id.toString()}

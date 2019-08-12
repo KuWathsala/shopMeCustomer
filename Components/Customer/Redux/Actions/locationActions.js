@@ -19,17 +19,17 @@ export const locationFailure=(error)=>({
     payload: error
 }); 
 
-export const fetchCustomerLocation=()=>{
+export const fetchCustomerLocation=(latitude, longitude, address)=>{
+    let source= {
+        latitude: latitude,
+        longitude: longitude,
+        address: address
+    }
+    //console.log(source)
     return dispatch=>{
         dispatch(locationRequest());
-        axios.get('https://192.168.43.15:5001/api/products')
-        .then(json=>{
-            dispatch(locationSuccess(json.data));
-        })
-        .catch (error=>{
-			console.log(error);
-            dispatch(locationFailure(error));
-        })
+        dispatch(locationSuccess(source));
+        //dispatch(locationFailure(error));
     }
 }
 

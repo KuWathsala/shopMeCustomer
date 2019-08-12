@@ -1,96 +1,73 @@
 import React,{Component} from "react";
-import { View, Text, Dimensions, Image, StyleSheet} from "react-native";
+import { View, Text, Dimensions, Image, StyleSheet, ActivityIndicator, ImageBackground} from "react-native";
 import MapView, {PROVIDER_GOOGLE, Marker, Circle} from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
+import { fetchCustomerLocation } from '../Customer/Redux/Actions/locationActions';
+import Button from 'react-native-button';
+import {connect} from 'react-redux';
+import Geocoder from 'react-native-geocoding';
 
-export default class Map extends React.Component{
+Geocoder.init('AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM');
+
+class Map extends React.Component{
   constructor(props){
     super(props);
-    this.state={
-      source: {
-        latitude: 0,
-        longitude: 0
-      },
-      address: null,
-      error: null,
-    };
-  }
-  
-  componentDidMount(){
-    navigator.geolocation.getCurrentPosition(
-      position=> {
-        console.log('position->',position);
-        this.setState({
-          source:{
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          },
-          error:null,
-        });
-      },
-      error=> {this.setState({error: error.message })},
-      //{ enableHighAccuracy: false, timeout: 25000, maximumAge: 3600000 },
-    );
   }
 
   render(){
-    console.log('state->',this.state);
-    return(
+    const {latitude, longitude, address}=this.props.location.source;
+    console.log("in map")
+    console.log(this.props)
+    return (
       <View style={styles.container}>
-        <MapView 
-          showsUserLocation
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          region={{
-            latitude:  this.state.source.latitude, 
-            longitude: this.state.source.longitude,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
-        >
+          <MapView 
+            showsUserLocation
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            zoomEnabled={true}
+            zoomControlEnabled={true}
+            region={{
+              latitude: latitude, 
+              longitude: longitude,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
+            }}
+          >
+            <Marker
+              draggable
+              coordinate={{
+                latitude:  latitude, 
+                longitude: longitude,
+              }}
 
-        <Marker
-          draggable
-          coordinate={{
-            latitude:  this.state.source.latitude, 
-            longitude: this.state.source.longitude,
-          }}
-
-          onDragEnd={ 
-            (e) => this.setState({ 
-              source:{
-                latitude:  e.nativeEvent.coordinate.latitude,
-                longitude: e.nativeEvent.coordinate.longitude,  
+              onDragEnd={
+                e=>{
+                  this.props.location.source.latitude= e.nativeEvent.coordinate.latitude;
+                  this.props.location.source.longitude= e.nativeEvent.coordinate.longitude;
+                  console.log(this.props.location.source)
+                  Geocoder.from(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)
+                  .then(json => {
+                      let address=json.results[0].formatted_address;
+                      this.props.fetchCustomerLocation(this.props.location.source.latitude, this.props.location.source.longitude, address);
+                  }).catch(error => console.log(error));
+                }
               }
-            },
-            console.log(this.state))
-          }
-        />
-
-        {/*<Circle
-          center={{
-            latitude:  this.state.latitude, 
-            longitude: this.state.longitude,
-          }}
-          radius={500}
-          strokeWidth={2}
-          strokeColor="#3399ff"
-          //fillColor="#80bfff"
-        />*/}
-
-        
-        {/*<MapViewDirections
-          origin={this.state.source}
-          destination={this.state.destination}
-          strokeWidth={6}
-          strokeColor="blue"
-          apikey="AIzaSyAnAth7L5EhCtuNs_Znsvl-Ihhtsxb1Dlg"
-        />*/}
-        </MapView >
-      </View>
-    );
+            />
+          </MapView >
+        </View>
+      );
   }
 }
 
+const mapStateToProps=state=>{
+  return {
+    location: state.location 
+  };
+}
+
+export default connect(mapStateToProps,{
+  fetchCustomerLocation
+})(Map);
 
 const styles = StyleSheet.create({
   container: {
@@ -106,7 +83,15 @@ const styles = StyleSheet.create({
     flex:1,
     width: '100%',
     flexDirection:'column',
-  }
+  },
+  text:{
+    fontSize: 22,
+    fontWeight: 'normal',
+    margin: 10,
+    color:'white',
+    textAlign: 'center',
+    textAlignVertical: 'center'
+  },
 });
 
 

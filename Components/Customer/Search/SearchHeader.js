@@ -19,13 +19,6 @@ export default class SearchHeader extends Component {
       <View style={{flex: 1,flexDirection:'column'}}>
         <View style={styles.containerOut}>
           <View style={styles.container}>
-
-            <TouchableOpacity style={{marginLeft: 10, marginTop: 10}}
-              onPress={() =>this.props.navigation.navigate(Map) }  
-            >
-              <Icon name="ios-pin" size={40} color="#593196" />
-            </TouchableOpacity>
-
             <View style={styles.content}>
               <TextInput style={styles.serchText} placeholder="  search for product" onChangeText={(x) => this.setState({ searchText: x })}  value={this.state.searchText} ></TextInput> 
             </View>

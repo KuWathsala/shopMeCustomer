@@ -2,7 +2,6 @@ import {
     SEARCH_PRODUCT_LIST_REQUEST,
     SEARCH_PRODUCT_LIST_SUCCESS,
     SEARCH_PRODUCT_LIST_FAILURE,
-    SEARCH_INPUT
 } from '../Actions/types';
 
 const initialState={

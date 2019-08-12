@@ -7,8 +7,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {BuyIt} from '../../Menu/screenNames'; 
 import Button from 'react-native-button';
 import { Dropdown } from 'react-native-material-dropdown';
+import {connect} from 'react-redux';
+import {addCartItems} from '../Redux/Actions/cartActions';
 
-export default class ProductDetails extends Component {
+class ProductDetails extends Component {
 
     constructor(props){
         super(props);
@@ -26,8 +28,12 @@ export default class ProductDetails extends Component {
                 discount: this.props.navigation.getParam('discount', '-'),
                 selectedQuantity:1
             },
-            
+            pro: null,
         }
+    }
+
+    componentDidMount(){
+        console.log("productDetails"+this.props);
     }
 
     onChangeHandler = (value) => {
@@ -35,7 +41,8 @@ export default class ProductDetails extends Component {
     }
 
     addToCart=()=> {
-        
+        this.props.addCartItems(this.state.product);
+        console.log(this.props);
     }
     render () {
         let data=[{value:1},{value:2},{value:3},{value:4},{value:5},{value:6}];
@@ -83,6 +90,19 @@ export default class ProductDetails extends Component {
     );
   }
 }
+
+const mapStateToProps=state=>{
+    return {
+      pro: state.pro,
+    };
+}
+  
+export default connect(mapStateToProps,{
+    addCartItems
+})(ProductDetails);
+  
+
+
 const widthScreen=Dimensions.get('window').width;
 const heightScreen=Dimensions.get('window').height;
 
