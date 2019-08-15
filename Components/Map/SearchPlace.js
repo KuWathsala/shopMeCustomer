@@ -21,14 +21,17 @@ class SearchPlace extends React.Component{
   }
 
   componentDidMount(){
+    
     Geolocation.getCurrentPosition(
       position=> {
+        let address='';
         console.log('position->',position);
         Geocoder.from(position.coords.latitude, position.coords.longitude)
         .then(json => {
-            let address=json.results[0].formatted_address;
-            this.props.fetchCustomerLocation(position.coords.latitude, position.coords.longitude, address);
+          console.log(json)
+          address=json.results[0].formatted_address;
         }).catch(error => console.log(error));
+        this.props.fetchCustomerLocation(position.coords.latitude, position.coords.longitude, address);
       },
       error=> {this.setState({error: error.message }, console.log(error))},
       { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }

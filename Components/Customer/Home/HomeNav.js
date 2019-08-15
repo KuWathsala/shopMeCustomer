@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { createStackNavigator, createAppContainer } from  'react-navigation';
-import {HomeHeader, ProductDetails, BuyIt, Locaton, ShopsList ,Shops, Products, SearchPlace } from '../../Menu/screenNames';
+import {HomeHeader, ProductDetails, BuyIt, Locaton, ShopsList ,Shops, Products, SearchPlace, } from '../../Menu/screenNames';
 import ProductsComponent from './Products';
 import ProductDetailsComponent from './ProductDetails';
 import BuyItComponent from './BuyIt';
 import LocatonComponent from '../../Customer/Home/Location';
 import ShopsComponent from './Shops';
 import SearchPlaceComponent from '../../Map/SearchPlace';
+import CategoriesComponent from './Categories';
 
 const stackNav = createStackNavigator({
   SearchPlace: {
@@ -20,6 +21,16 @@ const stackNav = createStackNavigator({
     screen: ProductsComponent,
     navigationOptions: ({navigation}) => ({
       //title: "Products by Shop",
+      headerTitleStyle: {
+        color: "#593196"
+      }
+    })  
+  },
+
+  Categories: {
+    screen: CategoriesComponent,
+    navigationOptions: ({navigation}) => ({
+      //title: "Categories",
       headerTitleStyle: {
         color: "#593196"
       }

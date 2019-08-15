@@ -16,11 +16,11 @@ const FlatListItem = (props) => {
                 <View style={{alignSelf: 'baseline',flexDirection:'column'}}>
                     <Text style={styles.text}>{props.item.shopName}</Text>
                     <Text style={styles.textDes}>close To you: {props.item.distance.toFixed(1)} km</Text>
-                    <Text style={styles.textDes}>Address: {props.item.shopAddress}</Text>
+                    <Text style={styles.textDes}><Icon name="ios-pin" size={20} color="green" /> {props.item.shopAddress}</Text>
                 </View>
 
                 <View style={{ flexDirection: 'row',alignSelf: 'baseline'}}>
-                    <Text style={styles.textLike}><Icon name="ios-pin" size={20} color="green" /> {props.item.rating}  </Text>
+                    <Text style={styles.textLike}><Icon name="ios-star" size={20} color="gold" /> {props.item.rating}  </Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         alignItems:'center',
         width: 200,
-        height: 250,
+        height: 300,
         borderWidth: 1,
         borderColor:'black',
         margin: 4, 

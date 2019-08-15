@@ -17,7 +17,8 @@ const Map="Map";
 const Shops="Shops";
 const Products="Products";
 const SearchPlace="SearchPlace";
+const Categories="Categories"
 export { Main, Detail, stackNav, Side, Account, Home, 
     Search, Cart, Profile, Order, CategoriesList, SearchItems, ProductDetails, BuyIt , Locaton , Map,
-    Shops,Products, SearchPlace
+    Shops,Products, SearchPlace, Categories
 } ;

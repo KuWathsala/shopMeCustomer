@@ -25,7 +25,8 @@ export const fetchCustomerLocation=(latitude, longitude, address)=>{
         longitude: longitude,
         address: address
     }
-    //console.log(source)
+    console.log("source-->>")
+    console.log(source)
     return dispatch=>{
         dispatch(locationRequest());
         dispatch(locationSuccess(source));

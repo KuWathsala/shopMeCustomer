@@ -15,7 +15,7 @@ class Map extends React.Component{
   }
 
   render(){
-    const {latitude, longitude, address}=this.props.location.source;
+
     console.log("in map")
     console.log(this.props)
     return (
@@ -27,8 +27,8 @@ class Map extends React.Component{
             zoomEnabled={true}
             zoomControlEnabled={true}
             region={{
-              latitude: latitude, 
-              longitude: longitude,
+              latitude: this.props.location.source.latitude, 
+              longitude: this.props.location.source.longitude,
               latitudeDelta: 0.015,
               longitudeDelta: 0.0121,
             }}
@@ -36,8 +36,8 @@ class Map extends React.Component{
             <Marker
               draggable
               coordinate={{
-                latitude:  latitude, 
-                longitude: longitude,
+                latitude:  this.props.location.source.latitude, 
+                longitude: this.props.location.source.longitude,
               }}
 
               onDragEnd={
@@ -60,6 +60,7 @@ class Map extends React.Component{
 }
 
 const mapStateToProps=state=>{
+  console.log(state)
   return {
     location: state.location 
   };
