@@ -27,7 +27,6 @@ class Shops extends Component {
 
   searchUpdated(term) {
     this.setState({ searchShop: term })
-    console.log("search updated"+this.state.searchShop)
   }
 
   render () {
@@ -52,7 +51,7 @@ class Shops extends Component {
           <SearchInput  
             onChangeText={(term) => { this.searchUpdated(term), console.log(filteredShops), console.log(this.state.searchShop) }} 
             style={styles.serchText}
-            placeholder="find shop to shopping..."
+            placeholder="find shop to shop..."
           /> 
           
           <ScrollView>

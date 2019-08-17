@@ -26,9 +26,9 @@ class ProductDetails extends Component {
                 rating: this.props.navigation.getParam('rating', '-'),
                 like: this.props.navigation.getParam('like', '-'),
                 discount: this.props.navigation.getParam('discount', '-'),
-                selectedQuantity:1
+                selectedQuantity:1,
+                isaddedToCart: false
             },
-            pro: null,
         }
     }
 
@@ -41,7 +41,15 @@ class ProductDetails extends Component {
     }
 
     addToCart=()=> {
-        this.props.addCartItems(this.state.product);
+        let isAvailble= false;
+        for(let i = 0; i < this.props.cart.arr.length ; i++){
+            if(this.props.cart.arr[i].id===this.state.product.id){
+               Alert.alert('item is already in the cart')
+               isAvailble=true;
+               break;
+            }
+        }
+        if(!isAvailble)this.props.addCartItems(this.state.product);
         console.log(this.props);
     }
     render () {
@@ -78,7 +86,7 @@ class ProductDetails extends Component {
                     Buy It
                 </Button>
                 <Button style={styles.button} 
-                    onPress={() => this.addToCart()}  
+                    onPress={this.addToCart}  
                 >
                     Add to cart
                 </Button>
@@ -93,7 +101,8 @@ class ProductDetails extends Component {
 
 const mapStateToProps=state=>{
     return {
-      pro: state.pro,
+        cart: state.cart,
+        //productsList: state.productsList
     };
 }
   

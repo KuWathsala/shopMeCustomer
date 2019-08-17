@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Text,View,StyleSheet,Image,Dimensions} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import Orders from './Orders';
 
 export default class ProfileHeader extends Component {
   constructor(props){
@@ -50,7 +49,6 @@ export default class ProfileHeader extends Component {
         <Text style={{fontSize:25, color:'black', marginTop: 10}}>
           My Orders
         </Text>
-        <Orders />
 
       </View>
     );

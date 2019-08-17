@@ -21,10 +21,9 @@ class SearchPlace extends React.Component{
   }
 
   componentDidMount(){
-    
+    let address='';
     Geolocation.getCurrentPosition(
       position=> {
-        let address='';
         console.log('position->',position);
         Geocoder.from(position.coords.latitude, position.coords.longitude)
         .then(json => {
@@ -36,6 +35,7 @@ class SearchPlace extends React.Component{
       error=> {this.setState({error: error.message }, console.log(error))},
       { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
     );
+    
     console.log(this.props)
   }
   

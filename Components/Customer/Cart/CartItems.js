@@ -1,21 +1,29 @@
 import React, {Component} from 'react';
 import {
-    Text, View, StyleSheet, Image, ScrollView, Dimensions, FlatList, Platform, TouchableOpacity     
+    Text, View, StyleSheet, Image, ScrollView, Dimensions, FlatList, Platform, TouchableOpacity, Alert   
 } from 'react-native';
 import {Data} from '../Home/Data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 
 class VirticalFlatListItem extends Component{
+
+    press=()=>{
+        Alert.alert('Item is removed')
+    }
+
     render(){
         return(
-            <View style={{height:100,}}>
+            <View style={styles.listItem}>
               <View style={{flexDirection:'row', flex:1, borderColor: 'black', borderWidth: 1}}>
                 <Image style={{width:100, height:100, margin: 5}}source={{uri: "data:image/jpeg;base64,"+this.props.item.image}}  />
                 <View style={{flex:1,flexDirection:'column', height: 100}}>
                     <Text>{this.props.item.name}</Text>
                     <Text>{this.props.item.unitPrice}</Text>
                 </View>
+                <TouchableOpacity onPress={this.press}>
+                    <Icon style={{alignSelf: 'flex-end', paddingRight : 5}} name="md-trash" size={30} color="gray" /> 
+                </TouchableOpacity>
               </View>
             </View>
         );
@@ -33,29 +41,36 @@ class CartItems extends Component {
     }
 
     render () {
-    return (
-    <View style={styles.container}>
-        <View>
-        <FlatList style={{backgroundColor: "white", opacity: 1, }}
+    if(this.props.cart.arr.length!=0)
+        return (
+            <View style={styles.container}>
+                <View>
+                <FlatList style={{backgroundColor: "white", opacity: 1, }}
 
-            //numColumns = { widthScreen > heightScreen ? 2 : 1 }
-            virtical={true}
-            //data={Data}
-            data={this.props.cart.arr}
-            showsVerticalScrollIndicator={false} 
-            renderItem={({item, index}) => {
-                    return (
-                    <VirticalFlatListItem item={item} index={index} parentFlatList={this}>
-                
-                    </VirticalFlatListItem>
-                )
-            }}
-            keyExtractor={(item, index) => index.toString()}
-        >
-            
-        </FlatList>
-        </View>
-    </View>
+                    //numColumns = { widthScreen > heightScreen ? 2 : 1 }
+                    virtical={true}
+                    //data={Data}
+                    data={this.props.cart.arr}
+                    showsVerticalScrollIndicator={false} 
+                    renderItem={({item, index}) => {
+                            return (
+                            <VirticalFlatListItem item={item} index={index} parentFlatList={this}>
+                        
+                            </VirticalFlatListItem>
+                        )
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                >
+                    
+                </FlatList>
+                </View>
+            </View>
+        );
+    else
+        return( <View style={{flex: 1,flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
+                <Icon style={styles.icon} name="md-cart" size={100} color="gray" />
+                <Text>Currently there are no items in your cart</Text>
+        </View> 
     );
   }
 }
@@ -76,11 +91,6 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS==='ios' ? 34 : 0,
         //alignItems: 'center'
     },
-    icon: {
-        width: 30,
-        height:30,
-        //tintColor: 'red'
-    },
     text:{
         fontSize: 16,
         fontWeight: 'bold',
@@ -90,5 +100,15 @@ const styles = StyleSheet.create({
     image:{
         width: 100,
         height: 100
-    }
+    },
+    listItem: {
+        flex: 1,
+        flexDirection:'column',
+        alignItems:'center',
+        width: widthScreen-10,
+        height: 100,
+        borderWidth: 1,
+        borderColor:'black',
+        margin: 4, 
+    },
   });

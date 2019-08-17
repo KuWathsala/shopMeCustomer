@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { TabNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
-import { Home, Search, Order, Profile} from '../../Menu/screenNames';
+import { Home, Cart, Order, Profile} from '../../Menu/screenNames';
 import HomeComponent from '../Home/Home';
-import SearchComponent from '../Search/Search';
 import OrderComponent from '../Order/Order';
 import ProfileComponent from '../Profile/Profile';
 import CartComponent from '../Cart/Cart';
@@ -18,11 +17,11 @@ let routeConfigs={
               )
         }
     },
-    Search: {
-        screen: SearchComponent,
+    Order: {
+        screen: OrderComponent,
         navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
-              <Icon name='md-search' size={37} color={tintColor} />
+              <Icon name='md-clipboard' size={37} color={tintColor} />
               )
         }
     },

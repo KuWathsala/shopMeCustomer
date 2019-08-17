@@ -2,22 +2,34 @@ import React, {Component} from 'react';
 import {
   Text, View, StyleSheet, Image, ScrollView, Dimensions, FlatList, Platform, TouchableOpacity     
 } from 'react-native';
-import {CategoriesData} from '../Home/Data';
+//import {CategoriesData} from './Data';
+import axios from 'axios';
+import {Products} from  '../../Menu/screenNames';
 
 class VirticalFlatListItem extends Component{
-    render(){
-        return(
-          <TouchableOpacity>
-            <View style={{flexDirection:'row'}}>
-              <Image style={styles.image} source={require('../../../Assets/food.jpg')} />
-              <Text style={styles.text}>{this.props.item.name}</Text>
-            </View>
-          </TouchableOpacity>
-        );
-    }
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+      return(
+        <TouchableOpacity>  
+          <View style={{flexDirection:'row'}}>
+            <Image style={styles.image} source={{uri: "data:image/jpeg;base64,"+this.props.item.image}} />
+            <Text style={styles.text}>{this.props.item.categoryName}</Text>
+          </View>
+        </TouchableOpacity>
+      );
+  }
 }
 
 export default class Categories extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      categoriesData: null
+    }
+  }
 
     render () {
     return (
@@ -28,15 +40,16 @@ export default class Categories extends Component {
 
             //numColumns = {3 }
             virtical={true}
-            data={CategoriesData}
+            data={this.state.categoriesData}
             renderItem={({item, index}) => {
                     return (
-                    <VirticalFlatListItem item={item} index={index} parentFlatList={this}>
+                    <VirticalFlatListItem item={item} navigation={this.props.navigation}
+                     index={index} parentFlatList={this}>
                 
                     </VirticalFlatListItem>
                 )
             }}
-            keyExtractor={(item, index) => item.name}
+            keyExtractor={(item, index) => item.id.toString()}
         /> 
         </View>
     </View>
@@ -83,6 +96,7 @@ const styles = StyleSheet.create({
       width: 60,
       height: 60,
       marginLeft: 20,
-      marginTop: 20
+      marginTop: 20,
+      borderColor: 'black'
   }
 });

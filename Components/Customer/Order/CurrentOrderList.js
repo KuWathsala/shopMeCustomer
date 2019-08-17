@@ -1,40 +1,46 @@
 import React, {Component} from 'react';
 import { Text, View, StyleSheet, Alert, Image, Dimensions, FlatList, Platform, TouchableOpacity} from 'react-native';
-import {Data} from './Data';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {ProductDetails} from '../../Menu/screenNames'; 
+import * as Progress from 'react-native-progress';
+import {Products} from '../../Menu/screenNames';
 
 const FlatListItem = (props) => {
     return(
         <TouchableOpacity 
-            onPress={() => props.navigation.navigate(ProductDetails, props.item)}    
-        >  
+            //onPress={() => props.navigation.navigate(Products, props.item)}    
+        >
             <View style={styles.listItem}>
-                <Text style={styles.text}>{props.item.name}</Text>
-                <Image style={styles.image} source={{uri: "data:image/jpeg;base64,"+props.item.image}}/>
-                <Text style={styles.textDes}>{props.item.description}</Text>
-                <View style={{alignSelf: 'baseline',flexDirection:'row'}}>
-                    <Text style={styles.text}>LKR: {props.item.sellingPrice}  </Text>
-                    <Text style={styles.textDiscount}>{props.item.unitPrice}</Text>
-                </View>
-
-                <View style={{ flexDirection: 'row',alignSelf: 'baseline'}}>
-                    <Text style={styles.textLike}><Icon name="ios-star" size={20} color="orange" /> {props.item.rating}  |</Text>
-                    <Text style={styles.textLike}><Icon name="ios-heart" size={20} color="red" /> {props.item.like}</Text>
+                <View style={{ flexDirection: 'column',alignSelf: 'baseline'}}>
+                    <Text style={styles.textDes}>Order Id: {props.item.id}</Text>
+                    <Text style={styles.textDes}>Ordered At: {props.item.createdAt}</Text>
+                    <Text style={styles.textDes}>Order status: {props.item.orderStatus}</Text>
+                    <Text style={styles.textDes}>Total LKR: {props.item.totalPrice}</Text>
+                    <FlatList data={props.item.products} 
+                        keyExtractor={(item, index) => item.id.toString()}
+                        renderItem={({item, index}) => {
+                            return (
+                                <View style={{flexDirection: 'column'}}>
+                                    <Text>Name: {item.name}</Text>
+                                    <Text>Quantity: {item.quantity}</Text>
+                                    <Text>unit Price: {item.unitPrice*(1-item.discount/100)}</Text>
+                                </View>
+                            )
+                        }}
+                    />
                 </View>
             </View>
         </TouchableOpacity>
     );
 }
 
-export default class ProductsList extends Component {
+export default class ShopsList extends Component {
     render(){
         let columns= columns=Math.floor(widthScreen/200);
         return (
             <View style={styles.container}>
                 <View>
                     <FlatList style={{backgroundColor: "white", opacity: 1}}
-                        numColumns={columns}
+                        numColumns={1}
                         horizontal={false}
                         data={this.props.data}
                         showsHorizontalScrollIndicator={false} 
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection:'column',
         alignItems:'center',
-        width: 200,
+        width: widthScreen-10,
         height: 300,
         borderWidth: 1,
         borderColor:'black',
@@ -96,15 +102,9 @@ const styles = StyleSheet.create({
         color: 'black',
         margin: 2,
     },
-    textLike:{
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black',
-        margin: 3,
-    },
     image:{
-        width: 320,
-        height: 180,
+        width: 180,
+        height: 150,
         resizeMode:'center'
     }
 });

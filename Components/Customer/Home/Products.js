@@ -49,7 +49,7 @@ class Products extends Component {
     return (
         <View>
           <View style={{flexDirection: 'row', marginTop: 5, width: widthScreen}}>
-            <ModalSelector style={{width: widthScreen/2-10, marginLeft: 5}}
+            <ModalSelector style={{width: widthScreen/2-10, marginLeft: 5, borderColor: 'black'}}
               data={this.state.categoriesData}
               initValue="search by category..."
               supportedOrientations={['landscape']}
@@ -60,7 +60,7 @@ class Products extends Component {
               keyExtractor= {item => item.id}
               labelExtractor= {item => item.categoryName}
             >
-              {/*<Icon style={styles.icon} name="md-apps" size={33} color="#593196" />*/}
+              {/*<Icon style={styles.icon} name="md-<ion-icon name="checkmark-circle-outline"></ion-icon>" size={33} color="#593196" />*/}
             </ModalSelector>
         
             <SearchInput  
@@ -114,8 +114,9 @@ const styles = StyleSheet.create({
     //color:'#593196'
   },
   serchText: {
-    width: widthScreen/2-10,
+    width: widthScreen/2-5,
     height: 38,
+    marginLeft: 10,
     marginRight: 5,
     fontSize: 17,
     marginLeft: 5,
