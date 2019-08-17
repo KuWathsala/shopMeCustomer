@@ -75,7 +75,7 @@ export default connect(mapStateToProps,{
   fetchCustomerLocation
 })(Shops);
 
-
+const widthScreen=Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -112,16 +112,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   serchText: {
-    width: '98%',
+    width: widthScreen-10,
+    height: 38,
     marginRight: 5,
     fontSize: 17,
     marginLeft: 5,
-    marginTop: 5,
     padding: 5,
-    paddingLeft:10,
-    paddingRight:10,
-    borderColor: '#593196',
+    paddingLeft: 5,
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 5,
+    borderColor: 'gray'
   },
 });
