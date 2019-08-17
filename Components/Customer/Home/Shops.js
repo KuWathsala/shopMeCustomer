@@ -46,7 +46,7 @@ class Shops extends Component {
             onPress={() =>this.props.navigation.navigate(SearchPlace) }  
           >
             <Icon style={styles.icon} name="ios-pin" size={30} color="#593196" />
-            <Text style={styles.address} >{this.props.location.source.address}</Text>
+            <Text style={styles.address}>{this.props.location.source.address}</Text>
           </TouchableOpacity>
             
           <SearchInput  

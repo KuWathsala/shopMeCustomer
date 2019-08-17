@@ -8,7 +8,6 @@ import BuyItComponent from './BuyIt';
 import LocatonComponent from '../../Customer/Home/Location';
 import ShopsComponent from './Shops';
 import SearchPlaceComponent from '../../Map/SearchPlace';
-import CategoriesComponent from './Categories';
 
 const stackNav = createStackNavigator({
   SearchPlace: {
@@ -21,16 +20,6 @@ const stackNav = createStackNavigator({
     screen: ProductsComponent,
     navigationOptions: ({navigation}) => ({
       //title: "Products by Shop",
-      headerTitleStyle: {
-        color: "#593196"
-      }
-    })  
-  },
-
-  Categories: {
-    screen: CategoriesComponent,
-    navigationOptions: ({navigation}) => ({
-      //title: "Categories",
       headerTitleStyle: {
         color: "#593196"
       }

@@ -1,117 +1,109 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Button, Image, ScrollView, Dimensions, TouchableOpacity, ActivityIndicator} from 'react-native';
-import Icon from "react-native-vector-icons/Ionicons";
-import ProductsList from './ProductsList';
-import {fetchProductList} from '../Redux/Actions/productListActions';
-import {connect} from 'react-redux';
-import {Locaton, Categories} from '../../Menu/screenNames';
-import SearchPlace from '../../Map/SearchPlace';
-import SearchInput, {createFilter,} from 'react-native-search-filter';
-import { TextInput } from 'react-native-gesture-handler';
-const KEYS_TO_FILTERS = ['name', 'description', 'shortDescription',];
+import { Text, View, StyleSheet, Alert, Image, Dimensions, FlatList, Platform, TouchableOpacity} from 'react-native';
+import {Data} from './Data';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {ProductDetails} from '../../Menu/screenNames'; 
 
-class Products extends Component {
-  static navigationOptions = { title: "products" };
 
-  constructor(props){
-    super(props);
-    this.state = {
-      searchProducts: '',
-      category: 'tap to find by categories...'
-    }
-  }
+const FlatListItem = (props) => {
+    return(
+        <TouchableOpacity 
+            onPress={() => props.navigation.navigate(ProductDetails, props.item)}    
+        >  
+            <View style={styles.listItem}>
+                <Text style={styles.text}>{props.item.name}</Text>
+                <Image style={styles.image} source={{uri: "data:image/jpeg;base64,"+props.item.image}}/>
+                <Text style={styles.textDes}>{props.item.description}</Text>
+                <View style={{alignSelf: 'baseline',flexDirection:'row'}}>
+                    <Text style={styles.text}>LKR: {props.item.sellingPrice}  </Text>
+                    <Text style={styles.textDiscount}>{props.item.unitPrice}</Text>
+                </View>
 
-  componentDidMount(){
-      this.props.fetchProductList(this.props.navigation.getParam('id', '-'),);
-      console.log(this.props)
-  }
-
-  searchUpdated(term) {
-    this.setState({ searchProducts: term })
-    console.log("search updated"+this.state.searchProducts)
-  }
-
-  render () {
-    const filteredProducts = this.props.productsList.products.filter(createFilter(this.state.searchProducts, KEYS_TO_FILTERS));
-    let productList=<ProductsList data={filteredProducts} navigation={this.props.navigation} />;
-    var loading=this.props.productsList.loading;
-    var done=this.props.productsList.loading 
-
-    if(loading)
-      return (<ActivityIndicator size="large" style={styles.container} />);
-    else 
-    return (
-      <View>
-        <TouchableOpacity style={{flexDirection:'row', width:'100%'}}
-            onPress={() =>this.props.navigation.navigate(Categories) }  
-        >
-          <Icon style={styles.icon} name="md-apps" size={33} color="#593196" />
-          <Text style={styles.text}>{this.state.category}</Text>
+                <View style={{ flexDirection: 'row',alignSelf: 'baseline'}}>
+                    <Text style={styles.textLike}><Icon name="ios-star" size={20} color="orange" /> {props.item.rating}  |</Text>
+                    <Text style={styles.textLike}><Icon name="ios-heart" size={20} color="red" /> {props.item.like}</Text>
+                </View>
+            </View>
         </TouchableOpacity>
-        
-        <SearchInput  
-          onChangeText={(term) => { this.searchUpdated(term), console.log(filteredProducts)}} 
-          style={styles.serchText}
-          placeholder="find products..."
-        />
-        <ScrollView>
-          <View style={styles.container}>
-            {productList}
-          </View>
-        </ScrollView>
-      </View>
     );
-  }
 }
 
-const mapStateToProps=state=>{
-  return {
-    productsList: state.productsList,
-  };
-}
+export default class ProductsList extends Component {
+    render(){
+        return (
+            <View style={styles.container}>
+                <View>
+                    <FlatList style={{backgroundColor: "white", opacity: 1}}
+                        horizontal={false}
+                        data={this.props.data}
+                        showsHorizontalScrollIndicator={false} 
+                        renderItem={({item, index}) => {
+                            return (
+                                <FlatListItem navigation={this.props.navigation}
+                                    item={item} index={index} parentFlatList={this}>
+                                </FlatListItem>
+                            )
+                        }}
+                        keyExtractor={(item, index) => item.id.toString()}
+                    />
+                </View>
+            </View>
+        );
+    }
+};
 
-export default connect(mapStateToProps,{
-  fetchProductList,
-})(Products);
 
+const widthScreen=Dimensions.get('window').width;
+const heightScreen=Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    //justifyContent: 'center',
-    alignItems: 'center',
-  },
-  icon: {
-    marginTop: 5,
-    marginLeft: 10,
-    width: 30,
-    height:30,
-  },
-  textLocation:{
-    fontSize: 16,
-    fontWeight: 'normal',
-    color:'#593196'
-  },
-  text:{
-    fontSize: 16,
-    fontWeight: 'normal',
-    margin: 10,
-    //color:'#593196'
-  },
-  serchText: {
-    width: '98%',
-    marginRight: 5,
-    fontSize: 17,
-    marginLeft: 5,
-    marginTop: 5,
-    padding: 5,
-    paddingLeft:10,
-    paddingRight:10,
-    borderColor: '#593196',
-    borderWidth: 1,
-    borderRadius: 20,
-  },
+    
+    container: { 
+        flex: 1,
+        flexDirection:'column',
+        marginTop: Platform.OS==='ios' ? 34 : 0,
+    },
+    listItem: {
+        flex: 1,
+        flexDirection:'column',
+        alignItems:'center',
+        width: 350,
+        height: 300,
+        borderWidth: 1,
+        borderColor:'black',
+        margin: 4, 
+    },
+    icon: {
+        width: 30,
+        height:30,
+        tintColor: 'red'
+    },
+    text:{
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: 'black',
+        margin: 3,
+    },
+    textDiscount:{
+        fontSize: 17,
+        color: 'red',
+        textDecorationLine: 'line-through',
+        margin: 3, 
+    },
+    textDes:{
+        fontSize: 17,
+        color: 'black',
+        margin: 2,
+    },
+    textLike:{
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'black',
+        margin: 3,
+    },
+    image:{
+        width: 320,
+        height: 180,
+        resizeMode:'center'
+    }
 });
-
-
-
