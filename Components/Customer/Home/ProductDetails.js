@@ -8,7 +8,7 @@ import {BuyIt} from '../../Menu/screenNames';
 import Button from 'react-native-button';
 import { Dropdown } from 'react-native-material-dropdown';
 import {connect} from 'react-redux';
-import {addCartItems} from '../Redux/Actions/cartActions';
+import {addCartItems, fetchCart} from '../Redux/Actions/cartActions';
 
 class ProductDetails extends Component {
 
@@ -22,25 +22,30 @@ class ProductDetails extends Component {
                 shortDescription: this.props.navigation.getParam('shortDescription', '-'),
                 unitPrice: this.props.navigation.getParam('unitPrice', '-'),
                 image: this.props.navigation.getParam('image', '-'),
-                quantity: this.props.navigation.getParam('quantity', '-'),
+                availableQuantity: this.props.navigation.getParam('quantity', '-'),
                 rating: this.props.navigation.getParam('rating', '-'),
                 like: this.props.navigation.getParam('like', '-'),
                 discount: this.props.navigation.getParam('discount', '-'),
-                selectedQuantity:1,
-                isaddedToCart: false
+                sellerId: this.props.navigation.getParam('sellerId', '-'),
+                quantity: 1,
             },
         }
     }
 
     componentDidMount(){
-        console.log("productDetails"+this.props);
+        console.log("productDetails");
+        this.props.fetchCart()
+        console.log(this.state.sellerId);
     }
 
     onChangeHandler = (value) => {
-        this.setState({ ...this.state.product.selectedQuantity = value })
+        this.setState({ ...this.state.product.quantity = value })
     }
 
     addToCart=()=> {
+        console.log(this.props.cart.arr.length!==0)
+
+
         let isAvailble= false;
         for(let i = 0; i < this.props.cart.arr.length ; i++){
             if(this.props.cart.arr[i].id===this.state.product.id){
@@ -49,7 +54,10 @@ class ProductDetails extends Component {
                break;
             }
         }
-        if(!isAvailble)this.props.addCartItems(this.state.product);
+        if(!isAvailble){
+            this.props.addCartItems(this.state.product);
+            Alert.alert('item is added successfully')
+        }
         console.log(this.props);
     }
     render () {
@@ -64,7 +72,7 @@ class ProductDetails extends Component {
                 <Text style={styles.text}>{this.state.product.description}</Text>
                 <Text style={styles.text}>{this.state.product.shortDescription}</Text>
                 <Text style={styles.text}>Unit Price LKR: {this.state.product.unitPrice}</Text>
-                <Text style={styles.text}>Available: {this.state.product.quantity}</Text>
+                <Text style={styles.text}>Available: {this.state.product.availableQuantity}</Text>
                 <Text style={styles.text}>Rating: {this.state.product.rating}</Text>
                 <Text style={styles.text}>Likes: {this.state.product.like}</Text>
                 <Text style={styles.text}>Discount: {this.state.product.discount}</Text> 
@@ -107,7 +115,8 @@ const mapStateToProps=state=>{
 }
   
 export default connect(mapStateToProps,{
-    addCartItems
+    addCartItems,
+    fetchCart
 })(ProductDetails);
   
 
