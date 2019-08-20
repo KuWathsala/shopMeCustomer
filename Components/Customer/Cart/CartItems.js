@@ -42,7 +42,7 @@ const widthScreen=Dimensions.get('window').width;
 const heightScreen=Dimensions.get('window').height;
 
 class CartItems extends Component {
-    static navigationOptions = { header: 'Cart' };
+    //static navigationOptions = { header: 'Cart' };
 
     constructor(props){
         super(props);

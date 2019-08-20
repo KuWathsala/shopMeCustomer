@@ -27,6 +27,7 @@ let routeConfigs={
     },
     Cart: {
         screen: CartComponent,
+        title: "My cart",
         navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
               <Icon name='md-cart' size={37} color={tintColor} />

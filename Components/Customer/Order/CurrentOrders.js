@@ -6,7 +6,7 @@ import CurrentOrderList from './CurrentOrderList';
 
 export default class CurrentOrders extends Component {
 
-  static navigationOptions = { header: null };
+  //static navigationOptions = { header: null };
 
   constructor(props){
     super(props);

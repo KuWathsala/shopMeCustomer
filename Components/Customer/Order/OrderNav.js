@@ -3,12 +3,19 @@ import { Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import { createStackNavigator, createAppContainer } from  'react-navigation';
 import CurrentOrdersComponent from './CurrentOrders';
 import ProductDetailsComponent from '../Home/ProductDetails';
+import RateComponent from './Rate';
 import BuyItComponent from '../Home/BuyIt';
 
 const stackNav = createStackNavigator({
   
   CurrentOrders: {
     screen: CurrentOrdersComponent,
+    navigationOptions: ({navigation}) => ({
+      title: "My Orders",
+      headerTitleStyle: {
+        color: "#593196"
+      }
+    })
   },
 
   ProductDetails: {
@@ -21,14 +28,8 @@ const stackNav = createStackNavigator({
     })     
   },
   
-  BuyIt: {
-    screen: BuyItComponent,
-    navigationOptions: ({navigation}) => ({
-      title: "Buy",
-      headerTitleStyle: {
-        color: "#593196"
-      }
-    })  
+  Rate: {
+    screen: RateComponent,
   },  
 });
 const Nav=createAppContainer(stackNav);
