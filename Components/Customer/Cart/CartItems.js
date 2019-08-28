@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {
-    Text, View, StyleSheet, Image, ScrollView, Dimensions, FlatList, Platform, TouchableOpacity, Alert   
+    Text, View, StyleSheet, Image, ScrollView, Dimensions, FlatList, Platform, TouchableOpacity, Alert, Linking  
 } from 'react-native';
 import {Data} from '../Home/Data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import {removeCartItems,fetchCart} from '../Redux/Actions/cartActions';
+import Button from 'react-native-button';
+import {BuyIt} from  '../../Menu/screenNames';
 
 class VirticalFlatListItem extends Component{
 
@@ -22,7 +24,7 @@ class VirticalFlatListItem extends Component{
         return(
             <View style={styles.listItem}>
               <View style={{flexDirection:'row', flex:1, borderColor: 'black', borderWidth: 1}}>
-                <Image style={{width:100, height:100, margin: 5}}source={{uri: "data:image/jpeg;base64,"+this.props.item.image}}  />
+                <Image style={{width:100, height:100, margin: 5}} source={{uri: "data:image/jpeg;base64,"+this.props.item.image}}  />
                 <View style={{flex:1,flexDirection:'column', height: 100}}>
                     <Text style={{fontSize: 19}}>{this.props.item.name}</Text>
                     <Text>{this.props.item.description}</Text>
@@ -49,9 +51,19 @@ class CartItems extends Component {
         this.removeItem = this.removeItem.bind(this);
     }
 
-    componentDidMount(){
-    }
-
+    openPayHere() {
+        let url="https://www.google.com"
+        console.log("payhere")
+        Linking.canOpenURL(url)
+        .then((supported) => {
+            if (!supported) {
+            console.log("Can't handle url: " + url);
+            } else {
+            return Linking.openURL(url);
+            }
+        })
+        .catch((err) => console.error('An error occurred', err));
+      }
     removeItem(index){
         Alert.alert('Item is removed')
         this.props.removeCartItems(index);
@@ -84,6 +96,11 @@ class CartItems extends Component {
                 >
                     
                 </FlatList>
+                <TouchableOpacity style={{ width:150, height:40, marginBottom: 0}}
+                    onPress={this.openPayHere}  
+                >
+                    <Image style={{ width:150, height:40, margin: 5}} source={require('../../../Assets/payhere.png')}  />
+                </TouchableOpacity>
                 </View>
             </View>
         );
@@ -136,5 +153,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor:'black',
         margin: 4, 
+    },
+    button: {
+        width: '100%',
+        height: 45,
+        marginRight: 5,
+        fontSize: 21,
+        backgroundColor: '#593196',
+        marginTop: 10,
+        padding: 5,
+        paddingLeft:10,
+        color: 'white',
+        marginBottom: 0
     },
   });

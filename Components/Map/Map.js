@@ -6,6 +6,7 @@ import { fetchCustomerLocation } from '../Customer/Redux/Actions/locationActions
 import Button from 'react-native-button';
 import {connect} from 'react-redux';
 import Geocoder from 'react-native-geocoding';
+import Geolocation from '@react-native-community/geolocation';
 
 Geocoder.init('AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM');
 
@@ -13,6 +14,26 @@ class Map extends React.Component{
   constructor(props){
     super(props);
   }
+
+  componentDidMount(){
+    let address='';
+    Geolocation.getCurrentPosition(
+      position=> {
+        console.log('position->',position);
+
+        Geocoder.from(position.coords.latitude, position.coords.longitude)
+        .then(json => {
+          console.log(json)
+          address=json.results[0].formatted_address;
+        }).catch(error => console.log(error));
+        
+        this.props.fetchCustomerLocation(position.coords.latitude, position.coords.longitude, address);
+      },
+      error=> {this.setState({error: error.message }, console.log(error))},
+      { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
+    );
+  }
+    
 
   render(){
 

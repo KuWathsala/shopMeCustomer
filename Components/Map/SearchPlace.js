@@ -19,25 +19,6 @@ class SearchPlace extends React.Component{
   constructor(props){
     super(props);  
   }
-
-  componentDidMount(){
-    let address='';
-    Geolocation.getCurrentPosition(
-      position=> {
-        console.log('position->',position);
-        Geocoder.from(position.coords.latitude, position.coords.longitude)
-        .then(json => {
-          console.log(json)
-          address=json.results[0].formatted_address;
-        }).catch(error => console.log(error));
-        this.props.fetchCustomerLocation(position.coords.latitude, position.coords.longitude, address);
-      },
-      error=> {this.setState({error: error.message }, console.log(error))},
-      { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
-    );
-    
-    console.log(this.props)
-  }
   
   render(){
     const {latitude, longitude, address}=this.props.location.source; 
@@ -55,7 +36,7 @@ class SearchPlace extends React.Component{
           this.props.location.source.latitude=details.geometry.location.lat,
           this.props.location.source.longitude=details.geometry.location.lng,
           this.props.location.source.address=details.formatted_address
-          console.log(this.props.location);
+          console.log(this.props.location.source);
           this.props.fetchCustomerLocation(this.props.location.source.latitude, this.props.location.source.longitude, this.props.location.source.address);
         }}
         

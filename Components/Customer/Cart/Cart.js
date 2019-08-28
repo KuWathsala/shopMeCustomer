@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Text,View,StyleSheet,Button,Image, TextInput} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import CartItems from './CartItems';
+import CartNav from './CartNav';
 
 export default class Cart extends Component {
 
     render () {
       return (
-        <CartItems />
+        <CartNav />
       );
   }
 }

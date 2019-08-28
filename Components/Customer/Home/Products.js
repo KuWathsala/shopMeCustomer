@@ -19,6 +19,7 @@ class Products extends Component {
     super(props);
     this.state = {
       search: '',
+      sort: '',
       categoriesData: [],
     }
   }
@@ -38,7 +39,7 @@ class Products extends Component {
   }
 
   render () {
-    const filteredProducts = this.props.productsList.products.filter(createFilter(this.state.search, KEYS_TO_FILTERS));
+    const filteredProducts = this.props.productsList.products.filter(createFilter(this.state.search+" "+this.state.sort, KEYS_TO_FILTERS));
     let productList=<ProductsList data={filteredProducts} navigation={this.props.navigation} />;
     var loading=this.props.productsList.loading;
     var done=this.props.productsList.loading 
@@ -56,7 +57,7 @@ class Products extends Component {
               accessible={true}
               scrollViewAccessibilityLabel={'Scrollable options'}
               cancelButtonAccessibilityLabel={'Cancel Button'}
-              onChange={(option)=>{ this.setState({search: option.categoryName})}}
+              onChange={(option)=>{ this.setState({sort: option.categoryName})}}
               keyExtractor= {item => item.id}
               labelExtractor= {item => item.categoryName}
             >
