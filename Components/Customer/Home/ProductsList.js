@@ -11,14 +11,14 @@ const FlatListItem = (props) => {
         >  
             <View style={styles.listItem}>
                 <Text style={styles.text}>{props.item.name}</Text>
-                <Image style={styles.image} source={{uri: "data:image/jpeg;base64,"+props.item.image}}/>
+                <Image style={styles.image} source={{uri: props.item.image}}/>
                 <Text style={styles.textDes}>{props.item.description}</Text>
                 <View style={{alignSelf: 'baseline',flexDirection:'row'}}>
                     <Text style={styles.text}>LKR: {props.item.sellingPrice}  </Text>
                     <Text style={styles.textDiscount}>{props.item.unitPrice}</Text>
                 </View>
 
-                <View style={{ flexDirection: 'row',alignSelf: 'baseline'}}>
+                <View style={{flex:1, flexDirection: 'row',alignSelf: 'baseline', marginVertical: 0}}>
                     <Text style={styles.textLike}><Icon name="ios-star" size={20} color="orange" /> {props.item.rating}  |</Text>
                     <Text style={styles.textLike}><Icon name="ios-heart" size={20} color="red" /> {props.item.like}</Text>
                 </View>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         margin: 3,
     },
     image:{
-        width: 320,
+        width: 190,
         height: 180,
         resizeMode:'center'
     }

@@ -26,7 +26,7 @@ class Products extends Component {
 
   componentDidMount(){
       this.props.fetchProductList(this.props.navigation.getParam('id', '-'),);
-      axios.get('http://192.168.43.15:5001/api/categories')
+      axios.get('https://backend-webapi20190825122524.azurewebsites.net/api/categories')//http://192.168.43.15:5001/api
       .then(response=>{
         this.setState({categoriesData: response.data})
         console.log(response.data)

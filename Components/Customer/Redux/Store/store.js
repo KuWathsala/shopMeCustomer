@@ -6,6 +6,8 @@ import {cartReducer} from '../Reducers/cartReducer';
 import { shopsListReducer } from '../Reducers/shopsListReducer';
 import { searchProductsListReducer } from '../Reducers/searchProductsListReducer';
 import { composeWithDevTools } from 'remote-redux-devtools';
+import authReducer from '../Reducers/Auth';
+import {reducer as formReducer} from 'redux-form';
 
 /*let composeEnhancers = composeWithDevTools({
     //realtime: true,
@@ -19,7 +21,9 @@ const rootReducer= combineReducers({
     searchProductsList: searchProductsListReducer,
     location: locationReducer,
     cart: cartReducer,
-    shopsList: shopsListReducer
+    shopsList: shopsListReducer,
+    auth:authReducer,
+    form:formReducer
 });
 
 export default createStore(rootReducer, applyMiddleware(thunk));

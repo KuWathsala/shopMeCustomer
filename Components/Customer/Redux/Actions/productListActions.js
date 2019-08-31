@@ -24,7 +24,7 @@ export const fetchProductList=(id)=>{
     console.log(id)
     return dispatch=>{
         dispatch(popularProductListRequest());
-        axios.get(`http://192.168.43.15:5001/api/products/GetProductsByShop/${id}`)
+        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/products/GetProductsByShop/${id}`) //http://192.168.43.15:5001/api
         .then(json=>{
             dispatch(popularProductListSuccess(json.data));
         })

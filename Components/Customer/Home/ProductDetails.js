@@ -67,7 +67,7 @@ class ProductDetails extends Component {
         <ScrollView>
         <View style={styles.container}>
             <View style={styles.listItem}>
-                <Image style={styles.image} source={{uri: "data:image/jpeg;base64,"+this.state.product.image}} />
+                <Image style={styles.image} source={{uri: this.state.product.image}} />
                 <Text style={styles.textName}> {this.state.product.name}</Text>
                 <Text style={styles.text}>{this.state.product.description}</Text>
                 <Text style={styles.text}>{this.state.product.shortDescription}</Text>
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     image:{
         width: widthScreen,
         height: 300,
-        resizeMode:'center'
+        resizeMode:'contain'//center
     },
     button:{
         padding: 10,

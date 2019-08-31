@@ -17,7 +17,7 @@ export default class CurrentOrders extends Component {
   }
 
   componentDidMount(){
-    axios.post('http://192.168.43.15:5001/api/orders/getAllOrderDetailsByCustomer/1')
+    axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/orders/getAllOrderDetailsByCustomer/1') //http://192.168.43.15:5001/api
     .then(response=>{
         this.setState({currentOrdersData: response.data})
         console.log(this.state.currentOrdersData)

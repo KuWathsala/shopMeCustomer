@@ -6,6 +6,7 @@ import SearchPlace from './Components/Map/SearchPlace';
 import {Provider} from 'react-redux';
 import store from './Components/Customer/Redux/Store/store';
 import Location from './Components/Map/Locations';
+import SignIn from './Components/SignIn/SignIn';
 import SignalR from './SingalR';
 
 export default class App extends React.Component{
@@ -13,7 +14,7 @@ export default class App extends React.Component{
   render(){
     return (
       <Provider store={store}>
-        <CustomerTab />
+        <SignIn />
       </Provider>
     );
   }

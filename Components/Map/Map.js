@@ -17,10 +17,10 @@ class Map extends React.Component{
 
   componentDidMount(){
     let address='';
+    let latitude;
+    let longitude;
     Geolocation.getCurrentPosition(
       position=> {
-        console.log('position->',position);
-
         Geocoder.from(position.coords.latitude, position.coords.longitude)
         .then(json => {
           console.log(json)
@@ -30,15 +30,13 @@ class Map extends React.Component{
         this.props.fetchCustomerLocation(position.coords.latitude, position.coords.longitude, address);
       },
       error=> {this.setState({error: error.message }, console.log(error))},
-      { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
+      //{ enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
+      {enableHighAccuracy: true}
     );
   }
     
 
   render(){
-
-    console.log("in map")
-    console.log(this.props)
     return (
       <View style={styles.container}>
           <MapView 

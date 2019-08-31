@@ -12,7 +12,7 @@ const FlatListItem = (props) => {
         >
             <View style={styles.listItem}>
                 
-                <Image style={styles.image} source={{uri: "data:image/jpeg;base64,"+props.item.image}}/>
+                <Image style={styles.image} source={{uri: props.item.image}}/>
                 <View style={{alignSelf: 'baseline',flexDirection:'column'}}>
                     <Text style={styles.text}>{props.item.shopName}</Text>
                     <Text style={styles.textDes}>close To you: {props.item.distance.toFixed(1)} km</Text>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         margin: 3,
     },
     image:{
-        width: 180,
+        width: 190,
         height: 150,
         resizeMode:'center'
     }

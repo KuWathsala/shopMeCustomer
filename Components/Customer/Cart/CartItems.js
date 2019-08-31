@@ -24,7 +24,7 @@ class VirticalFlatListItem extends Component{
         return(
             <View style={styles.listItem}>
               <View style={{flexDirection:'row', flex:1, borderColor: 'black', borderWidth: 1}}>
-                <Image style={{width:100, height:100, margin: 5}} source={{uri: "data:image/jpeg;base64,"+this.props.item.image}}  />
+                <Image style={{width:100, height:100, margin: 5}} source={{uri: this.props.item.image}}  />
                 <View style={{flex:1,flexDirection:'column', height: 100}}>
                     <Text style={{fontSize: 19}}>{this.props.item.name}</Text>
                     <Text>{this.props.item.description}</Text>

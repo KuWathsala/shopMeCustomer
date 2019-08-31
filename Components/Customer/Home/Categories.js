@@ -15,7 +15,7 @@ class VirticalFlatListItem extends Component{
       return(
         <TouchableOpacity>  
           <View style={{flexDirection:'row'}}>
-            <Image style={styles.image} source={{uri: "data:image/jpeg;base64,"+this.props.item.image}} />
+            <Image style={styles.image} source={{uri: this.props.item.image}} />
             <Text style={styles.text}>{this.props.item.categoryName}</Text>
           </View>
         </TouchableOpacity>
