@@ -8,13 +8,7 @@ import { searchProductsListReducer } from '../Reducers/searchProductsListReducer
 import { composeWithDevTools } from 'remote-redux-devtools';
 import authReducer from '../Reducers/Auth';
 import {reducer as formReducer} from 'redux-form';
-
-/*let composeEnhancers = composeWithDevTools({
-    //realtime: true,
-    name: 'ShopMeNative',
-    hostname: '192.168.43.15',
-    port: 8081, // the port your remotedev server is running at
-  });*/
+import {createLogger} from 'redux-logger';
 
 const rootReducer= combineReducers({
     productsList: productsListReducer,
@@ -26,4 +20,8 @@ const rootReducer= combineReducers({
     form:formReducer
 });
 
-export default createStore(rootReducer, applyMiddleware(thunk));
+//export default createStore(rootReducer, applyMiddleware(thunk));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const logger=createLogger({diff:true,collapsed:true});
+
+export default createStore(rootReducer,composeEnhancers(applyMiddleware(logger,thunk)));

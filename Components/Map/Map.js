@@ -26,12 +26,12 @@ class Map extends React.Component{
           console.log(json)
           address=json.results[0].formatted_address;
         }).catch(error => console.log(error));
-        
         this.props.fetchCustomerLocation(position.coords.latitude, position.coords.longitude, address);
+        console.log(position)
       },
       error=> {this.setState({error: error.message }, console.log(error))},
-      //{ enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
-      {enableHighAccuracy: true}
+      { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
+      //{enableHighAccuracy: true}
     );
   }
     

@@ -24,7 +24,7 @@ class VirticalFlatListItem extends Component{
         return(
             <View style={styles.listItem}>
               <View style={{flexDirection:'row', flex:1, borderColor: 'black', borderWidth: 1}}>
-                <Image style={{width:100, height:100, margin: 5}} source={{uri: this.props.item.image}}  />
+                <Image style={{width:100, height:85, margin: 5}} source={{uri: this.props.item.image}}  />
                 <View style={{flex:1,flexDirection:'column', height: 100}}>
                     <Text style={{fontSize: 19}}>{this.props.item.name}</Text>
                     <Text>{this.props.item.description}</Text>
@@ -48,6 +48,9 @@ class CartItems extends Component {
 
     constructor(props){
         super(props);
+        this.state={
+            total: 0
+        }
         this.removeItem = this.removeItem.bind(this);
     }
 
@@ -63,7 +66,8 @@ class CartItems extends Component {
             }
         })
         .catch((err) => console.error('An error occurred', err));
-      }
+    }
+
     removeItem(index){
         Alert.alert('Item is removed')
         this.props.removeCartItems(index);
@@ -71,13 +75,15 @@ class CartItems extends Component {
         console.log(this.props.cart.arr)
     }
 
+    componentDidMount(){
+    }
+
     render () {
     if(this.props.cart.arr.length!=0)
         return (
             <View style={styles.container}>
-                <View>
-                <FlatList style={{backgroundColor: "white", opacity: 1, }}
 
+                <FlatList style={{backgroundColor: "white", opacity: 1, }}
                     //numColumns = { widthScreen > heightScreen ? 2 : 1 }
                     virtical={true}
                     //data={Data}
@@ -94,14 +100,15 @@ class CartItems extends Component {
                     }}
                     keyExtractor={(item, index) => index.toString()}
                 >
-                    
                 </FlatList>
-                <TouchableOpacity style={{ width:150, height:40, marginBottom: 0}}
+
+                <TouchableOpacity style={{ width:150, height:40, position: 'absolute', bottom: 10, marginRight: 20}}
                     onPress={this.openPayHere}  
                 >
                     <Image style={{ width:150, height:40, margin: 5}} source={require('../../../Assets/payhere.png')}  />
                 </TouchableOpacity>
-                </View>
+                <Text style={{fontSize: 25, color: 'red', alignSelf:'flex-end', bottom: 10,}} >Total : {this.props.cart.total} LKR </Text>
+                
             </View>
         );
     else

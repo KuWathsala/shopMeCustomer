@@ -27,11 +27,6 @@ class ContactForm extends Component{
         }
       }
 
-    handleSubmiting=()=>{
-        //onAuth(this.state.email,this.state.password);
-        //Actions.Map();
-        this.props.onAuth(this.state.email,this.state.password)  
-    }
     handleRegister=()=>{
         Alert.alert(
             'Register ? ',
