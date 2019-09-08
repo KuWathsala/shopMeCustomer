@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {removeCartItems,fetchCart} from '../Redux/Actions/cartActions';
 import Button from 'react-native-button';
 import {BuyIt} from  '../../Menu/screenNames';
+import axios from 'axios';
 
 class VirticalFlatListItem extends Component{
 
@@ -49,12 +50,44 @@ class CartItems extends Component {
     constructor(props){
         super(props);
         this.state={
-            total: 0
-        }
+            total: 0,
+        },
         this.removeItem = this.removeItem.bind(this);
     }
 
     openPayHere() {
+        console.log("this.props")
+        //create order
+        let itemList= [];
+
+        for(let i = 0; i < this.props.cart.arr.length; i++){
+            let item= {
+                productId: this.props.cart.arr[i].id,
+                Quantity:  this.props.cart.arr[i].quantity,
+            } 
+            itemList=[...itemList, item];
+        }
+
+        const order= {
+            customerId: parseInt(this.props.customer.userId),
+            customerLatitude: this.props.location.source.latitude,
+            customerLongitude: this.props.location.source.longitude,
+            sellerId: this.props.productsList.sellerId,
+            status: "to be confirmed",
+            items: itemList
+        }
+
+        console.log(order)
+
+        axios.post('http://192.168.43.15:5001/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
+        .then(response=>{
+            console.log(response)
+        })
+        .catch (error=>{
+			console.log(error);
+        })
+
+        /*
         let url="https://www.google.com"
         console.log("payhere")
         Linking.canOpenURL(url)
@@ -66,6 +99,7 @@ class CartItems extends Component {
             }
         })
         .catch((err) => console.error('An error occurred', err));
+        */
     }
 
     removeItem(index){
@@ -103,7 +137,7 @@ class CartItems extends Component {
                 </FlatList>
 
                 <TouchableOpacity style={{ width:150, height:40, position: 'absolute', bottom: 10, marginRight: 20}}
-                    onPress={this.openPayHere}  
+                    onPress={this.openPayHere()}  
                 >
                     <Image style={{ width:150, height:40, margin: 5}} source={require('../../../Assets/payhere.png')}  />
                 </TouchableOpacity>
@@ -123,6 +157,9 @@ class CartItems extends Component {
 const mapStateToProps=state=>{
     return {
       cart: state.cart,
+      customer: state.auth,
+      location: state.location,
+      productsList: state.productsList
     };
 }
   

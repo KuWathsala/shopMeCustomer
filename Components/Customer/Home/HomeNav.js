@@ -8,8 +8,14 @@ import BuyItComponent from './BuyIt';
 import LocatonComponent from '../../Customer/Home/Location';
 import ShopsComponent from './Shops';
 import SearchPlaceComponent from '../../Map/SearchPlace';
+import SignInComponent from '../../SignIn/SignIn';
 
 const stackNav = createStackNavigator({
+  /*
+  SignIn: {
+    screen: SignInComponent
+  },
+  */
   SearchPlace: {
     screen: SearchPlaceComponent
   },

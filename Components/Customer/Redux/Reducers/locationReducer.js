@@ -7,8 +7,8 @@ import {
 const initialState={
     loading:false, 
     source: {
-        latitude: 0,
-        longitude: 0,
+        latitude: 6.9271,
+        longitude: 79.8612,
         address: ''
     },
     errorMessage: '',

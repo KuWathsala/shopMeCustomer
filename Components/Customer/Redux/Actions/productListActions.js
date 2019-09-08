@@ -10,9 +10,10 @@ export const popularProductListRequest=()=>({
     type: POPULAR_PRODUCT_LIST_REQUEST
 });
 
-export const popularProductListSuccess=(json)=>({
+export const popularProductListSuccess=(json ,sellerId)=>({
     type: POPULAR_PRODUCT_LIST_SUCCESS,
-    payload: json
+    payload: json,
+    sellerId: sellerId
 }); 
 
 export const popularProductListFailure=(error)=>({
@@ -26,7 +27,7 @@ export const fetchProductList=(id)=>{
         dispatch(popularProductListRequest());
         axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/products/GetProductsByShop/${id}`) //http://192.168.43.15:5001/api
         .then(json=>{
-            dispatch(popularProductListSuccess(json.data));
+            dispatch(popularProductListSuccess(json.data, id));
         })
         .catch (error=>{
 			console.log(error);

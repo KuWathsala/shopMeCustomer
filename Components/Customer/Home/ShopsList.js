@@ -6,6 +6,8 @@ import {Products} from '../../Menu/screenNames';
 
 //const columns=Math.floor(widthScreen/200);
 const FlatListItem = (props) => {
+    let addressLength=props.item.shopAddress.length;
+    console.log(props.item.image)
     return(
         <TouchableOpacity 
             onPress={() => props.navigation.navigate(Products, props.item)}    
@@ -16,8 +18,11 @@ const FlatListItem = (props) => {
                 <View style={{alignSelf: 'baseline',flexDirection:'column'}}>
                     <Text style={styles.text}>{props.item.shopName}</Text>
                     <Text style={styles.textDes}>close To you: {props.item.distance.toFixed(1)} km</Text>
-                    <Text style={styles.textDes}><Icon name="ios-pin" size={20} color="green" /> {props.item.shopAddress}</Text>
-                </View>
+                    <Text style={styles.textDes} >{ addressLength > 60 ? 
+                        (((props.item.shopAddress).substring(addressLength-59,addressLength-1)) + '...') : 
+                        props.item.shopAddress }
+                    </Text>
+                    </View>
 
                 <View style={{ flexDirection: 'row',alignSelf: 'baseline'}}>
                     <Text style={styles.textLike}><Icon name="ios-star" size={20} color="gold" /> {props.item.rating}  </Text>

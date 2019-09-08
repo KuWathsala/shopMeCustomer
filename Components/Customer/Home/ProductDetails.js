@@ -9,6 +9,7 @@ import Button from 'react-native-button';
 import { Dropdown } from 'react-native-material-dropdown';
 import {connect} from 'react-redux';
 import {addCartItems, fetchCart} from '../Redux/Actions/cartActions';
+import NumericInput from 'react-native-numeric-input'
 
 class ProductDetails extends Component {
 
@@ -61,7 +62,6 @@ class ProductDetails extends Component {
         console.log(this.props);
     }
     render () {
-        let data=[{value:1},{value:2},{value:3},{value:4},{value:5},{value:6}];
         
     return (
         <ScrollView>
@@ -80,14 +80,31 @@ class ProductDetails extends Component {
 
             {/*quantity */}
             <View style={styles.box}>
-                <Dropdown style={styles.dropdown} 
-                    labelFontSize={25} textColor='black' 
-                    fontSize={20}
-                    itemCount={10} itemColor="black"
-                    label="Quantity"
-                    data={data}
-                    onChangeText={(value) => this.onChangeHandler(value)}
-                />
+                <View style={{flexDirection:'row', marginTop: 10}}>
+                    <Text style={{fontSize:20, marginTop: 5, color: 'black', marginLeft:10}}>select   </Text>
+                    {/*<Dropdown style={styles.dropdown} 
+                        labelFontSize={25} textColor='black' 
+                        fontSize={20}
+                        itemCount={10} itemColor="black"
+                        label="Quantity"
+                        data={data}
+                        onChangeText={(value) => this.onChangeHandler(value)}
+                    />*/}
+                    
+                    <NumericInput 
+                        //value={this.state.value} 
+                        onChange={value => this.onChangeHandler(value)} 
+                        initValue={1}
+                        iconStyle={marginTop = 10}
+                        minValue={1}
+                        maxValue={this.state.product.availableQuantity}
+                        totalWidth={150} 
+                        totalHeight={40} 
+                        iconSize={15}
+                        valueType='integer'
+                    />
+                </View>
+
                 <Button style={styles.button} 
                     onPress={() => this.props.navigation.navigate(BuyIt,this.state.product)}    
                 >
@@ -154,7 +171,8 @@ const styles = StyleSheet.create({
     image:{
         width: widthScreen,
         height: 300,
-        resizeMode:'contain'//center
+        resizeMode:'contain',//center
+        //position: 'absolute'
     },
     button:{
         padding: 10,
@@ -165,6 +183,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     box:{
+        //flexDirection:'row',
         marginTop: 20,
         backgroundColor: 'white',
         borderWidth: 2,

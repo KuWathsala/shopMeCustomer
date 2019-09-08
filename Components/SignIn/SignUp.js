@@ -33,13 +33,13 @@ submit=(values)=> {
         LoginVM:{
           Email:values.Email,
           Password:values.Password,
-          Role:'Deliverer'
+          Role:'Seller'
         },
         FirstName:values.FirstName,
         LastName:values.LastName,
         MobileNumber:values.MobileNumber,
-        VehicleNo:values.VehicleNo,
-        VehicleType:"Three Wheel",
+        //VehicleNo:values.VehicleNo,
+        //VehicleType:"Three Wheel",
         returnSecureToken: true,
       }
         this.props.auth(authData)
@@ -74,9 +74,9 @@ render(){
                         </option>
                         ))}
                     </Field> */}
-                    <Field name="VehicleNo" component={renderField} placeholder='Vehicle Number'
+                    {/*<Field name="VehicleNo" component={renderField} placeholder='Vehicle Number'
                     validate={[required]}
-                    />
+                    />*/}
                     <Field name="Email" keyboardType="email-address" placeholder='Email' component={renderField} 
                         validate={[required,isValidEmail]}
                     />

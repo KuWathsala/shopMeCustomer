@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import * as actions from '../Customer/Redux/Actions/index';
 import {Field,reduxForm} from 'redux-form';
 //import submit from './submit';
-import {authVerify} from '../Customer/Redux/Actions/Auth';
+import {authVerify, authCheckState} from '../Customer/Redux/Actions/Auth';
+import CustomerTab from '../Customer/Tab/Tab';
 
 const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,error,warning},input:{onChange, ...restInput}})=>{
     return(<View style={{flexDirection:'column',height:70,alignItems:'flex-start'}}>
@@ -24,8 +25,13 @@ class ContactForm extends Component{
     constructor(props) {
         super(props);
         state = {
+            //isSignIn: false
         }
-      }
+    }
+
+    componentDidMount(){
+        this.props.authCheckState();
+    }
 
     handleRegister=()=>{
         Alert.alert(
@@ -48,6 +54,11 @@ class ContactForm extends Component{
 
     render(){
         const {submitting,handleSubmit,onSubmit}=this.props;
+        if(this.props.auth.isSuccessed){
+            console.log("this.props.auth.isSuccessed"+this.props.auth.isSuccessed)
+            return(<CustomerTab/>);
+        }
+        else
         return(
             <KeyboardAvoidingView style={styles.container} behavior='position'>
                 <View style={{alignItems:"center"}}>
@@ -86,8 +97,16 @@ const SignIn=reduxForm({
     form:'Signin',
 })(ContactForm)
 
-export default connect(null,{
-    authVerify
+const mapStateToProps=state=>{
+    console.log("state")
+    console.log(state)
+    return {
+      auth: state.auth,
+    };
+}
+
+export default connect(mapStateToProps,{
+    authVerify, authCheckState
   })(SignIn);
 
 const styles=StyleSheet.create({

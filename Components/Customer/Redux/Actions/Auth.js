@@ -87,7 +87,7 @@ export const auth=(authData)=>{
             //Actions.login();
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
-        .catch(err=>{
+        .catch(err=>{ 
             console.log(err);
             dispatch(authFail(err));
         });
@@ -98,6 +98,7 @@ export const logout=()=>{
     AsyncStorage.removeItem("token");
     AsyncStorage.removeItem("expirationDate");
     AsyncStorage.removeItem("userId");
+    AsyncStorage.removeItem("isSuccessed")
     // localStorage.removeItem('token');
     // localStorage.removeItem('expirationDate');
     // localStorage.removeItem('userId');
@@ -107,7 +108,6 @@ export const logout=()=>{
 }
 
 export const authVerify=(email,password)=>{
-    console.log(email,password+" worked")
     // dispatch.authVerify(email,password);
     return dispatch=>{
         dispatch(authStart());
@@ -120,17 +120,20 @@ export const authVerify=(email,password)=>{
         let url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/signin';
         axios.post(url,authVerifyData)
         .then(response=>{
-           console.log(response);
+           console.log("response");
+           console.log(response.data.data.id);
            const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
-            if(response.data.role=='Deliverer')
+            if(response.data.role=='Customer')
                 {(dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role)));
                     //Actions.Status());
+                    AsyncStorage.setItem("userId",response.data.data.id+"");
                     AsyncStorage.setItem("token",response.data.data.token);
                     AsyncStorage.setItem("expirationDate",expirationDate);
                     AsyncStorage.setItem("role",response.data.role);
-                    AsyncStorage.setItem("userId",response.data.data.id);
+
+                    //AsyncStorage.setItem("isSuccessed",true);
                 } else
-                    window.alert('You are not a Deliverer person')
+                    window.alert('You are not a customer')
              
             // localStorage.setItem('expirationDate',expirationDate);
             // localStorage.setItem('userId',response.data.localId);
@@ -144,10 +147,20 @@ export const authVerify=(email,password)=>{
     };
 };
 
+
+
 export const authCheckState=()=>{
     return dispatch=>{
 
-        let token
+        let userId;
+        AsyncStorage.getItem("userId").then((value) => {
+            userId=value;
+            console.log("userId");
+            console.log(userId);
+            }).done();
+            //AsyncStorage.setItem("userId",userId+"");
+
+        let token;
         AsyncStorage.getItem("token").then((value) => {
             token=value;
             console.log(token);
@@ -155,36 +168,18 @@ export const authCheckState=()=>{
         
         let role;
         AsyncStorage.getItem("role").then((value) => {
-                    console.log('role'+value);
-                   role=value;
-                //this.setState({"role": value});
-                }).done();
+            console.log('role'+value);
+            role=value;
+        //this.setState({"role": value});
+        }).done();
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
         sleep(1000).then(() => {
-        if(!token){
+        if(!token && !userId){
             console.log("error dispatching");
             dispatch(logout());
         }
-    //     }else{
-        
-    // AsyncStorage.getItem("expirationDate").then((value) => {
-    //             const expirationDate=new Date(value);
-    //             console.log('date'+value);
-    //             }).done();
-        
-    //     if(expirationDate<=new Date()){
-    //             dispatch(logout());
-    //         }
         else{
-            let userId;
-                AsyncStorage.getItem("userId").then((value) => {
-                    userId=value;
-                            //this.setState({"userId": value});
-                            }).done();
-                dispatch(authSuccess(token,userId,role),
-                //Actions.Status()
-                );
-                //dispatch(checkAuthTImeout((expirationDate.getTime()-new Date().getTime())/1000));
+                dispatch(authSuccess(token,userId,role));
             }
         })
     }

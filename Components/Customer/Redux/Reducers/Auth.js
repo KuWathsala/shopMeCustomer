@@ -6,10 +6,11 @@ const initialState={
     userId:null,
     error:null,
     loading:false,
-    userType:null
+    userType:null,
+    isSuccessed: false //update
 }
 const authstart =(state,action)=>{
-    return updateObject(state,{error:null,loading:true})
+    return updateObject(state,{error:null,loading:true, isSuccessed: false})
 }
 
 const authSuccess=(state,action)=>{
@@ -17,16 +18,17 @@ const authSuccess=(state,action)=>{
         token:action.idToken,
         userId:action.userId,
         error:null,
-        loading:false
+        loading:false,
+        isSuccessed: true   //update
     })
 }
 
 const authfail=(state,action)=>{
-    return updateObject(state,{error:action.error,loading:false})
+    return updateObject(state,{error:action.error,loading:false, isSuccessed: false })
 }
 
 const authLogout=(state,action)=>{
-    return updateObject(state,{token:null,userId:null});
+    return updateObject(state,{token:null,userId:null, isSuccessed: false});
 }
 
 const reducer =( state=initialState,action)=>{

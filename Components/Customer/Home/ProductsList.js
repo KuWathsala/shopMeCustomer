@@ -6,24 +6,30 @@ import {ProductDetails} from '../../Menu/screenNames';
 
 const FlatListItem = (props) => {
     return(
-        <TouchableOpacity 
-            onPress={() => props.navigation.navigate(ProductDetails, props.item)}    
-        >  
-            <View style={styles.listItem}>
-                <Text style={styles.text}>{props.item.name}</Text>
-                <Image style={styles.image} source={{uri: props.item.image}}/>
-                <Text style={styles.textDes}>{props.item.description}</Text>
-                <View style={{alignSelf: 'baseline',flexDirection:'row'}}>
-                    <Text style={styles.text}>LKR: {props.item.sellingPrice}  </Text>
-                    <Text style={styles.textDiscount}>{props.item.unitPrice}</Text>
-                </View>
+        <View style={{borderWidth: 1,borderColor:'black', margin: 4 }} >
+            <TouchableOpacity 
+                onPress={() => props.navigation.navigate(ProductDetails, props.item)}    
+            >  
+                <View style={styles.listItem}>
+                    <Text style={styles.text}>{props.item.name}</Text>
+                    <Image style={styles.image} source={{uri: props.item.image}}/>
 
-                <View style={{flex:1, flexDirection: 'row',alignSelf: 'baseline', marginVertical: 0}}>
-                    <Text style={styles.textLike}><Icon name="ios-star" size={20} color="orange" /> {props.item.rating}  |</Text>
-                    <Text style={styles.textLike}><Icon name="ios-heart" size={20} color="red" /> {props.item.like}</Text>
+                    <Text style={styles.textDes} >{ props.item.description.length > 60 ? 
+                        (((props.item.description).substring(0,57)) + '...') : 
+                        props.item.description }
+                    </Text>
                 </View>
+            </TouchableOpacity>
+
+            <View style={{alignSelf: 'baseline',flexDirection:'row'}}>
+                <Text style={styles.text}>LKR: {props.item.sellingPrice}  </Text>
+                <Text style={styles.textDiscount}>{props.item.unitPrice}</Text>
+            </View>                
+            <View style={{flex:1, flexDirection: 'row',alignSelf: 'baseline', bottom:0}}>
+                <Text style={styles.textLike}><Icon name="ios-star" size={20} color="orange" /> {props.item.rating}  |</Text>
+                <Text style={styles.textLike}><Icon name="ios-heart" size={20} color="red" /> {props.item.like}</Text>
             </View>
-        </TouchableOpacity>
+        </View>
     );
 }
 
@@ -69,10 +75,7 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         alignItems:'center',
         width: 200,
-        height: 300,
-        borderWidth: 1,
-        borderColor:'black',
-        margin: 4, 
+        height: 250,
     },
     icon: {
         width: 30,

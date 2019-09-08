@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 import Map from './Map';
 import Button from 'react-native-button';
 import {Shops} from '../Menu/screenNames';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
+import Geocode from 'react-native-geocoding';
 
 Geocoder.init('AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM');
 
@@ -18,6 +19,31 @@ class SearchPlace extends React.Component{
   
   constructor(props){
     super(props);  
+  }
+
+  componentDidMount(){
+    console.log("SearchPlace");
+    let address='';
+    let latitude=0;
+    let longitude=0;
+    Geolocation.getCurrentPosition(
+      position=> {
+        latitude=position.coords.latitude;
+        longitude=position.coords.longitude;
+        console.log("position=>");
+        console.log(position);
+        Geocode.from(position.coords.latitude, position.coords.longitude)
+        .then(json => {
+          //console.log(json)
+          address=json.results[0].formatted_address;
+          this.props.fetchCustomerLocation(position.coords.latitude, position.coords.longitude, address);
+        }).catch(error => console.log(error));
+        this.props.fetchCustomerLocation(position.coords.latitude, position.coords.longitude, address);
+      },
+      error=> {this.setState({error: error.message }, console.log(error))},
+      { enableHighAccuracy: false, timeout: 25000, }
+      //{enableHighAccuracy: true}
+    );
   }
   
   render(){

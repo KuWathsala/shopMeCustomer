@@ -8,6 +8,7 @@ const initialState={
     loading:false,
     products: [],
     errorMessage: '',
+    sellerId: null
 };
 
 export const productsListReducer=(state=initialState, action)=>{
@@ -17,7 +18,7 @@ export const productsListReducer=(state=initialState, action)=>{
         case POPULAR_PRODUCT_LIST_FAILURE:
             return {...state, loading: false, errorMessage: action.payload};
         case POPULAR_PRODUCT_LIST_SUCCESS:
-            return { ...state, loading: false, products: action.payload};
+            return { ...state, loading: false, products: action.payload, sellerId: action.sellerId};
         default:
             return state;
     }
