@@ -3,8 +3,9 @@ import {Text, View, StyleSheet, TouchableOpacity ,TextInput} from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from 'axios';
 import CurrentOrderList from './CurrentOrderList';
+import {connect} from 'react-redux';
 
-export default class CurrentOrders extends Component {
+class CurrentOrders extends Component {
 
   //static navigationOptions = { header: null };
 
@@ -17,7 +18,7 @@ export default class CurrentOrders extends Component {
   }
 
   componentDidMount(){
-    axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/orders/getAllOrderDetailsByCustomer/1') //http://192.168.43.15:5001/api
+    axios.post(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/getAllOrderDetailsByCustomer/${parseInt(this.props.customer.userId)}`) //backend-webapi20190825122524.azurewebsites.net
     .then(response=>{
         this.setState({currentOrdersData: response.data})
         console.log(this.state.currentOrdersData)
@@ -38,6 +39,17 @@ export default class CurrentOrders extends Component {
             );
   }
 }
+
+const mapStateToProps=state=>{
+  return {
+    customer: state.auth,
+  };
+}
+
+export default connect(
+  mapStateToProps,{}
+)(CurrentOrders);
+
 
 const styles = StyleSheet.create({
   container: {

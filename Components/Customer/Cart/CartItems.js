@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {
-    Text, View, StyleSheet, Image, ScrollView, Dimensions, FlatList, Platform, TouchableOpacity, Alert, Linking  
+    Text, View, StyleSheet, Image, ScrollView, Dimensions, FlatList, Platform, TouchableOpacity, Alert, 
 } from 'react-native';
 import {Data} from '../Home/Data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import {removeCartItems,fetchCart} from '../Redux/Actions/cartActions';
 import Button from 'react-native-button';
-import {BuyIt} from  '../../Menu/screenNames';
+import {BuyIt, Payment} from  '../../Menu/screenNames';
 import axios from 'axios';
 
 class VirticalFlatListItem extends Component{
@@ -51,11 +51,16 @@ class CartItems extends Component {
         super(props);
         this.state={
             total: 0,
+            onPayment: false
         },
         this.removeItem = this.removeItem.bind(this);
     }
 
-    openPayHere() {
+    componentDidMount(){
+        
+    }
+
+    click=()=> {
         console.log("this.props")
         //create order
         let itemList= [];
@@ -72,34 +77,25 @@ class CartItems extends Component {
             customerId: parseInt(this.props.customer.userId),
             customerLatitude: this.props.location.source.latitude,
             customerLongitude: this.props.location.source.longitude,
-            sellerId: this.props.productsList.sellerId,
+            sellerId: 4,//this.props.productsList.sellerId,
             status: "to be confirmed",
-            items: itemList
+            items:[{productId: 5, quantity: 50,productId: 6, quantity: 50,}]// itemList
         }
 
+        console.log("order")
         console.log(order)
 
-        axios.post('http://192.168.43.15:5001/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
+        axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
         .then(response=>{
+            console.log("response")
             console.log(response)
-        })
+        }) 
         .catch (error=>{
+            console.log("error")
 			console.log(error);
         })
 
-        /*
-        let url="https://www.google.com"
-        console.log("payhere")
-        Linking.canOpenURL(url)
-        .then((supported) => {
-            if (!supported) {
-            console.log("Can't handle url: " + url);
-            } else {
-            return Linking.openURL(url);
-            }
-        })
-        .catch((err) => console.error('An error occurred', err));
-        */
+        //this.props.navigation.navigate(Payment)
     }
 
     removeItem(index){
@@ -107,9 +103,6 @@ class CartItems extends Component {
         this.props.removeCartItems(index);
         console.log("this.props.cart.arr")
         console.log(this.props.cart.arr)
-    }
-
-    componentDidMount(){
     }
 
     render () {
@@ -137,7 +130,8 @@ class CartItems extends Component {
                 </FlatList>
 
                 <TouchableOpacity style={{ width:150, height:40, position: 'absolute', bottom: 10, marginRight: 20}}
-                    onPress={this.openPayHere()}  
+                    onPress={this.click}  
+                    //onPress={()=>this.props.navigation.navigate(Payment)}
                 >
                     <Image style={{ width:150, height:40, margin: 5}} source={require('../../../Assets/payhere.png')}  />
                 </TouchableOpacity>

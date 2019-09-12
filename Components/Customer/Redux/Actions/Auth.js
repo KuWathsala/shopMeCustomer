@@ -78,7 +78,7 @@ export const auth=(authData)=>{
         console.log("auth : ",authData);
         let url='';
             console.log(authData.role);
-            url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Deliverer';
+            url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Customer';
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
@@ -123,7 +123,7 @@ export const authVerify=(email,password)=>{
            console.log("response");
            console.log(response.data.data.id);
            const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
-            if(response.data.role=='Customer')
+            if(response.data.role==='Customer')
                 {(dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role)));
                     //Actions.Status());
                     AsyncStorage.setItem("userId",response.data.data.id+"");

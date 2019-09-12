@@ -6,6 +6,7 @@ import {Field,reduxForm} from 'redux-form';
 //import submit from './submit';
 import {authVerify, authCheckState} from '../Customer/Redux/Actions/Auth';
 import CustomerTab from '../Customer/Tab/Tab';
+import SignUp from './SignUp';
 
 const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,error,warning},input:{onChange, ...restInput}})=>{
     return(<View style={{flexDirection:'column',height:70,alignItems:'flex-start'}}>
@@ -24,8 +25,8 @@ const isValidEmail=value=> value && !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,
 class ContactForm extends Component{
     constructor(props) {
         super(props);
-        state = {
-            //isSignIn: false
+        this.state = {
+            signUp: false
         }
     }
 
@@ -54,10 +55,12 @@ class ContactForm extends Component{
 
     render(){
         const {submitting,handleSubmit,onSubmit}=this.props;
-        if(this.props.auth.isSuccessed){
+        if(this.props.auth.isSuccessed ){
             console.log("this.props.auth.isSuccessed"+this.props.auth.isSuccessed)
             return(<CustomerTab/>);
         }
+        else if(this.state.signUp===true)
+            return(<SignUp/>);
         else
         return(
             <KeyboardAvoidingView style={styles.container} behavior='position'>
@@ -87,6 +90,11 @@ class ContactForm extends Component{
                             backgroundColor:'#593196',color:'white',fontSize:20,
                             height:37,width:'100%',textAlign:'center',padding:5
                         }}>Log In</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={()=>{this.setState({signUp: true})}} style={{}}>
+                        <Text style={{fontSize:18,textAlign:'center',padding:5
+                        }}>new to shopMe ? create an account</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>

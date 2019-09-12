@@ -10,7 +10,16 @@ export default class Start extends Component{
     render(){
         return(
             <View style={styles.container}>
-                <Text style={styles.text} >shopMe</Text>
+                <Text style={{fontSize: 70,color: '#26bf63',fontWeight:'400', marginTop: '65%', fontWeight:'bold', }}>
+                    shop
+                    <Text style={{color: '#5189c9',}}>
+                        Me
+                    </Text>
+                </Text>
+                <Text style={{color: '#5d6661', fontSize: 25, fontWeight:'normal', marginTop:'-5%',fontWeight:'bold', marginLeft: '30%'}}>
+                    customer
+                </Text>
+
                 <ActivityIndicator
                     animating={true} 
                 />

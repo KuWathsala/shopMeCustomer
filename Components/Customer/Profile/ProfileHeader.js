@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {Text,View,StyleSheet,Image,Dimensions} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
+import {logout} from '../Redux/Actions/Auth';
+import {connect} from 'react-redux';
+import SignIn from '../../SignIn/SignIn'
 
-export default class ProfileHeader extends Component {
+class ProfileHeader extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -20,11 +23,15 @@ export default class ProfileHeader extends Component {
     }
   }
 
-    onPressSignOut=()=>{
+    onPressSignOut=()=>{// is Successed==true
       alert("signOut");
+      this.props.logout();  //now isSuccessed if false
     }
     
     render () {
+    if(this.props.isSuccessed===false)
+      return(<SignIn/>);
+    else
     return (
       <View style={styles.container} > 
 
@@ -54,6 +61,8 @@ export default class ProfileHeader extends Component {
     );
   }
 }
+
+export default connect(null,{logout})(ProfileHeader);
 
 const widthScreen=Dimensions.get('window').width;
 const heightScreen=Dimensions.get('window').height;

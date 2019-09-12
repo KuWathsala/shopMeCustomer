@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {Text,View,StyleSheet,TextInput,Image,TouchableOpacity,Alert,Linking,KeyboardAvoidingView} from 'react-native';
+import {Text,View,StyleSheet,TextInput,Image,TouchableOpacity,Alert,ScrollView,KeyboardAvoidingView} from 'react-native';
 import {connect} from 'react-redux';
 import {Field,reduxForm,getFormValues,formValueSelector} from 'redux-form';
 import submit from './submit';
+import {auth} from '../Customer/Redux/Actions/Auth';
+import CustomerTab from '../Customer/Tab/Tab'
 
 const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,error,warning},input:{onChange, ...restInput}})=>{
     return(<View style={{flexDirection:'column',height:70,alignItems:'flex-start'}}>
@@ -33,7 +35,7 @@ submit=(values)=> {
         LoginVM:{
           Email:values.Email,
           Password:values.Password,
-          Role:'Seller'
+          Role:'Customer'
         },
         FirstName:values.FirstName,
         LastName:values.LastName,
@@ -52,10 +54,12 @@ render(){
     const {submitting,handleSubmit,onSubmit}=this.props;
     const vehicles = ["Motor Bicycle", "Three Wheel"];
     console.log(submitting);
+    if(this.props.auth.isSuccessed) 
+        return(<CustomerTab/>);
+    else
     return(
             <ScrollView>
                 <KeyboardAvoidingView style={styles.container} behavior='position' >
-                    <Image source={require('../../Assets/logo.png')} style={{width:'40%',height:50,marginTop:10,marginRight:'5%',borderRadius:15}}/>
                     <Text style={{alignSelf:'center', fontSize:40,color:"steelblue",paddingTop:'5%',paddingBottom:'5%',fontWeight:'bold'}}>Registeration Form </Text>
                     <Field name="FirstName" placeholder='First Name' component={renderField} 
                          validate={[required]}
@@ -88,9 +92,9 @@ render(){
                     />
                     <TouchableOpacity onPress={handleSubmit(this.submit)} disabled={submitting} style={{margin:5,alignSelf:'stretch'}}>
                             <Text style={{
-                                backgroundColor:'steelblue',color:'white',fontSize:16,
-                                height:37,width:'100%',textAlign:'center',padding:10
-                            }}>Submit</Text>
+                                backgroundColor:'#593196',color:'white',fontSize:20,
+                                height:45,width:'100%',textAlign:'center',padding:10
+                            }}>submit</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             </ScrollView>
@@ -100,14 +104,14 @@ render(){
 
 const mapStateToProps=state=>{
     return{
-     //user:state.form
+        auth: state.auth,
     }
   }
-  const SignUp=reduxForm({
+const SignUp=reduxForm({
       form:'contact',
-  })(RegisterForm)
-//   export default SignUp;
-export default connect(null,{auth})(SignUp);
+})(RegisterForm)
+
+export default connect(mapStateToProps,{auth})(SignUp);
 
 const styles=StyleSheet.create({
     container: {
@@ -118,17 +122,18 @@ const styles=StyleSheet.create({
             
       },
       backgroundImage: {
-          flex:1,
+        flex:1,
         alignSelf: 'stretch',
         width: null, // or 'stretch'
       },
       Input:{
           backgroundColor:"white",
-          width:420,
+          width: '97%',
           height:40,
-          borderWidth:1,
+          //borderWidth:1,
+          borderBottomWidth: 1,
           borderRadius:2,
-          borderColor:'steelblue',
+          borderColor:'#593196',
           shadowColor:'#000',
           shadowOffset:{width:0,height:2,},
           shadowOpacity:0.1,

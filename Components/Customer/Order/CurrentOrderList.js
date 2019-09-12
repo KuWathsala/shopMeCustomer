@@ -12,33 +12,29 @@ const FlatListItem = (props) => {
             //onPress={() => props.navigation.navigate(Products, props.item)}    
         //>
         <View style={styles.listItem}>
-            <View>
-                <View style={{ flexDirection: 'column'}}>
-                    <Text style={styles.textDes}>Order Id: {props.item.id}</Text>
-                    <Text style={styles.textDes}>Ordered At: {props.item.createdAt}</Text>
-                    <Text style={styles.textDes}>Order status: {props.item.orderStatus}</Text>
-                    <Text style={styles.textDes}>Total LKR: {props.item.totalPrice}</Text>
-                    <FlatList data={props.item.products} 
-                        keyExtractor={(item, index) => item.id.toString()}
-                        renderItem={({item, index}) => {
-                            return (
-                                <View style={{flexDirection: 'column'}}>
-                                    <Text>Name: {item.name}</Text>
-                                    <Text>Quantity: {item.quantity}</Text>
-                                    <Text>unit Price: {item.unitPrice*(1-item.discount/100)}</Text>
-                                </View>
-                            )
-                        }}
-                    />
-                    <Button style={styles.buttonTrack}
-                        onPress={() => props.navigation.navigate(Rate)} //resetTo
-                    >
-                        track the order
-                    </Button>
-                    <Button style={styles.buttonConfirm}>confirm order received</Button>
-
-                </View>
-            </View>
+            <Text style={styles.textDes}>Order Id: {props.item.id}</Text>
+            <Text style={styles.textDes}>Ordered At: {props.item.createdAt}</Text>
+            <Text style={styles.textDes}>Order status: {props.item.orderStatus}</Text>
+            <Text style={styles.textDes}>Total LKR: {props.item.totalPrice}</Text>
+            
+            <FlatList data={props.item.products} 
+                keyExtractor={(item, index) => item.id.toString()}
+                renderItem={({item, index}) => {
+                    return (
+                        <View style={{flexDirection: 'column'}}>
+                            <Text style={{marginLeft: 30}}>Name: {item.name}</Text>
+                            <Text style={{marginLeft: 30}}>Quantity: {item.quantity}</Text>
+                            <Text style={{marginLeft: 30}}>unit Price: {item.unitPrice*(1-item.discount/100)}</Text>
+                        </View>
+                    )
+                }}
+            />
+            <Button style={styles.buttonTrack}
+                onPress={() => props.navigation.navigate(Rate)} 
+            >
+                track the order
+            </Button>
+            <Button style={styles.buttonConfirm}>confirm order received</Button>
         </View>
         //</TouchableOpacity>
     );
@@ -49,7 +45,6 @@ export default class ShopsList extends Component {
         //let columns= columns=Math.floor(widthScreen/200);
         return (
             <View style={styles.container}>
-                <View>
                     <FlatList style={{backgroundColor: "white", opacity: 1}}
                         numColumns={1}
                         horizontal={false}
@@ -64,7 +59,6 @@ export default class ShopsList extends Component {
                         }}
                         keyExtractor={(item, index) => item.id.toString()}
                     />
-                </View>
             </View>
         );
     }
@@ -80,13 +74,15 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection:'column',
         marginTop: Platform.OS==='ios' ? 34 : 0,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     listItem: {
         flex: 1,
         flexDirection:'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         width: widthScreen-10,
-        height: 350,
+        //height: 350,
         borderWidth: 1,
         borderColor:'black',
         margin: 4, 
@@ -124,19 +120,21 @@ const styles = StyleSheet.create({
         height: 30,
         fontSize: 17,
         backgroundColor: '#f06767',
-        paddingTop: 3,
         marginTop: 10,
         color: 'white',
+        alignItems: 'center',
     },
     buttonConfirm: {
         alignSelf:'center',
-        justifyContent:'flex-end',        width: widthScreen-40,
+        //justifyContent:'flex-end',        
+        width: widthScreen-40,
         height: 30,
         fontSize: 17,
         backgroundColor: '#37b864',//
         color: '#7dd19b',
-        paddingTop: 3,
-        marginTop: 10,
+        marginTop: 20,
         color: 'white',
+        alignItems: 'center',
+        bottom: 10
     },
 });

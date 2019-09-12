@@ -19,7 +19,8 @@ const Products="Products";
 const SearchPlace="SearchPlace";
 const Categories="Categories";
 const Rate="Rate";
+const Payment="Payment"
 export { Main, Detail, stackNav, Side, Account, Home, 
     Search, Cart, Profile, Order, CategoriesList, SearchItems, ProductDetails, BuyIt , Locaton , Map,
-    Shops,Products, SearchPlace, Categories, Rate
+    Shops,Products, SearchPlace, Categories, Rate, Payment
 } ;
