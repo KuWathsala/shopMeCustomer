@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity ,ActivityIndicator,ScrollView,  RefreshControl} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity ,Dimensions, ScrollView,  RefreshControl} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from 'axios';
 import CurrentOrderList from './CurrentOrderList';
@@ -15,7 +15,7 @@ class CurrentOrders extends Component {
         currentOrdersData: [],
         arr: [],
         refreshing: false,
-        id: 1//parseInt(this.props.customer.userId)
+        id: parseInt(this.props.customer.userId)
     }
   }
 
@@ -43,11 +43,11 @@ class CurrentOrders extends Component {
         let list=<CurrentOrderList data={this.state.currentOrdersData} navigation={this.props.navigation} />;
 
         let loading=<View  style={{flex: 1,flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
-                      <Icon style={styles.icon} name="md-refresh" size={100} color="gray" />
+                      <Icon style={styles.icon} name="md-refresh" size={70} color="gray" />
                     </View>;
         
         let empty=<View  style={{flex: 1,flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
-                    <Icon style={styles.icon} name="md-clipboard" size={100} color="gray" />
+                    <Icon style={styles.icon} name="md-clipboard" size={90} color="gray" />
                     <Text>Currently there are no orders</Text>
                   </View>;
 
@@ -60,6 +60,9 @@ class CurrentOrders extends Component {
         );
   }
 }
+
+const widthScreen=Dimensions.get('window').width;
+const heightScreen=Dimensions.get('window').height;
 
 const mapStateToProps=state=>{
   return {
@@ -77,4 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
   },
+  icon: {
+    marginTop: widthScreen/2
+  }
 });
