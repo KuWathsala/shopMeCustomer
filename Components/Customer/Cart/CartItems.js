@@ -77,9 +77,9 @@ class CartItems extends Component {
             customerId: parseInt(this.props.customer.userId),
             customerLatitude: this.props.location.source.latitude,
             customerLongitude: this.props.location.source.longitude,
-            sellerId: 4,//this.props.productsList.sellerId,
+            sellerId: this.props.productsList.sellerId,
             status: "to be confirmed",
-            items:[{productId: 5, quantity: 50,productId: 6, quantity: 50,}]// itemList
+            items: itemList
         }
 
         console.log("order")

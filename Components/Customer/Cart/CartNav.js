@@ -9,15 +9,21 @@ import PaymentComponent from './Payment';
 const stackNav = createStackNavigator({
 
     CartItems: {
-        screen: CartItemsComponent
+        screen: CartItemsComponent,
+        navigationOptions: ({navigation}) => ({
+            title: "My Cart",
+            headerTitleStyle: {
+                color: "#593196"
+            }
+        })  
     },  
     BuyIt: {
         screen: BuyItComponent,
         navigationOptions: ({navigation}) => ({
-        title: "Buy",
-        headerTitleStyle: {
-            color: "#593196"
-        }
+            title: "Buy",
+            headerTitleStyle: {
+                color: "#593196"
+            }
         })  
     },
     Payment: {

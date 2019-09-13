@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet, Alert, Image, Dimensions, FlatList, Platform, TouchableOpacity} from 'react-native';
+import { Text, View, StyleSheet, Alert, Image, Dimensions, FlatList, Platform, } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Progress from 'react-native-progress';
 import {Products, Rate} from '../../Menu/screenNames';
@@ -14,21 +14,21 @@ const FlatListItem = (props) => {
         <View style={styles.listItem}>
             <Text style={styles.textDes}>Order Id: {props.item.id}</Text>
             <Text style={styles.textDes}>Ordered At: {props.item.createdAt}</Text>
-            <Text style={styles.textDes}>Order status: {props.item.orderStatus}</Text>
-            <Text style={styles.textDes}>Total LKR: {props.item.totalPrice}</Text>
+            <Text style={styles.textDes}>Order status: <Text style={{color: 'blue'}}>{props.item.orderStatus}</Text></Text>
             
             <FlatList data={props.item.products} 
                 keyExtractor={(item, index) => item.id.toString()}
                 renderItem={({item, index}) => {
                     return (
-                        <View style={{flexDirection: 'column'}}>
-                            <Text style={{marginLeft: 30}}>Name: {item.name}</Text>
-                            <Text style={{marginLeft: 30}}>Quantity: {item.quantity}</Text>
-                            <Text style={{marginLeft: 30}}>unit Price: {item.unitPrice*(1-item.discount/100)}</Text>
+                        <View style={{flex: 1, alignSelf: 'stretch', flexDirection: 'row' }}>
+                            <Text style={{flex: 1, alignSelf: 'stretch', marginLeft: 30}}>{item.name}</Text>
+                            <Text style={{flex: 1, alignSelf: 'stretch'}}>quantity: {item.quantity}</Text>
+                            <Text style={{flex: 1, alignSelf: 'stretch', color: 'red'}}>LKR: {item.unitPrice*(1-item.discount/100)}</Text>
                         </View>
                     )
                 }}
             />
+            <Text style={styles.textDes}>Total LKR: <Text style={{color:'red'}}>{props.item.totalPrice}</Text></Text>
             <Button style={styles.buttonTrack}
                 onPress={() => props.navigation.navigate(Rate)} 
             >
