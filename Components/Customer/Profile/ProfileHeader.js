@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   topBar:{
     flexDirection: 'row',
     backgroundColor: 'gainsboro',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     height: 50,
     width:widthScreen
   },

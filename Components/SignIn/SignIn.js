@@ -72,10 +72,6 @@ class ContactForm extends Component{
                             Me
                         </Text>
                     </Text>
-
-                    <Text style={{color: '#5d6661', fontSize: 25, fontWeight:'normal', marginTop:'-5%',fontWeight:'bold', marginLeft: '30%'}}>
-                                customer
-                            </Text>
                     
                     
                     <Text style={{fontSize:25,color:"#593196",paddingTop:'0%',paddingBottom:'15%'}}></Text>

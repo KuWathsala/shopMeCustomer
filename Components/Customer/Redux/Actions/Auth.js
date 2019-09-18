@@ -35,46 +35,6 @@ export const auth=(authData)=>{
     console.log(authData)
     return dispatch=>{
         dispatch(authStart());
-        // const authCust={
-        //     LoginVM:{
-        //         Email:email,
-        //         Password:password,
-        //         Role:userType
-        //     },
-        //     FirstName:firstName,
-        //     LastName:lastName,
-        //     MobileNumber:mobileno,
-        //     returnSecureToken: true
-        // };
-
-        // const authSeller={
-        //     LoginVM:{
-        //         Email:email,
-        //         Password:password,
-        //         Role:userType
-        //     },
-        //     FirstName:firstName,
-        //     LastName:lastName,
-        //     MobileNumber:mobileno,
-        //     ShopName:shopname,
-        //     AccountNo:accno,
-        //     ShopLocationLatitude:lat,
-        //     ShopLocationLongitude:lng,
-        //     returnSecureToken: true
-        // }
-
-        // const authDeliver={
-        //     LoginVM:{
-        //         Email:email,
-        //         Password:password,
-        //         Role:userType
-        //     },
-        //     FirstName:firstName,
-        //     LastName:lastName,
-        //     MobileNumber:mobileno,
-        //     VehicleNo:vhno,
-        //     VehicleType:vehicle,
-        // }
         console.log("auth : ",authData);
         let url='';
             console.log(authData.role);
@@ -123,17 +83,15 @@ export const authVerify=(email,password)=>{
            console.log("response");
            console.log(response.data.data.id);
            const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
-            if(response.data.role==='Customer')
-                {(dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role)));
-                    //Actions.Status());
-                    AsyncStorage.setItem("userId",response.data.data.id+"");
-                    AsyncStorage.setItem("token",response.data.data.token);
-                    AsyncStorage.setItem("expirationDate",expirationDate);
-                    AsyncStorage.setItem("role",response.data.role);
-
-                    //AsyncStorage.setItem("isSuccessed",true);
-                } else
-                    window.alert('You are not a customer')
+            if(response.data.role==='Customer'){
+                (dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role)));
+                //Actions.Status());
+                AsyncStorage.setItem("userId",response.data.data.id+"");
+                AsyncStorage.setItem("token",response.data.data.token);
+                AsyncStorage.setItem("expirationDate",expirationDate);
+                AsyncStorage.setItem("role",response.data.role);
+            } else
+                window.alert(response.data.message)
              
             // localStorage.setItem('expirationDate',expirationDate);
             // localStorage.setItem('userId',response.data.localId);

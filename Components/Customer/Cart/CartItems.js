@@ -29,8 +29,8 @@ class VirticalFlatListItem extends Component{
                 <View style={{flex:1,flexDirection:'column', height: 100}}>
                     <Text style={{fontSize: 19}}>{this.props.item.name}</Text>
                     <Text>{this.props.item.description}</Text>
-                    <Text style={{fontSize: 17,color: 'blue'}}> quantity   :  {this.props.item.quantity}</Text>
-                    <Text style={{fontSize: 17,color: 'red'}} > unit price LKR :  {this.props.item.unitPrice*(1-this.props.item.discount/100)}</Text>
+                    <Text style={{fontSize: 17,color: 'blue', position: 'absolute', bottom: 20}}> quantity   :  {this.props.item.quantity}</Text>
+                    <Text style={{fontSize: 17,color: 'red', position: 'absolute', bottom: 5}} > unit price LKR :  {this.props.item.unitPrice*(1-this.props.item.discount/100)}</Text>
                 </View> 
                 <TouchableOpacity onPress={()=>this.click(index)}>
                     <Icon style={{alignSelf: 'flex-end', paddingRight : 5}} name="md-trash" size={30} color="gray" /> 
@@ -61,6 +61,7 @@ class CartItems extends Component {
     }
 
     click=()=> {
+        /*
         console.log("this.props")
         //create order
         let itemList= [];
@@ -96,6 +97,7 @@ class CartItems extends Component {
         })
 
         //this.props.navigation.navigate(Payment)
+        */
     }
 
     removeItem(index){
@@ -130,12 +132,12 @@ class CartItems extends Component {
                 </FlatList>
 
                 <TouchableOpacity style={{ width:150, height:40, position: 'absolute', bottom: 10, marginRight: 20}}
-                    onPress={this.click}  
-                    //onPress={()=>this.props.navigation.navigate(Payment)}
+                    //onPress={this.click}  
+                    onPress={()=>this.props.navigation.navigate(Payment)}
                 >
                     <Image style={{ width:150, height:40, margin: 5}} source={require('../../../Assets/payhere.png')}  />
                 </TouchableOpacity>
-                <Text style={{fontSize: 25, color: 'red', alignSelf:'flex-end', bottom: 10,}} >Total : {this.props.cart.total} LKR </Text>
+                <Text style={{fontSize: 25, color: 'red', alignSelf:'flex-end', bottom: 10}} >Total : {this.props.cart.total} LKR </Text>
                 
             </View>
         );

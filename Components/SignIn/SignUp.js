@@ -5,6 +5,7 @@ import {Field,reduxForm,getFormValues,formValueSelector} from 'redux-form';
 import submit from './submit';
 import {auth} from '../Customer/Redux/Actions/Auth';
 import CustomerTab from '../Customer/Tab/Tab'
+import SignIn from './SignIn';
 
 const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,error,warning},input:{onChange, ...restInput}})=>{
     return(<View style={{flexDirection:'column',height:70,alignItems:'flex-start'}}>
@@ -25,41 +26,45 @@ const passwordMatch=(value,allValues)=> value!==allValues.Password ? 'Passwords 
 class RegisterForm extends Component{
     constructor(props) {
         super(props);
-        state = {
+        this.state = {
+            signIn: false,
+            loading: false,
         }
       }
 
-submit=(values)=> {
-    let authData
-    authData={
-        LoginVM:{
-          Email:values.Email,
-          Password:values.Password,
-          Role:'Customer'
-        },
-        FirstName:values.FirstName,
-        LastName:values.LastName,
-        MobileNumber:values.MobileNumber,
-        //VehicleNo:values.VehicleNo,
-        //VehicleType:"Three Wheel",
-        returnSecureToken: true,
-      }
+    submit=(values)=> {
+        console.log("submitting")
+        let authData
+        authData ={
+            LoginVM:{
+            Email:values.Email,
+            Password:values.Password,
+            Role:'Customer'
+            },
+            FirstName:values.FirstName,
+            LastName:values.LastName,
+            MobileNumber:values.MobileNumber,
+            returnSecureToken: true,
+        }
         this.props.auth(authData)
         //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+        console.log("values");
         console.log(values);
     }
 
 
-render(){
-    const {submitting,handleSubmit,onSubmit}=this.props;
-    const vehicles = ["Motor Bicycle", "Three Wheel"];
-    console.log(submitting);
-    if(this.props.auth.isSuccessed) 
-        return(<CustomerTab/>);
-    else
-    return(
+    render(){
+        const {submitting,handleSubmit,onSubmit}=this.props;
+        //const vehicles = ["Motor Bicycle", "Three Wheel"];
+        console.log(submitting);
+        if(this.props.auth.isSuccessed) 
+            return(<CustomerTab/>);
+        else if(this.state.signIn===true)
+            return(<SignIn/>);
+        else
+            return(
             <ScrollView>
-                <KeyboardAvoidingView style={styles.container} behavior='position' >
+                <KeyboardAvoidingView style={styles.container} behavior='height' >
                     <Text style={{alignSelf:'center', fontSize:40,color:"steelblue",paddingTop:'5%',paddingBottom:'5%',fontWeight:'bold'}}>Registeration Form </Text>
                     <Field name="FirstName" placeholder='First Name' component={renderField} 
                          validate={[required]}
@@ -95,6 +100,10 @@ render(){
                                 backgroundColor:'#593196',color:'white',fontSize:20,
                                 height:45,width:'100%',textAlign:'center',padding:10
                             }}>submit</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{this.setState({signIn: true})}} style={{marginTop: 0, position:'relative'}}>
+                        <Text style={{fontSize:18,textAlign:'center',padding:5
+                        }}>I have already an account. Sign in</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             </ScrollView>
