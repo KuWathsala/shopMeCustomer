@@ -16,9 +16,6 @@ export default class Start extends Component{
                         Me
                     </Text>
                 </Text>
-                <Text style={{color: '#5d6661', fontSize: 25, fontWeight:'normal', marginTop:'-5%',fontWeight:'bold', marginLeft: '30%'}}>
-                    customer
-                </Text>
 
                 <ActivityIndicator
                     animating={true} 

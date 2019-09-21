@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text,View,StyleSheet,TextInput,Image,TouchableOpacity,Alert,ScrollView,KeyboardAvoidingView} from 'react-native';
 import {connect} from 'react-redux';
 import {Field,reduxForm,getFormValues,formValueSelector} from 'redux-form';
-import submit from './submit';
+//import submit from './submit';
 import {auth} from '../Customer/Redux/Actions/Auth';
 import CustomerTab from '../Customer/Tab/Tab'
 import SignIn from './SignIn';
@@ -33,23 +33,22 @@ class RegisterForm extends Component{
       }
 
     submit=(values)=> {
-        console.log("submitting")
-        let authData
-        authData ={
+        alert("submitting")
+        const authData ={
             LoginVM:{
-            Email:values.Email,
-            Password:values.Password,
-            Role:'Customer'
+                Email: values.Email,
+                Password: values.Password,
+                Role:'Customer'
             },
             FirstName:values.FirstName,
             LastName:values.LastName,
             MobileNumber:values.MobileNumber,
-            returnSecureToken: true,
+            //returnSecureToken: true,
         }
         this.props.auth(authData)
         //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
         console.log("values");
-        console.log(values);
+        //alert(authData.LoginVM.Email);
     }
 
 

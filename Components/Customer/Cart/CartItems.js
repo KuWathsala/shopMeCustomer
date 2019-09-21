@@ -61,7 +61,7 @@ class CartItems extends Component {
     }
 
     click=()=> {
-        /*
+        
         console.log("this.props")
         //create order
         let itemList= [];
@@ -90,14 +90,13 @@ class CartItems extends Component {
         .then(response=>{
             console.log("response")
             console.log(response)
+            this.props.navigation.navigate(Payment)
         }) 
         .catch (error=>{
             console.log("error")
 			console.log(error);
         })
-
-        //this.props.navigation.navigate(Payment)
-        */
+        
     }
 
     removeItem(index){
@@ -132,8 +131,8 @@ class CartItems extends Component {
                 </FlatList>
 
                 <TouchableOpacity style={{ width:150, height:40, position: 'absolute', bottom: 10, marginRight: 20}}
-                    //onPress={this.click}  
-                    onPress={()=>this.props.navigation.navigate(Payment)}
+                    onPress={this.click}  
+                    //onPress={()=>this.props.navigation.navigate(Payment)}
                 >
                     <Image style={{ width:150, height:40, margin: 5}} source={require('../../../Assets/payhere.png')}  />
                 </TouchableOpacity>

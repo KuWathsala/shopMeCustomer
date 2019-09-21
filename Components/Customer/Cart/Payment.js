@@ -1,26 +1,78 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, } from 'react-native';
+import { Platform, StyleSheet, Text, Modal, View, TouchableOpacity} from 'react-native';
 import {WebView} from 'react-native-webview';
+import {Order} from '../../Menu/screenNames';
 
 export default class Payment extends Component{
-
-    componentDidMount(){
-    }
-
+    
     constructor(props){
         super(props);
+    }
+
+    onNavigationStateChange (webViewState) {
+        console.log(webViewState.url==='https://www.google.lk?order_id=12')
+        if(webViewState.url==='https://www.google.lk?order_id=12'){
+            this.props.navigation.navigate(Order)
+            console.log("Order=>")
+        }
     }
 
     render(){
         return(
         <WebView
             source={{uri: url, method: 'POST' }}
+            onNavigationStateChange={this.onNavigationStateChange.bind(this)}
         />
     );
     }
 }
-
-//const source='<!DOCTYPE html><html><body><form method="post" action="https://sandbox.payhere.lk/pay/checkout"><input type="hidden" name="merchant_id" value="1213071"><input type="hidden" name="return_url" value="http://sample.com/return"><input type="hidden" name="cancel_url" value="http://sample.com/cancel"><input type="hidden" name="notify_url" value="https://backend-webapi20190825122524dbserver.database.windows.net/">  <br><br>Item Details<br><input type="text" name="order_id" value="ItemNo12345"><input type="text" name="items" value="Door bell wireless"><br><input type="text" name="currency" value="LKR"><input type="text" name="amount" value="1000">  <br><br>Customer Details<br><input type="text" name="first_name" value="Saman"><input type="text" name="last_name" value="Perera"><br><input type="text" name="email" value="samanp@gmail.com"><input type="text" name="phone" value="0771234567"><br><input type="text" name="address" value="No.1, Galle Road"><input type="text" name="city" value="Colombo"><input type="hidden" name="country" value="Sri Lanka"><br><br> <input type="submit" value="Buy Now">   </form> </body></html>'
-const url = 'https://sandbox.payhere.lk/pay/checkout?merchant_id=1213071&return_url=&cancel_url=&order_id=&items=&currency=LKR&amount=1800&first_name=kumuthu&last_name=wathsala&email=wathdanthasinghe@gmail.com&phone=&address=&city=&country=&notify_url=https://backend-webapi20190825122524.azurewebsites.net/api/orders/payment?id=13&price=1800'
+const url = 'https://sandbox.payhere.lk/pay/checkout?merchant_id=1213071&return_url=https://www.google.lk&cancel_url=https://www.bing.lk&order_id=12&items=&currency=LKR&amount=50&first_name=kumuthu&last_name=wathsala&email=wathdanthasinghe@gmail.com&phone=&address=&city=&country=&notify_url=https://backend-webapi20190825122524.azurewebsites.net/api/payments/update'
 
 //4916217501611292
+ 
+
+/*
+constructor(props){
+        super(props);
+        this.state={
+            modalVisible: true
+        }
+    }
+
+    _onNavigationStateChange (webViewState) {
+        this.hide()
+    }
+    
+    show () {
+       this.setState({ modalVisible: true })
+    }
+     
+    hide () {
+       this.setState({ modalVisible: false })
+    }
+     
+    render () {
+    return (
+    <Modal
+        animationType={'slide'}
+        visible={this.state.modalVisible}
+        onRequestClose={this.hide.bind(this)}
+        transparent
+    >
+        <View style={styles.modalWarp}>
+            <View style={styles.contentWarp}>
+                <WebView
+                    style={[{ flex: 1 }, this.props.styles]}
+                    source={{uri: url, method: 'POST' }}
+                    scalesPageToFit
+                    startInLoadingState
+                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+                    onError={this._onNavigationStateChange.bind(this)}
+                />
+                <TouchableOpacity onPress={this.hide.bind(this)} style={styles.btnStyle}>
+                <Text style={styles.closeStyle}>close</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    </Modal >
+*/

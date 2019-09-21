@@ -35,20 +35,29 @@ export const auth=(authData)=>{
     console.log(authData)
     return dispatch=>{
         dispatch(authStart());
-        console.log("auth : ",authData);
+        alert(authData.LoginVM.Email);
         let url='';
-            console.log(authData.role);
-            url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Customer';
-            axios.post(url,authData)
-                .then(response=>{
-            console.log(response);
-            window.alert('Succesfully Registered')
-            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
+        console.log(authData.role);
+        url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Customer';
+        axios.post(url,authData)
+        .then(response=>{
+            alert("res"+response);
+            dispatch(authSuccess(response.data.token,response.data.id,'Customer'));
             //Actions.login();
+            AsyncStorage.setItem("userId",response.data.id+"");
+            AsyncStorage.setItem("token",response.data.token);
+            //AsyncStorage.setItem("expirationDate",expirationDate);
+            AsyncStorage.setItem("role",response.data.role);
+            AsyncStorage.setItem("firstName", response.data.firstName);
+            AsyncStorage.setItem("lastName", response.data.lastName);
+            AsyncStorage.setItem("email", authData.LoginVM.Email);
+            AsyncStorage.setItem("mobileNumber", response.data.mobileNumber);
+            AsyncStorage.setItem("profileImage", response.data.profileImage);
+
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{ 
-            console.log(err);
+            alert("err"+err);
             dispatch(authFail(err));
         });
     }
@@ -58,7 +67,11 @@ export const logout=()=>{
     AsyncStorage.removeItem("token");
     AsyncStorage.removeItem("expirationDate");
     AsyncStorage.removeItem("userId");
-    AsyncStorage.removeItem("isSuccessed")
+    AsyncStorage.removeItem("firstName")
+    AsyncStorage.removeItem("lastName")
+    AsyncStorage.removeItem("email")
+    AsyncStorage.removeItem("profileImage")
+    AsyncStorage.removeItem("mobileNumber")
     // localStorage.removeItem('token');
     // localStorage.removeItem('expirationDate');
     // localStorage.removeItem('userId');
@@ -90,6 +103,11 @@ export const authVerify=(email,password)=>{
                 AsyncStorage.setItem("token",response.data.data.token);
                 AsyncStorage.setItem("expirationDate",expirationDate);
                 AsyncStorage.setItem("role",response.data.role);
+                AsyncStorage.setItem("firstName", response.data.data.firstName);
+                AsyncStorage.setItem("lastName", response.data.data.lastName);
+                AsyncStorage.setItem("email", authVerifyData.Email);
+                AsyncStorage.setItem("mobileNumber", response.data.data.mobileNumber);
+                AsyncStorage.setItem("profileImage", response.data.data.profileImage);
             } else
                 window.alert(response.data.message)
              

@@ -10,11 +10,6 @@ export default class Account extends Component {
         user: {
           firstName:this.props.navigation.getParam('firstName', '-'),
           lastName:this.props.navigation.getParam('lastName', '-'),
-          email: this.props.navigation.getParam('email', '-'),
-          addressLine1: this.props.navigation.getParam('addressLine1', '-'),
-          addressLine2: this.props.navigation.getParam('addressLine2', '-'),
-          city: this.props.navigation.getParam('city', '-'),
-          zipCode: this.props.navigation.getParam('zipCode', '-'),
           profileImage: this.props.navigation.getParam('profileImage', '-'),
           mobileNumber: this.props.navigation.getParam('mobileNumber', '-')
         },
