@@ -13,7 +13,7 @@ const stackNav = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       header: null ,
       headerTitleStyle: {
-        color: "#593196"
+        color: "black"
       }
     })     
   },
@@ -22,7 +22,7 @@ const stackNav = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       header: null,
       headerTitleStyle: {
-        color: "#593196"
+        color: "black"
       }
     })     
   },

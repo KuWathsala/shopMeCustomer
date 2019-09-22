@@ -51,7 +51,6 @@ class CartItems extends Component {
         super(props);
         this.state={
             total: 0,
-            onPayment: false
         },
         this.removeItem = this.removeItem.bind(this);
     }
@@ -90,7 +89,7 @@ class CartItems extends Component {
         .then(response=>{
             console.log("response")
             console.log(response)
-            this.props.navigation.navigate(Payment)
+            this.props.navigation.navigate(Payment, response.data)
         }) 
         .catch (error=>{
             console.log("error")
@@ -198,7 +197,7 @@ const styles = StyleSheet.create({
         height: 45,
         marginRight: 5,
         fontSize: 21,
-        backgroundColor: '#593196',
+        backgroundColor: 'black',//593196
         marginTop: 10,
         padding: 5,
         paddingLeft:10,

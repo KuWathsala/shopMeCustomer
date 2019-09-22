@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, Modal, View, TouchableOpacity} from 'react-native';
 import {WebView} from 'react-native-webview';
-import {Order} from '../../Menu/screenNames';
+import {deleteCart} from '../Redux/Actions/cartActions';
+import {connect} from 'react-redux';
 
-export default class Payment extends Component{
+class Payment extends Component{
     
     constructor(props){
         super(props);
+        this.state={
+            order_id: this.props.navigation.getParam('id', '-'),
+        }
     }
 
+    componentDidMount(){
+        console.log(this.props)
+        console.log(this.state.order_id)
+    }
+    
     onNavigationStateChange (webViewState) {
-        console.log(webViewState.url==='https://www.google.lk?order_id=12')
-        if(webViewState.url==='https://www.google.lk?order_id=12'){
-            this.props.navigation.navigate(Order)
-            console.log("Order=>")
+        console.log(webViewState.url)
+        if(webViewState.url===`https://www.google.lk/?order_id=${this.state.order_id}`){
+            this.props.navigation.navigate('CartItems')
+            this.props.deleteCart();
         }
     }
 
     render(){
+        const url = `https://sandbox.payhere.lk/pay/checkout?merchant_id=1213071&return_url=https://www.google.lk&cancel_url=https://www.bing.lk&order_id=${this.state.order_id}&items=&currency=LKR&amount=${this.props.cart.total}&first_name=&last_name=&email=&phone=&address=&city=&country=&notify_url=https://backend-webapi20190825122524.azurewebsites.net/api/payments/update`
         return(
         <WebView
             source={{uri: url, method: 'POST' }}
@@ -26,8 +36,18 @@ export default class Payment extends Component{
     );
     }
 }
-const url = 'https://sandbox.payhere.lk/pay/checkout?merchant_id=1213071&return_url=https://www.google.lk&cancel_url=https://www.bing.lk&order_id=12&items=&currency=LKR&amount=50&first_name=kumuthu&last_name=wathsala&email=wathdanthasinghe@gmail.com&phone=&address=&city=&country=&notify_url=https://backend-webapi20190825122524.azurewebsites.net/api/payments/update'
 
+const mapStateToProps=state=>{
+    return {
+      cart: state.cart
+    };
+}
+  
+export default connect(
+    mapStateToProps,{
+        deleteCart,
+    }
+)(Payment);
 //4916217501611292
  
 

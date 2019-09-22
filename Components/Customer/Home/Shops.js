@@ -33,7 +33,7 @@ class Shops extends Component {
     const filteredShops = this.props.shopsList.shops.filter(createFilter(this.state.searchShop, KEYS_TO_FILTERS));
     let shopsList=<ShopsList data={filteredShops} navigation={this.props.navigation}  />//this.props.shopsList.shops
     var loading=this.props.shopsList.loading;
-    var isEmpty=(this.props.shopsList.shops===[])
+    var isEmpty=((this.props.shopsList.shops).length===0)
 
     if(loading)
       return (<ActivityIndicator size="large" style={styles.container} />);
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'normal',
     margin: 20,
-    color:'#593196'
+    color:'black'
   },
   address: {
     width: '100%',

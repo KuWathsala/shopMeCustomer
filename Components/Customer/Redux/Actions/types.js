@@ -35,3 +35,5 @@ export const AUTH_FAIL='AUTH_FAIL';
 export const AUTH_SUCCESS='AUTH_SUCCESS';
 export const AUTH_LOGOUT='AUTH_LOGOUT';
 export const REACH_SHOP='REACH_SHOP';
+
+export const CART_DELETE_SUCCESS='CART_DELETE_SUCCESS';

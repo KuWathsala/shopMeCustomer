@@ -96,7 +96,7 @@ class RegisterForm extends Component{
                     />
                     <TouchableOpacity onPress={handleSubmit(this.submit)} disabled={submitting} style={{margin:5,alignSelf:'stretch'}}>
                             <Text style={{
-                                backgroundColor:'#593196',color:'white',fontSize:20,
+                                backgroundColor:'black',color:'white',fontSize:20,
                                 height:45,width:'100%',textAlign:'center',padding:10
                             }}>submit</Text>
                     </TouchableOpacity>
@@ -141,7 +141,7 @@ const styles=StyleSheet.create({
           //borderWidth:1,
           borderBottomWidth: 1,
           borderRadius:2,
-          borderColor:'#593196',
+          borderColor:'black',
           shadowColor:'#000',
           shadowOffset:{width:0,height:2,},
           shadowOpacity:0.1,

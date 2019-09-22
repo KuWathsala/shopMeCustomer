@@ -13,7 +13,7 @@ const stackNav = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: "My Orders",
       headerTitleStyle: {
-        color: "#593196"
+        color: "black"
       }
     })
   },
@@ -23,7 +23,7 @@ const stackNav = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: "Details",
       headerTitleStyle: {
-        color: "#593196"
+        color: "black"
       }
     })     
   },

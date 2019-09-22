@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 10,
     height:40,
-    backgroundColor: '#593296',
+    backgroundColor: 'black',
     fontSize: 18,
     color: 'white'
 },

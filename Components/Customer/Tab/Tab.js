@@ -46,7 +46,7 @@ let routeConfigs={
 let tabNavigatorConfig={
     tabBarOptions: {
         keyboardHidesTabBar: true,
-        activeTintColor: '#593196',
+        activeTintColor: 'black',
         inactiveTintColor: 'gray',
         style: {
             backgroundColor: 'darkcerulean',

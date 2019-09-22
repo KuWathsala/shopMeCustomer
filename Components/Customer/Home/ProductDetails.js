@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin:8,
         height:40,
-        backgroundColor: '#593296',
+        backgroundColor: '#593196',
         fontSize: 18,
         color: 'white'
     },
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         backgroundColor: 'white',
         borderWidth: 2,
-        borderColor: '#593296'
+        borderColor: '#593196'
     },
     dropdown:{
         marginTop: 10,

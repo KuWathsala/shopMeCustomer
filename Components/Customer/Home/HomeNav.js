@@ -27,7 +27,7 @@ const stackNav = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       //title: "Products by Shop",
       headerTitleStyle: {
-        color: "#593196"
+        color: "black"
       }
     })  
   },
@@ -37,7 +37,7 @@ const stackNav = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: "Details",
       headerTitleStyle: {
-        color: "#593196"
+        color: "black"
       }
     })     
   },
@@ -46,7 +46,7 @@ const stackNav = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: "Buy",
       headerTitleStyle: {
-        color: "#593196"
+        color: "black"
       }
     })  
   },

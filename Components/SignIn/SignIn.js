@@ -74,7 +74,7 @@ class ContactForm extends Component{
                     </Text>
                     
                     
-                    <Text style={{fontSize:25,color:"#593196",paddingTop:'0%',paddingBottom:'15%'}}></Text>
+                    <Text style={{fontSize:25,color:"black",paddingTop:'0%',paddingBottom:'15%'}}></Text>
                     <Field name="Email" keyboardType="email-address" placeholder='Email' component={renderField} 
                         validate={[required,isValidEmail]}
                     />
@@ -83,7 +83,7 @@ class ContactForm extends Component{
                     />
                     <TouchableOpacity disabled={submitting} onPress={handleSubmit(this.submit)} style={{margin:5,alignSelf:'stretch', height: 65}}>{/* onPress={handleSubmit(submit)} */}
                         <Text style={{
-                            backgroundColor:'#593196',color:'white',fontSize:20,
+                            backgroundColor:'black',color:'white',fontSize:20,
                             height:37,width:'100%',textAlign:'center',padding:5
                         }}>Log In</Text>
                     </TouchableOpacity>
@@ -132,7 +132,7 @@ const styles=StyleSheet.create({
         //borderWidth:1,
         borderBottomWidth: 1,
         borderRadius:2,
-        borderColor:'#593196',
+        borderColor:'black',
         shadowColor:'#000',
         shadowOffset:{width:0,height:2,},
         shadowOpacity:0.1,

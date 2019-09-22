@@ -4,6 +4,7 @@ import {
     CART_SUCCESS,
     CART_ITEM_ADD_SUCCESS,
     CART_ITEM_REMOVE_SUCCESS,
+    CART_DELETE_SUCCESS
 } from './types'; 
 import axios from 'axios';
 
@@ -21,6 +22,10 @@ export const cartFailure=(error)=>({
     payload: error
 }); 
 
+export const deleteSuccess=()=>({
+    type: CART_DELETE_SUCCESS,
+    //payload: error
+}); 
 
 export const removeItemSuccess=(index)=>({
     type: CART_ITEM_REMOVE_SUCCESS,
@@ -49,6 +54,13 @@ export const fetchCart=()=>{
         dispatch(cartSuccess());
     }
 }
+
+export const deleteCart=()=>{
+    return dispatch=>{
+        dispatch(deleteSuccess());
+    }
+}
+
 
 
 
