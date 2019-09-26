@@ -15,7 +15,7 @@ class Payment extends Component{
 
     componentDidMount(){
         console.log(this.props)
-        console.log(this.state.order_id)
+        console.log(this.state.order_id)  
     }
     
     onNavigationStateChange (webViewState) {
@@ -27,7 +27,7 @@ class Payment extends Component{
     }
 
     render(){
-        const url = `https://sandbox.payhere.lk/pay/checkout?merchant_id=1213071&return_url=https://www.google.lk&cancel_url=https://www.bing.lk&order_id=${this.state.order_id}&items=&currency=LKR&amount=${this.props.cart.total}&first_name=&last_name=&email=&phone=&address=&city=&country=&notify_url=https://backend-webapi20190825122524.azurewebsites.net/api/payments/update`
+        const url = `https://sandbox.payhere.lk/pay/checkout?merchant_id=1213071&return_url=https://www.google.lk&cancel_url=https://www.bing.lk&order_id=${this.state.order_id}&items=x&currency=LKR&amount=${this.props.cart.total}&first_name=kumuthu&last_name=wathsala&email=wathdanthasinghe@gmail.com&phone=0715325124&address=Galle&city=Galle&country=Sri Lanka&notify_url=https://backend-webapi20190825122524.azurewebsites.net/api/payments/update`
         return(
         <WebView
             source={{uri: url, method: 'POST' }}

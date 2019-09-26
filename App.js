@@ -7,9 +7,9 @@ import {Provider} from 'react-redux';
 import store from './Components/Customer/Redux/Store/store';
 import Location from './Components/Map/Locations';
 import SignIn from './Components/SignIn/SignIn';
-import SignalR from './SingalR';
-import Payment from './Components/Customer/Cart/Payment';
-
+//import SignalR from './SingalR';
+//import Payment from './Components/Customer/Cart/Payment';
+//import Rate from './Components/Customer/Order/Rate';
 
 export default class App extends React.Component{
 

@@ -30,11 +30,15 @@ const FlatListItem = (props) => {
             />
             <Text style={styles.textDes}>Total LKR: <Text style={{color:'red'}}>{props.item.totalPrice}</Text></Text>
             <Button style={styles.buttonTrack}
-                onPress={() => props.navigation.navigate(Rate)} 
+                
             >
                 track the order
             </Button>
-            <Button style={styles.buttonConfirm}>confirm order received</Button>
+            <Button style={styles.buttonConfirm}
+                onPress={() => props.navigation.navigate(Rate,props.item)} 
+            >
+                confirm order received
+            </Button>
         </View>
         //</TouchableOpacity>
     );
