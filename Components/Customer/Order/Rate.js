@@ -16,8 +16,11 @@ export default class Rate extends Component {
     } 
 
     click=()=>{
-      axios.post(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/rate/${this.state.orderId},${this.state.shopRate},${this.state.delivererRate}`) 
-      .then(this.props.navigation.navigate('CurrentOrders'))
+      axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/updateOrderStatus/${this.state.orderId},${"confirm order recieved"}`) 
+      .then(
+        axios.post(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/rate/${this.state.orderId},${this.state.shopRate},${this.state.delivererRate}`) 
+        .then(this.props.navigation.navigate('CurrentOrders'))
+      )
     }
 
     render () {
