@@ -47,7 +47,7 @@ class CurrentOrders extends Component {
                     </View>;
         
         let empty=<View  style={{flex: 1,flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
-                    <Icon style={styles.icon} name="md-clipboard" size={90} color="gray" />
+                    <Icon style={styles.icon} name="md-clipboard" size={80} color="gray" />
                     <Text>Currently there are no orders</Text>
                   </View>;
 
@@ -81,6 +81,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   icon: {
-    marginTop: widthScreen/2
+    marginTop: widthScreen/2+40
   }
 });

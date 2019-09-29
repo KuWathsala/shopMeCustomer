@@ -26,13 +26,13 @@ export default class Rate extends Component {
     render () {
     return ( 
       <View style={styles.container}>
-        <Text style={styles.text} >Rate the shop</Text>
+        <Text style={styles.text1} >Rate the shop</Text>
         <Rating 
             showRating
             onFinishRating={(rating)=>{this.setState({shopRate: rating})}}
             style={{ paddingVertical: 10 }}
         />
-        <Text style={styles.text} >Rate the deliverer</Text>
+        <Text style={styles.text2} >Rate the deliverer</Text>
         <Rating 
             showRating
             onFinishRating={(rating)=>{this.setState({delivererRate: rating})}}
@@ -66,10 +66,17 @@ const styles = StyleSheet.create({
     bottom: 0,
     position: 'absolute',
   },
-  text:{
+  text1:{
     fontSize: 25,
     color: 'black',
     textAlign:'center',
+    marginTop:  0
+  },
+  text2:{
+    fontSize: 25,
+    color: 'black',
+    textAlign:'center',
+    marginTop:  50
   },
   ok:{
     marginTop: 5,

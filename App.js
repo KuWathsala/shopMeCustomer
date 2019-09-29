@@ -10,6 +10,7 @@ import SignIn from './Components/SignIn/SignIn';
 //import SignalR from './SingalR';
 //import Payment from './Components/Customer/Cart/Payment';
 //import Rate from './Components/Customer/Order/Rate';
+//import Track from './Components/Customer/Order/Track';
 
 export default class App extends React.Component{
 

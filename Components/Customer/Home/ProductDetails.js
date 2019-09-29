@@ -9,7 +9,8 @@ import Button from 'react-native-button';
 import { Dropdown } from 'react-native-material-dropdown';
 import {connect} from 'react-redux';
 import {addCartItems, fetchCart} from '../Redux/Actions/cartActions';
-import NumericInput from 'react-native-numeric-input'
+import NumericInput from 'react-native-numeric-input';
+//import Cart from '../Cart/Cart';
 
 class ProductDetails extends Component {
 
@@ -21,7 +22,7 @@ class ProductDetails extends Component {
                 name: this.props.navigation.getParam('name', '-'),
                 description: this.props.navigation.getParam('description', '-'),
                 shortDescription: this.props.navigation.getParam('shortDescription', '-'),
-                unitPrice: this.props.navigation.getParam('unitPrice', '-'),
+                sellingPrice: this.props.navigation.getParam('sellingPrice', '-'),
                 image: this.props.navigation.getParam('image', '-'),
                 availableQuantity: this.props.navigation.getParam('quantity', '-'),
                 rating: this.props.navigation.getParam('rating', '-'),
@@ -61,6 +62,12 @@ class ProductDetails extends Component {
         }
         console.log(this.props);
     }
+
+    buyIt=()=>{
+        this.addToCart();
+        //this.props.navigation.navigate('CartItems');
+    }
+
     render () {
         
     return (
@@ -71,7 +78,7 @@ class ProductDetails extends Component {
                 <Text style={styles.textName}> {this.state.product.name}</Text>
                 <Text style={styles.text}>{this.state.product.description}</Text>
                 <Text style={styles.text}>{this.state.product.shortDescription}</Text>
-                <Text style={styles.text}>Unit Price LKR: {this.state.product.unitPrice}</Text>
+                <Text style={styles.text}>Price LKR: {this.state.product.sellingPrice}</Text>
                 <Text style={styles.text}>Available: {this.state.product.availableQuantity}</Text>
                 <Text style={styles.text}>Rating: {this.state.product.rating}</Text>
                 <Text style={styles.text}>Likes: {this.state.product.like}</Text>
@@ -106,7 +113,7 @@ class ProductDetails extends Component {
                 </View>
 
                 <Button style={styles.button} 
-                    onPress={() => this.props.navigation.navigate(BuyIt,this.state.product)}    
+                    onPress={this.buyIt}    
                 >
                     Buy It
                 </Button>

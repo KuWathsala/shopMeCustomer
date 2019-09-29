@@ -5,6 +5,7 @@ import {
 import {ProductDetailData} from './Data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Button from 'react-native-button';
+import CartItems from '../Cart/CartItems';
 
 export default class BuyIt extends Component {
 
@@ -20,11 +21,7 @@ export default class BuyIt extends Component {
 
     render () {
     return (
-        <ScrollView>
-        <View style={styles.container}>
-            <Text>{this.state.product.selectedQuantity}</Text>
-        </View>
-        </ScrollView>
+        <CartItems />
     );
   }
 }

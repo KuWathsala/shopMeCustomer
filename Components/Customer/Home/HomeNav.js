@@ -9,6 +9,8 @@ import LocatonComponent from '../../Customer/Home/Location';
 import ShopsComponent from './Shops';
 import SearchPlaceComponent from '../../Map/SearchPlace';
 import SignInComponent from '../../SignIn/SignIn';
+import PaymentComponent from '../Cart/Payment';
+import CartItemsComponent from '../Cart/CartItems';
 
 const stackNav = createStackNavigator({
   /*
@@ -50,7 +52,18 @@ const stackNav = createStackNavigator({
       }
     })  
   },
-
+  CartItems: {
+    screen: CartItemsComponent,
+    navigationOptions: ({navigation}) => ({
+        title: "My Cart",
+        headerTitleStyle: {
+            color: "black"
+        }
+    })  
+},  
+  Payment: {
+    screen: PaymentComponent,
+  }
 });
 const HomeNav=createAppContainer(stackNav);
 export default HomeNav;

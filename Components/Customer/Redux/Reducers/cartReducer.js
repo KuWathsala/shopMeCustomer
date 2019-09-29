@@ -24,13 +24,13 @@ export const cartReducer=(state=initialState, action)=>{
         case CART_FAILURE:
             return {...state, loading: false, errorMessage: action.payload};
         case CART_ITEM_ADD_SUCCESS:
-            return {...state, arr: [...state.arr, action.payload], total: state.total + action.payload.unitPrice};
+            return {...state, arr: [...state.arr, action.payload], total: state.total + action.payload.sellingPrice*action.payload.quantity};
         case CART_ITEM_REMOVE_SUCCESS:
-            return {...state,  total: state.total - state.arr[action.payload].unitPrice, ...state.arr.splice(action.payload,1) }
+            return {...state,  total: state.total - state.arr[action.payload].sellingPrice*state.arr[action.payload].quantity, ...state.arr.splice(action.payload,1) }
         case CART_DELETE_SUCCESS:
             return { ...state, arr: [], total: 0 }
         default:
-            return state;           
+            return state;            
     }
 }
 

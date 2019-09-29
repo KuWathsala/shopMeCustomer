@@ -30,7 +30,7 @@ class VirticalFlatListItem extends Component{
                     <Text style={{fontSize: 19}}>{this.props.item.name}</Text>
                     <Text>{this.props.item.description}</Text>
                     <Text style={{fontSize: 17,color: 'blue', position: 'absolute', bottom: 20}}> quantity   :  {this.props.item.quantity}</Text>
-                    <Text style={{fontSize: 17,color: 'red', position: 'absolute', bottom: 5}} > unit price LKR :  {this.props.item.unitPrice*(1-this.props.item.discount/100)}</Text>
+                    <Text style={{fontSize: 17,color: 'red', position: 'absolute', bottom: 5}} > unit price LKR :  {this.props.item.sellingPrice}</Text>
                 </View> 
                 <TouchableOpacity onPress={()=>this.click(index)}>
                     <Icon style={{alignSelf: 'flex-end', paddingRight : 5}} name="md-trash" size={30} color="gray" /> 
@@ -141,7 +141,7 @@ class CartItems extends Component {
         );
     else
         return( <View style={{flex: 1,flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
-                <Icon style={styles.icon} name="md-cart" size={100} color="gray" />
+                <Icon style={styles.icon} name="md-cart" size={80} color="gray" />
                 <Text>Currently there are no items in your cart</Text>
         </View> 
     );

@@ -4,7 +4,7 @@ import { createStackNavigator, createAppContainer } from  'react-navigation';
 import CurrentOrdersComponent from './CurrentOrders';
 import ProductDetailsComponent from '../Home/ProductDetails';
 import RateComponent from './Rate';
-import BuyItComponent from '../Home/BuyIt';
+import TrackComponent from './Track';
 
 const stackNav = createStackNavigator({
   
@@ -29,8 +29,23 @@ const stackNav = createStackNavigator({
   },
   
   Rate: {
-    screen: RateComponent,
+    screen: RateComponent,navigationOptions: ({navigation}) => ({
+      title: "Rate",
+      headerTitleStyle: {
+        color: "black"
+      }
+    }) 
   },  
+
+  Track : {
+    screen: TrackComponent,
+    navigationOptions: ({navigation}) => ({
+      title: "Track",
+      headerTitleStyle: {
+        color: "black"
+      }
+    }) 
+  }
 });
 const Nav=createAppContainer(stackNav);
 export default Nav;

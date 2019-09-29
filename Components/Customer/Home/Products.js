@@ -28,7 +28,7 @@ class Products extends Component {
       this.props.fetchProductList(this.props.navigation.getParam('id', '-'),);
       axios.get('https://backend-webapi20190825122524.azurewebsites.net/api/categories')//http://192.168.43.15:5001/api
       .then(response=>{
-        this.setState({categoriesData: response.data})
+        this.setState({ categoriesData: response.data})//[...this.state.categoriesData, response.data]
         console.log(response.data)
       })
       .catch(error=>{console.log(error)})
@@ -42,7 +42,7 @@ class Products extends Component {
     const filteredProducts = this.props.productsList.products.filter(createFilter(this.state.search+" "+this.state.sort, KEYS_TO_FILTERS));
     let productList=<ProductsList data={filteredProducts} navigation={this.props.navigation} />;
     var loading=this.props.productsList.loading;
-    var done=this.props.productsList.loading 
+    //var done=this.props.productsList.loading 
 
     if(loading)
       return (<ActivityIndicator size="large" style={styles.container} />);

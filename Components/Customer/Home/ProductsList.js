@@ -6,7 +6,7 @@ import {ProductDetails} from '../../Menu/screenNames';
 
 const FlatListItem = (props) => {
     return(
-        <View style={{borderWidth: 1,borderColor:'black', margin: 4 }} >
+        <View style={{ margin: 4, borderRadius: 10, backgroundColor: 'white' }}>
             <TouchableOpacity 
                 onPress={() => props.navigation.navigate(ProductDetails, props.item)}    
             >  
@@ -23,7 +23,7 @@ const FlatListItem = (props) => {
 
             <View style={{alignSelf: 'baseline',flexDirection:'row'}}>
                 <Text style={styles.text}>LKR: {props.item.sellingPrice}  </Text>
-                <Text style={styles.textDiscount}>{props.item.unitPrice}</Text>
+                <Text style={styles.textDiscount}>{(props.item.sellingPrice!=props.item.unitPrice) ? props.item.unitPrice : "" }</Text>
             </View>                
             <View style={{flex:1, flexDirection: 'row',alignSelf: 'baseline', bottom:0}}>
                 <Text style={styles.textLike}><Icon name="ios-star" size={20} color="orange" /> {props.item.rating}  |</Text>
@@ -39,7 +39,7 @@ export default class ProductsList extends Component {
         return (
             <View style={styles.container}>
                 <View>
-                    <FlatList style={{backgroundColor: "white", opacity: 1}}
+                    <FlatList style={{backgroundColor: '#D3D3D3', opacity: 1}}
                         numColumns={columns}
                         horizontal={false}
                         data={this.props.data}

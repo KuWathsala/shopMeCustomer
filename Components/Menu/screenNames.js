@@ -20,7 +20,8 @@ const SearchPlace="SearchPlace";
 const Categories="Categories";
 const Rate="Rate";
 const Payment="Payment"
+const Track="Track"
 export { Main, Detail, stackNav, Side, Account, Home, 
     Search, Cart, Profile, Order, CategoriesList, SearchItems, ProductDetails, BuyIt , Locaton , Map,
-    Shops,Products, SearchPlace, Categories, Rate, Payment
+    Shops,Products, SearchPlace, Categories, Rate, Payment, Track
 } ;

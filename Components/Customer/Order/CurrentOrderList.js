@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Text, View, StyleSheet, Alert, Image, Dimensions, FlatList, Platform, } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Progress from 'react-native-progress';
-import {Products, Rate} from '../../Menu/screenNames';
+import {Products, Rate, Track} from '../../Menu/screenNames';
 import Button from 'react-native-button';
 
 
@@ -13,6 +13,7 @@ const FlatListItem = (props) => {
         //>
         <View style={styles.listItem}>
             <Text style={styles.textDes}>Order Id: {props.item.id}</Text>
+            <Text style={styles.textDes}>Shop: {props.item.shopName}</Text>
             <Text style={styles.textDes}>Ordered At: {props.item.createdAt}</Text>
             <Text style={styles.textDes}>Order status: <Text style={{color: 'blue'}}>{props.item.orderStatus}</Text></Text>
             
@@ -29,12 +30,12 @@ const FlatListItem = (props) => {
                 }}
             />
             <Text style={styles.textDes}>Total LKR: <Text style={{color:'red'}}>{props.item.totalPrice}</Text></Text>
-            <Button style={styles.buttonTrack}
-                
+            <Button style={styles.buttonTrack} //disabled={true}
+                onPress={() => props.navigation.navigate(Track,props.item)} 
             >
                 track the order
             </Button>
-            <Button style={styles.buttonConfirm}
+            <Button style={styles.buttonConfirm} //disabled={true}
                 onPress={() => props.navigation.navigate(Rate,props.item)} 
             >
                 confirm order received
@@ -49,7 +50,7 @@ export default class ShopsList extends Component {
         //let columns= columns=Math.floor(widthScreen/200);
         return (
             <View style={styles.container}>
-                    <FlatList style={{backgroundColor: "white", opacity: 1}}
+                    <FlatList style={{backgroundColor: '#D3D3D3', opacity: 1}}
                         numColumns={1}
                         horizontal={false}
                         data={this.props.data}
@@ -87,8 +88,10 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         width: widthScreen-10,
         //height: 350,
-        borderWidth: 1,
-        borderColor:'black',
+        backgroundColor: 'white',
+        //borderWidth: 1,
+        //borderColor:'black',
+        borderRadius:10,
         margin: 4, 
     },
     icon: {

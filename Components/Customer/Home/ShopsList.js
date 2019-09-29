@@ -9,7 +9,7 @@ const FlatListItem = (props) => {
     let addressLength=props.item.shopAddress.length;
     console.log(props.item.image)
     return(
-        <View style={{borderWidth: 1,borderColor:'black', margin: 4 }}>
+        <View style={{ margin: 4, borderRadius: 10, backgroundColor: 'white' }}>
             <TouchableOpacity 
                 onPress={() => props.navigation.navigate(Products, props.item)}    
             > 
@@ -37,8 +37,7 @@ export default class ShopsList extends Component {
         let columns= columns=Math.floor(widthScreen/200);
         return (
             <View style={styles.container}>
-                <View>
-                    <FlatList style={{backgroundColor: "white", opacity: 1}}
+                    <FlatList style={{backgroundColor: '#D3D3D3', opacity: 1}}
                         numColumns={columns}
                         horizontal={false}
                         data={this.props.data}
@@ -52,7 +51,6 @@ export default class ShopsList extends Component {
                         }}
                         keyExtractor={(item, index) => item.id.toString()}
                     />
-                </View>
             </View>
         );
     }
