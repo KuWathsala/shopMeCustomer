@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text,View,StyleSheet,TextInput,Image,TouchableOpacity,Alert,Linking,KeyboardAvoidingView} from 'react-native';
+import {Text,View,StyleSheet,TextInput,Image,TouchableOpacity,Alert,Linking,KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 import * as actions from '../Customer/Redux/Actions/index';
 import {Field,reduxForm} from 'redux-form';
@@ -31,7 +31,8 @@ class ContactForm extends Component{
     }
 
     componentDidMount(){
-        this.props.authCheckState();
+        this.props.authCheckState()
+        //alert(this.props.auth.loading)
     }
 
     handleRegister=()=>{
@@ -58,7 +59,7 @@ class ContactForm extends Component{
         if(this.props.auth.isSuccessed ){
             console.log("this.props.auth.isSuccessed"+this.props.auth.isSuccessed)
             return(<CustomerTab/>);
-        }
+        } 
         else if(this.state.signUp===true)
             return(<SignUp/>);
         else
@@ -74,24 +75,27 @@ class ContactForm extends Component{
                     </Text>
                     
                     
-                    <Text style={{fontSize:25,color:"black",paddingTop:'0%',paddingBottom:'15%'}}></Text>
-                    <Field name="Email" keyboardType="email-address" placeholder='Email' component={renderField} 
-                        validate={[required,isValidEmail]}
-                    />
-                    <Field name="Password" keyboardType='default' placeholder='Password' secureTextEntry={true} component={renderField}
-                        validate={[required]} 
-                    />
-                    <TouchableOpacity disabled={submitting} onPress={handleSubmit(this.submit)} style={{margin:5,alignSelf:'stretch', height: 65}}>{/* onPress={handleSubmit(submit)} */}
-                        <Text style={{
-                            backgroundColor:'black',color:'white',fontSize:20,
-                            height:37,width:'100%',textAlign:'center',padding:5
-                        }}>Log In</Text>
-                    </TouchableOpacity>
+                    {/*{(this.props.auth.isSuccessed===true) ? <ActivityIndicator   /> : */}
+                    <View>
+                        <Text style={{fontSize:25,color:"black",paddingTop:'0%',paddingBottom:'15%'}}></Text>
+                        <Field name="Email" keyboardType="email-address" placeholder='Email' component={renderField} 
+                            validate={[required,isValidEmail]}
+                        />
+                        <Field name="Password" keyboardType='default' placeholder='Password' secureTextEntry={true} component={renderField}
+                            validate={[required]} 
+                        />
+                        <TouchableOpacity disabled={submitting} onPress={handleSubmit(this.submit)} style={{margin:5,alignSelf:'stretch', height: 65}}>{/* onPress={handleSubmit(submit)} */}
+                            <Text style={{
+                                backgroundColor:'black',color:'white',fontSize:20,
+                                height:37,width:'100%',textAlign:'center',padding:5
+                            }}>Log In</Text>
+                        </TouchableOpacity>
 
-                    <TouchableOpacity onPress={()=>{this.setState({signUp: true})}} style={{}}>
-                        <Text style={{fontSize:18,textAlign:'center',padding:5
-                        }}>new to shopMe ? create an account</Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{this.setState({signUp: true})}} style={{}}>
+                            <Text style={{fontSize:18,textAlign:'center',padding:5
+                            }}>new to shopMe ? create an account</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </KeyboardAvoidingView>
         );

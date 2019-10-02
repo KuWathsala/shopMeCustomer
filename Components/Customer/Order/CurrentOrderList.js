@@ -50,7 +50,7 @@ export default class ShopsList extends Component {
         //let columns= columns=Math.floor(widthScreen/200);
         return (
             <View style={styles.container}>
-                    <FlatList style={{backgroundColor: '#D3D3D3', opacity: 1}}
+                    <FlatList style={{backgroundColor: '#D3D3D3', opacity: 1,}}
                         numColumns={1}
                         horizontal={false}
                         data={this.props.data}
@@ -86,13 +86,13 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection:'column',
         justifyContent: 'flex-start',
-        width: widthScreen-10,
+        width: widthScreen-20,
         //height: 350,
         backgroundColor: 'white',
         //borderWidth: 1,
         //borderColor:'black',
         borderRadius:10,
-        margin: 4, 
+        margin: 10, 
     },
     icon: {
         width: 30,

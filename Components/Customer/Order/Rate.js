@@ -9,7 +9,7 @@ export default class Rate extends Component {
     constructor(props){
         super(props)
         this.state={
-          orderId: this.props.navigation.getParam('id', '-'),
+          orderId: parseInt(this.props.navigation.getParam('id', '-')),
           shopRate: 0,
           delivererRate: 0
         }
@@ -18,8 +18,17 @@ export default class Rate extends Component {
     click=()=>{
       axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/updateOrderStatus/${this.state.orderId},${"confirm order recieved"}`) 
       .then(
-        axios.post(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/rate/${this.state.orderId},${this.state.shopRate},${this.state.delivererRate}`) 
-        .then(this.props.navigation.navigate('CurrentOrders'))
+        response=>{
+          console.log(response)
+          axios.post(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/rate/${this.state.orderId},${this.state.shopRate},${this.state.delivererRate}`) 
+          .then(
+            res=>{
+              console.log(res)
+              this.props.navigation.navigate('CurrentOrders')
+            }
+          )
+        }
+        
       )
     }
 

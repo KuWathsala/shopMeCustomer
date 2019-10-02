@@ -94,6 +94,7 @@ const widthScreen=Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#D3D3D3', 
     //justifyContent: 'center',
     alignItems: 'center',
   },

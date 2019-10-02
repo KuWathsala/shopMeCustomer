@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image, Dimensions, ScrollView, Linking } from 'react-native';
+import {Text, View, StyleSheet, Image, Dimensions, ScrollView, Linking, ActivityIndicator} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {} from '../../Menu/screenNames';
 import axios from 'axios';
@@ -12,7 +12,7 @@ export default class Rate extends Component {
         this.state={
           orderId:102,// this.props.navigation.getParam('id', '-'),
           orderStatus: 'to be confirmed',// this.props.navigation.getParam('orderStatus', '-'),
-          sellerId: null,
+          sellerId: 0,
           delivererId: 2,
           sellerDetails: {
             shopName: '',
@@ -26,40 +26,40 @@ export default class Rate extends Component {
             profileImage: '',
             vehicleNo: '',
             mobileNumber: ''
-          }
+          },
+          loading: true
         }
     } 
 
     componentDidMount(){
         axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/GetOrderDetailsById/${this.state.orderId}`) 
         .then(response=>{
-            console.log(response)
             this.setState({sellerId: response.data.products[0].sellerId, delivererId: response.data.delivererId})
         }).catch(error=>console.log(error));
 
         if(this.state.delivererId!=0){
             axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/deliverers/${this.state.delivererId}`) 
             .then(response=>{
-                console.log(response)
                 this.setState({delivererDetails: response.data})
-            }).catch(error=>console.log(error));
-            
-        }else{
-            axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/sellers/${this.state.sellerId}`) 
-            .then(response=>{
-                console.log(response)
-                this.setState({sellerDetails: response.data})
-            }).catch(error=>console.log(error));
+                axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/sellers/${parseInt(this.state.sellerId)}`) 
+                .then(res=>{
+                    this.setState({sellerDetails: res.data, loading: false})
+                })//.catch(this.setState({loading: false}));
+                this.setState({loading: false});
+            })
         }
     }
 
-    render () {
+  render () {
+    if(this.state.loading) {
+      return (<ActivityIndicator size="large" style={styles.container} />);
+    }else
     return ( 
       <ScrollView>
         <View style={styles.container} >
 
           <View style={{flexDirection: 'column' ,flex: 1 , borderBottomWidth: 1}}>
-              <Image style={styles.image} source={require('../../../Assets/food.jpg')}  />
+              <Image style={styles.image} source={{uri : this.state.sellerDetails.image }}  />
               <Text style={{fontSize: 20, color: 'black', marginLeft: 5, marginTop: 30}} >order status: {this.state.orderStatus}</Text>
               <Text style={styles.text} >shop name: {this.state.sellerDetails.shopName}</Text>
               <Text style={styles.text} >address {this.state.sellerDetails.address}</Text>

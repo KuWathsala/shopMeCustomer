@@ -9,11 +9,10 @@ const FlatListItem = (props) => {
     let addressLength=props.item.shopAddress.length;
     console.log(props.item.image)
     return(
-        <View style={{ margin: 4, borderRadius: 10, backgroundColor: 'white' }}>
-            <TouchableOpacity 
+        <View style={{ marginTop: 10, borderRadius: 10, backgroundColor: 'white', margin: 10, }}>
+            <TouchableOpacity style={styles.listItem}
                 onPress={() => props.navigation.navigate(Products, props.item)}    
             > 
-            <View style={styles.listItem}>
                 <Image style={styles.image} source={{uri: props.item.image}}/>
                 <View style={{alignSelf: 'baseline',flexDirection:'column'}}>
                     <Text style={styles.text}>{props.item.shopName}</Text>
@@ -22,23 +21,23 @@ const FlatListItem = (props) => {
                         props.item.shopAddress }
                     </Text>
                 </View>
+            </TouchableOpacity>
+            <View style={{ flexDirection: 'column',alignSelf: 'baseline'}}>
+            <Text style={styles.textDes}><Icon name="ios-pin" size={20} color="green" />  close To you: {props.item.distance.toFixed(1)} km</Text>
+                <Text style={styles.textLike}><Icon name="ios-star" size={20} color="gold" /> {props.item.rating}  </Text>
             </View>
-        </TouchableOpacity>
-        <View style={{ flexDirection: 'column',alignSelf: 'baseline'}}>
-        <Text style={styles.textDes}><Icon name="ios-pin" size={20} color="green" />  close To you: {props.item.distance.toFixed(1)} km</Text>
-            <Text style={styles.textLike}><Icon name="ios-star" size={20} color="gold" /> {props.item.rating}  </Text>
-        </View>
         </View>
     );
 }
 
 export default class ShopsList extends Component {
+    
     render(){
-        let columns= columns=Math.floor(widthScreen/200);
+        //let columns= columns=Math.floor(widthScreen/100);
         return (
             <View style={styles.container}>
                     <FlatList style={{backgroundColor: '#D3D3D3', opacity: 1}}
-                        numColumns={columns}
+                        numColumns= {1}//{columns}
                         horizontal={false}
                         data={this.props.data}
                         showsHorizontalScrollIndicator={false} 
@@ -71,8 +70,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection:'column',
         alignItems:'center',
-        width: 200,
-        height: 230,
+        width: widthScreen-40,
+        height: heightScreen/3,
+        alignSelf: 'center'
         //borderWidth: 1,
         //borderColor:'black',
         //margin: 4, 
@@ -106,8 +106,9 @@ const styles = StyleSheet.create({
         margin: 3,
     },
     image:{
-        width: 190,
-        height: 150,
-        resizeMode:'center'
+        width: widthScreen-40,
+        height: heightScreen/3- 80,
+        resizeMode:'center',
+        marginTop: 10,
     }
 });

@@ -6,7 +6,7 @@ import {ProductDetails} from '../../Menu/screenNames';
 
 const FlatListItem = (props) => {
     return(
-        <View style={{ margin: 4, borderRadius: 10, backgroundColor: 'white' }}>
+        <View style={{  marginTop: 10, borderRadius: 10, backgroundColor: 'white', margin: 10 }}>
             <TouchableOpacity 
                 onPress={() => props.navigation.navigate(ProductDetails, props.item)}    
             >  
@@ -35,26 +35,22 @@ const FlatListItem = (props) => {
 
 export default class ProductsList extends Component {
     render(){
-        let columns= columns=Math.floor(widthScreen/200);
+        //let columns= columns=Math.floor(widthScreen/200);
         return (
-            <View style={styles.container}>
-                <View>
-                    <FlatList style={{backgroundColor: '#D3D3D3', opacity: 1}}
-                        numColumns={columns}
-                        horizontal={false}
-                        data={this.props.data}
-                        showsHorizontalScrollIndicator={false} 
-                        renderItem={({item, index}) => {
-                            return (
-                                <FlatListItem navigation={this.props.navigation}
-                                    item={item} index={index} parentFlatList={this}>
-                                </FlatListItem>
-                            )
-                        }}
-                        keyExtractor={(item, index) => item.id.toString()}
-                    />
-                </View>
-            </View>
+            <FlatList style={{backgroundColor: '#D3D3D3', opacity: 1}}
+                numColumns={1}//{columns}
+                horizontal={false}
+                data={this.props.data}
+                showsHorizontalScrollIndicator={false} 
+                renderItem={({item, index}) => {
+                    return (
+                        <FlatListItem navigation={this.props.navigation}
+                            item={item} index={index} parentFlatList={this}>
+                        </FlatListItem>
+                    )
+                }}
+                keyExtractor={(item, index) => item.id.toString()}
+            />
         );
     }
 };
@@ -68,14 +64,13 @@ const styles = StyleSheet.create({
     container: { 
         flex: 1,
         flexDirection:'column',
-        marginTop: Platform.OS==='ios' ? 34 : 0,
     },
     listItem: {
         flex: 1,
         flexDirection:'column',
         alignItems:'center',
-        width: 200,
-        height: 250,
+        width: widthScreen-40,
+        height: heightScreen/3,
     },
     icon: {
         width: 30,
@@ -106,8 +101,9 @@ const styles = StyleSheet.create({
         margin: 3,
     },
     image:{
-        width: 190,
-        height: 180,
-        resizeMode:'center'
+        width: widthScreen-60,
+        height: heightScreen/3- 80,
+        resizeMode:'center',
+        borderWidth: 1
     }
 });

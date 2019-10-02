@@ -24,7 +24,7 @@ class VirticalFlatListItem extends Component{
         const {index}=this.props;
         return(
             <View style={styles.listItem}>
-              <View style={{flexDirection:'row', flex:1, borderColor: 'black', borderWidth: 1}}>
+              <View style={{flexDirection:'row', flex:1, borderColor: 'black'}}>
                 <Image style={{width:100, height:85, margin: 5}} source={{uri: this.props.item.image}}  />
                 <View style={{flex:1,flexDirection:'column', height: 100}}>
                     <Text style={{fontSize: 19}}>{this.props.item.name}</Text>
@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor:'black',
         margin: 4, 
+        borderRadius: 10
     },
     button: {
         width: '100%',
