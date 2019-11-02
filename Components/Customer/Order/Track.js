@@ -32,16 +32,16 @@ export default class Rate extends Component {
     } 
 
     componentDidMount(){
-        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/GetOrderDetailsById/${this.state.orderId}`) 
+        axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/GetOrderDetailsById/${this.state.orderId}`) 
         .then(response=>{
             this.setState({sellerId: response.data.products[0].sellerId, delivererId: response.data.delivererId})
         }).catch(error=>console.log(error));
 
         if(this.state.delivererId!=0){
-            axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/deliverers/${this.state.delivererId}`) 
+            axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/deliverers/${this.state.delivererId}`) 
             .then(response=>{
                 this.setState({delivererDetails: response.data})
-                axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/sellers/${parseInt(this.state.sellerId)}`) 
+                axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/sellers/${parseInt(this.state.sellerId)}`) 
                 .then(res=>{
                     this.setState({sellerDetails: res.data, loading: false})
                 })//.catch(this.setState({loading: false}));

@@ -37,7 +37,7 @@ export const auth=(authData)=>{
         dispatch(authStart());
         let url='';
         console.log(authData.role);
-        url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Customer';
+        url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/Signup-Customer';
         axios.post(url,authData)
         .then(response=>{
             dispatch(authSuccess(response.data.token,response.data.id,'Customer'));
@@ -88,7 +88,7 @@ export const authVerify=(email,password)=>{
             returnSecureToken: true
         };
         
-        let url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/signin';
+        let url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/signin';
         axios.post(url,authVerifyData)
         .then(response=>{
            console.log("response");
@@ -96,14 +96,14 @@ export const authVerify=(email,password)=>{
            const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
             if(response.data.role==='Customer'){
                 (dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role)));
-                //Actions.Status());
+                
                 AsyncStorage.setItem("userId",response.data.data.id+"");
                 AsyncStorage.setItem("token",response.data.data.token);
                 AsyncStorage.setItem("expirationDate",expirationDate);
                 AsyncStorage.setItem("role",response.data.role);
                 AsyncStorage.setItem("firstName", response.data.data.firstName);
                 AsyncStorage.setItem("lastName", response.data.data.lastName);
-                AsyncStorage.setItem("email", authVerifyData.Email);
+                AsyncStorage.setItem("email",email);
                 AsyncStorage.setItem("mobileNumber", response.data.data.mobileNumber);
                 AsyncStorage.setItem("profileImage", response.data.data.profileImage);
             } else

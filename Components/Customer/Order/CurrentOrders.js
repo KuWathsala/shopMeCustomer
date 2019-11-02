@@ -25,7 +25,7 @@ class CurrentOrders extends Component {
 
   fetchData=async()=>{
     this.setState({refreshing: true})
-    axios.post(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/getAllOrderDetailsByCustomer/${this.state.id}`) //backend-webapi20190825122524.azurewebsites.net
+    axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/getAllOrderDetailsByCustomer/${this.state.id}`) //backend-webapi20190825122524.azurewebsites.net
     .then(response=>{
         this.setState({currentOrdersData: response.data})
         this.setState({refreshing: false})

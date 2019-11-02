@@ -9,15 +9,17 @@ class ProfileHeader extends Component {
   constructor(props){
     super(props);
     this.state={
-          firstName: null,
-          lastName: null,
-          email: null,
-          profileImage: null,
-          mobileNumber: null,
+      id: null, 
+      firstName: null,
+      lastName: null,
+      email: null,
+      profileImage: null,
+      mobileNumber: null,
     }
   }
 
   componentDidMount(){
+    AsyncStorage.getItem("userId").then(x=>this.setState({id: x})).done(),
     AsyncStorage.getItem("firstName").then(x=>this.setState({firstName: x})).done();
     AsyncStorage.getItem("lastName").then(x=>this.setState({lastName: x})).done();
     AsyncStorage.getItem("email").then(x=>this.setState({email: x})).done();
@@ -55,12 +57,11 @@ class ProfileHeader extends Component {
         mobile number:  <Text>{this.state.mobileNumber}</Text> 
       </Text>
       <Text style={{fontSize:25, color:'black', marginLeft: 20, marginTop: 10}}>
-        email:  <Text>{this.state.profileImage}</Text>
+        email:  <Text>{this.state.email}</Text>
       </Text>
 
-      <TouchableOpacity  onPress={this.onPressSignOut}>
-        <Text style={{marginLeft: 20, marginTop: 50, fontSize: 20, color: 'red'}} >Sign out</Text>
-      </TouchableOpacity>
+      <Text style={{ marginLeft: 20, marginTop: 50, fontSize: 20, color: 'red', width: 80}} onPress={this.onPressSignOut} >Sign out</Text>
+    
     </View>
     );
   }
