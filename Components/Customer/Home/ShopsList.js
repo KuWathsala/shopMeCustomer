@@ -24,7 +24,7 @@ const FlatListItem = (props) => {
             </TouchableOpacity>
             <View style={{ flexDirection: 'column',alignSelf: 'baseline'}}>
             <Text style={styles.textDes}><Icon name="ios-pin" size={20} color="green" />  close To you: {props.item.distance.toFixed(1)} km</Text>
-                <Text style={styles.textLike}><Icon name="ios-star" size={20} color="gold" /> {props.item.rating}  </Text>
+                <Text style={styles.textLike}><Icon name="ios-star" size={20} color="gold" /> {props.item.rating}/5  </Text>
             </View>
         </View>
     );
@@ -40,7 +40,7 @@ export default class ShopsList extends Component {
                         numColumns= {1}//{columns}
                         horizontal={false}
                         data={this.props.data}
-                        showsHorizontalScrollIndicator={false} 
+                        showsVerticalScrollIndicator={false} 
                         renderItem={({item, index}) => {
                             return (
                                 <FlatListItem navigation={this.props.navigation}

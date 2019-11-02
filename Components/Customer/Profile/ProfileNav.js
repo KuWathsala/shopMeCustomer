@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { createStackNavigator, createAppContainer } from  'react-navigation';
 import ProfileHeaderComponent from './ProfileHeader';
-import SettingsComponent from './Settings';
-import HelpComponent from './Help';
-import OrdersComponent from './Orders';
-import AccountComponent from './Account';
+import EditProfileComponent from './EditProfile';
 
 const stackNav = createStackNavigator({
   ProfileHeader: {
@@ -17,8 +14,8 @@ const stackNav = createStackNavigator({
       }
     })     
   },
-  Account: {
-    screen: AccountComponent,
+  EditProfile: {
+    screen: EditProfileComponent,
     navigationOptions: ({navigation}) => ({
       header: null,
       headerTitleStyle: {

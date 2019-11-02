@@ -60,7 +60,7 @@ const stackNav = createStackNavigator({
             color: "black"
         }
     })  
-},  
+  },  
   Payment: {
     screen: PaymentComponent,
   }

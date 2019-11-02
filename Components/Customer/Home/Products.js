@@ -45,12 +45,12 @@ class Products extends Component {
     //var done=this.props.productsList.loading 
 
     if(loading)
-      return (<ActivityIndicator size="large" style={styles.container} />);
+      return (<ActivityIndicator size="large" style={{flex: 1, alignItems:'center'}} />);
     else 
     return (
-        <View>
-          <View style={{flexDirection: 'row', marginTop: 5, width: widthScreen}}>
-            <ModalSelector style={{width: widthScreen/2-10, marginLeft: 5, borderColor: 'black'}}
+        <View style={styles.container}>
+          <View style={{flexDirection: 'row', marginTop: 5, width: widthScreen,}}>
+            <ModalSelector style={styles.modalSelector}
               data={this.state.categoriesData}
               initValue="search by category..."
               supportedOrientations={['landscape']}
@@ -90,10 +90,13 @@ export default connect(mapStateToProps,{
   fetchProductList,
 })(Products);
 
+const heightScreen=Dimensions.get('window').height;
 const widthScreen=Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    bottom: 0,
     backgroundColor: '#D3D3D3', 
     //justifyContent: 'center',
     alignItems: 'center',
@@ -126,8 +129,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     borderColor: 'gray',
-    textAlign:'center'
+    textAlign:'center',
+    backgroundColor: 'white'
   },
+  modalSelector: {
+    width: widthScreen/2-10, 
+    marginLeft: 5, 
+    borderWidth: 1,
+    borderColor: 'gray', 
+    backgroundColor:'white', 
+    borderRadius: 5
+  }
 });
 
 

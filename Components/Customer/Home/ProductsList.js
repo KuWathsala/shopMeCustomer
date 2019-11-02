@@ -41,7 +41,7 @@ export default class ProductsList extends Component {
                 numColumns={1}//{columns}
                 horizontal={false}
                 data={this.props.data}
-                showsHorizontalScrollIndicator={false} 
+                showsVerticalScrollIndicator={false}
                 renderItem={({item, index}) => {
                     return (
                         <FlatListItem navigation={this.props.navigation}

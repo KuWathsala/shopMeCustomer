@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text,View,StyleSheet,Image,Dimensions,AsyncStorage} from 'react-native';
+import {Text,View,StyleSheet,Image,Dimensions,AsyncStorage, TouchableOpacity} from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import {logout} from '../Redux/Actions/Auth';
 import {connect} from 'react-redux';
@@ -12,10 +12,6 @@ class ProfileHeader extends Component {
           firstName: null,
           lastName: null,
           email: null,
-          //addressLine1:"baddegama",
-          //addressLine2: "baddegama",
-          //city: "galle",
-          //zipCode: "40",
           profileImage: null,
           mobileNumber: null,
     }
@@ -42,29 +38,29 @@ class ProfileHeader extends Component {
   return (
     <View style={styles.container} > 
 
-      <View style={styles.topBar}>
-        <Icon style={{marginRight: 20, marginTop: 10}}  name='md-log-out'  size={40} color='red'
-          onPress={this.onPressSignOut}
-        />
-      </View>
-
       <View style={styles.imageBackground} >
         <Image style={styles.image}
           //source={require('../../../Assets/imageProfile.jpg')}
           source={img} 
         />
         <Text style={styles.text}>{this.state.firstName} {this.state.lastName}</Text>
-        <Text style={{fontSize:20}}
-          onPress={() => this.props.navigation.navigate('Account', this.state)}  
+        <Text style={{fontSize:22, color: 'blue'}}
+          onPress={() => this.props.navigation.navigate('EditProfile', this.state)}  
         >
-          about me
+          edit profile
         </Text>
       </View>
 
-      <Text style={{fontSize:25, color:'black', marginTop: 10}}>
-        x
+      <Text style={{fontSize:25, color:'black', marginTop: 30, marginLeft: 20}}>
+        mobile number:  <Text>{this.state.mobileNumber}</Text> 
+      </Text>
+      <Text style={{fontSize:25, color:'black', marginLeft: 20, marginTop: 10}}>
+        email:  <Text>{this.state.profileImage}</Text>
       </Text>
 
+      <TouchableOpacity  onPress={this.onPressSignOut}>
+        <Text style={{marginLeft: 20, marginTop: 50, fontSize: 20, color: 'red'}} >Sign out</Text>
+      </TouchableOpacity>
     </View>
     );
   }
@@ -85,7 +81,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'gainsboro',
     justifyContent: 'flex-start',
-    height: 50,
     width:widthScreen
   },
   icon: {
@@ -94,21 +89,21 @@ const styles = StyleSheet.create({
     tintColor: 'red'
   },
   image:{
-    width: 110,
-    height: 110,
-    borderRadius: 55,
-    //marginTop: 70
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginTop: '10%'
   },
   imageBackground:{
     alignItems: 'center',
     width: widthScreen,
-    height: 200,
+    //height: 200,
     width:widthScreen,
-    backgroundColor: 'gainsboro'
+    //backgroundColor: 'gainsboro'
   },
   text:{
-    fontSize: 22,
+    fontSize: 26,
     color: 'black',
-    marginTop: 20,
+    marginTop: 4,
   },
 });

@@ -7,6 +7,7 @@ import Button from 'react-native-button';
 
 
 const FlatListItem = (props) => {
+    //var color=(props.item.orderStatus==="confirm order recieved") ? '#7dd19b' : '#6AFA82'
     return(
         //<TouchableOpacity   
             //onPress={() => props.navigation.navigate(Products, props.item)}    
@@ -30,12 +31,12 @@ const FlatListItem = (props) => {
                 }}
             />
             <Text style={styles.textDes}>Total LKR: <Text style={{color:'red'}}>{props.item.totalPrice}</Text></Text>
-            <Button style={styles.buttonTrack} //disabled={true}
+            <Button style={styles.buttonTrack} 
                 onPress={() => props.navigation.navigate(Track,props.item)} 
             >
                 track the order
             </Button>
-            <Button style={styles.buttonConfirm} //disabled={true}
+            <Button style={styles.buttonConfirm} disabled={(props.item.orderStatus==="confirm order recieved") ? true : false }
                 onPress={() => props.navigation.navigate(Rate,props.item)} 
             >
                 confirm order received
@@ -132,8 +133,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonConfirm: {
-        alignSelf:'center',
-        //justifyContent:'flex-end',        
+        alignSelf:'center',     
         width: widthScreen-40,
         height: 30,
         fontSize: 17,

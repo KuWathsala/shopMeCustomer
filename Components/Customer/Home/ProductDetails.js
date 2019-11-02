@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import {ProductDetailData} from './Data';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {BuyIt} from '../../Menu/screenNames'; 
 import Button from 'react-native-button';
 import { Dropdown } from 'react-native-material-dropdown';
 import {connect} from 'react-redux';
@@ -65,7 +64,7 @@ class ProductDetails extends Component {
 
     buyIt=()=>{
         this.addToCart();
-        //this.props.navigation.navigate('CartItems');
+        this.props.navigation.navigate('CartItems');
     }
 
     render () {
@@ -185,7 +184,7 @@ const styles = StyleSheet.create({
         padding: 10,
         margin:8,
         height:40,
-        backgroundColor: '#593196',
+        backgroundColor: 'black',
         fontSize: 18,
         color: 'white'
     },
@@ -193,8 +192,8 @@ const styles = StyleSheet.create({
         //flexDirection:'row',
         marginTop: 20,
         backgroundColor: 'white',
-        borderWidth: 2,
-        borderColor: '#593196'
+        //borderWidth: 2,
+        //borderColor: '#593196'
     },
     dropdown:{
         marginTop: 10,

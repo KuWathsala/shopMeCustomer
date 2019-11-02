@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text,View,StyleSheet,TextInput,Image,TouchableOpacity,Alert,ScrollView,KeyboardAvoidingView} from 'react-native';
+import {Text,View,StyleSheet,TextInput,Image,TouchableOpacity,ActivityIndicator,ScrollView,KeyboardAvoidingView} from 'react-native';
 import {connect} from 'react-redux';
 import {Field,reduxForm,getFormValues,formValueSelector} from 'redux-form';
 //import submit from './submit';
@@ -25,15 +25,17 @@ const passwordMatch=(value,allValues)=> value!==allValues.Password ? 'Passwords 
 
 class RegisterForm extends Component{
     constructor(props) {
-        super(props);
+    super(props);
         this.state = {
             signIn: false,
             loading: false,
         }
-      }
+    }
+
+    componentDidMount(){
+    }
 
     submit=(values)=> {
-        alert("submitting")
         const authData ={
             LoginVM:{
                 Email: values.Email,
@@ -46,23 +48,19 @@ class RegisterForm extends Component{
             //returnSecureToken: true,
         }
         this.props.auth(authData)
-        //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
-        console.log("values");
-        //alert(authData.LoginVM.Email);
     }
 
 
     render(){
         const {submitting,handleSubmit,onSubmit}=this.props;
         //const vehicles = ["Motor Bicycle", "Three Wheel"];
-        console.log(submitting);
-        if(this.props.auth.isSuccessed) 
+        if(this.props.signUp.isSuccessed) 
             return(<CustomerTab/>);
         else if(this.state.signIn===true)
             return(<SignIn/>);
         else
             return(
-            <ScrollView>
+            <ScrollView >
                 <KeyboardAvoidingView style={styles.container} behavior='height' >
                     <Text style={{alignSelf:'center', fontSize:40,color:"steelblue",paddingTop:'5%',paddingBottom:'5%',fontWeight:'bold'}}>Registeration Form </Text>
                     <Field name="FirstName" placeholder='First Name' component={renderField} 
@@ -74,17 +72,6 @@ class RegisterForm extends Component{
                     <Field name="MobileNumber" keyboardType='numeric' placeholder='Mobile Number' component={renderField} 
                         validate={[required]}
                     />
-                     {/* <Field name="VehicleType" component="select" style={{alignSelf:'center',marginLeft:'relative',height:37,width:200}}>
-                        <option value=""><Text>Select a vehicle...</Text></option>
-                            {vehicles.map(Option => (
-                                <option value={Option} key={Option}>
-                            {Option}
-                        </option>
-                        ))}
-                    </Field> */}
-                    {/*<Field name="VehicleNo" component={renderField} placeholder='Vehicle Number'
-                    validate={[required]}
-                    />*/}
                     <Field name="Email" keyboardType="email-address" placeholder='Email' component={renderField} 
                         validate={[required,isValidEmail]}
                     />
@@ -97,13 +84,16 @@ class RegisterForm extends Component{
                     <TouchableOpacity onPress={handleSubmit(this.submit)} disabled={submitting} style={{margin:5,alignSelf:'stretch'}}>
                             <Text style={{
                                 backgroundColor:'black',color:'white',fontSize:20,
-                                height:45,width:'100%',textAlign:'center',padding:10
+                                height:40,width:'100%',textAlign:'center',padding:10
                             }}>submit</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{this.setState({signIn: true})}} style={{marginTop: 0, position:'relative'}}>
                         <Text style={{fontSize:18,textAlign:'center',padding:5
                         }}>I have already an account. Sign in</Text>
                     </TouchableOpacity>
+                    {
+                        (this.props.signUp.loading) ? <ActivityIndicator color="green" size="large" style={styles.activityIndicator}/>: <View></View>
+                    }
                 </KeyboardAvoidingView>
             </ScrollView>
         );
@@ -112,7 +102,7 @@ class RegisterForm extends Component{
 
 const mapStateToProps=state=>{
     return{
-        auth: state.auth,
+        signUp: state.auth,
     }
   }
 const SignUp=reduxForm({
@@ -123,31 +113,34 @@ export default connect(mapStateToProps,{auth})(SignUp);
 
 const styles=StyleSheet.create({
     container: {
-            backgroundColor:"white",
-            flex: 1,
-            flexDirection: 'column',
-            alignItems: 'stretch',
-            
-      },
-      backgroundImage: {
+        backgroundColor:"white",
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        
+    },
+    backgroundImage: {
         flex:1,
         alignSelf: 'stretch',
         width: null, // or 'stretch'
-      },
-      Input:{
-          backgroundColor:"white",
-          width: '97%',
-          height:40,
-          //borderWidth:1,
-          borderBottomWidth: 1,
-          borderRadius:2,
-          borderColor:'black',
-          shadowColor:'#000',
-          shadowOffset:{width:0,height:2,},
-          shadowOpacity:0.1,
-          elevation:1,
-          marginLeft:5,
-          marginRight:5,
-          marginTop:10,
-      }
+    },
+    Input:{
+        backgroundColor:"white",
+        width: '97%',
+        height:40,
+        //borderWidth:1,
+        borderBottomWidth: 1,
+        borderRadius:2,
+        borderColor:'black',
+        shadowColor:'#000',
+        shadowOffset:{width:0,height:2,},
+        shadowOpacity:0.1,
+        elevation:1,
+        marginLeft:5,
+        marginRight:5,
+        marginTop:10,
+    },
+    activityIndicator: {
+        //position: 'absolute'
+    }
 });

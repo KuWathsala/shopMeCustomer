@@ -35,13 +35,11 @@ export const auth=(authData)=>{
     console.log(authData)
     return dispatch=>{
         dispatch(authStart());
-        alert(authData.LoginVM.Email);
         let url='';
         console.log(authData.role);
         url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Customer';
         axios.post(url,authData)
         .then(response=>{
-            alert("res"+response);
             dispatch(authSuccess(response.data.token,response.data.id,'Customer'));
             //Actions.login();
             AsyncStorage.setItem("userId",response.data.id+"");

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    Text, View, StyleSheet, Image, ScrollView, Dimensions, FlatList, Platform, TouchableOpacity, Alert, 
+    Text, View, StyleSheet, Image, ScrollView, Dimensions, FlatList, Platform, TouchableOpacity, Alert, ActivityIndicator
 } from 'react-native';
 import {Data} from '../Home/Data';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -51,6 +51,7 @@ class CartItems extends Component {
         super(props);
         this.state={
             total: 0,
+            loading: false
         },
         this.removeItem = this.removeItem.bind(this);
     }
@@ -60,7 +61,7 @@ class CartItems extends Component {
     }
 
     click=()=> {
-        
+        this.setState({loading: true})
         console.log("this.props")
         //create order
         let itemList= [];
@@ -87,13 +88,13 @@ class CartItems extends Component {
 
         axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
         .then(response=>{
-            console.log("response")
-            console.log(response)
             this.props.navigation.navigate(Payment, response.data)
+            this.setState({loading: false})
         }) 
         .catch (error=>{
-            console.log("error")
-			console.log(error);
+            console.log(error);
+            this.setState({loading: false})
+            Alert.alert("payment is failed")
         })
         
     }
@@ -106,7 +107,9 @@ class CartItems extends Component {
     }
 
     render () {
-    if(this.props.cart.arr.length!=0)
+    if(this.state.loading)
+        return (<ActivityIndicator color="green" size="large" style={styles.activityIndicatorStyle}/>);
+    else if(this.props.cart.arr.length!=0)
         return (
             <View style={styles.container}>
 
@@ -140,11 +143,12 @@ class CartItems extends Component {
             </View>
         );
     else
-        return( <View style={{flex: 1,flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
+        return( 
+            <View style={{flex: 1,flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
                 <Icon style={styles.icon} name="md-cart" size={80} color="gray" />
                 <Text>Currently there are no items in your cart</Text>
-        </View> 
-    );
+            </View> 
+        );
   }
 }
 
@@ -204,5 +208,10 @@ const styles = StyleSheet.create({
         paddingLeft:10,
         color: 'white',
         marginBottom: 0
+    },
+    activityIndicatorStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
   });

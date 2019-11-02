@@ -87,7 +87,7 @@ class ContactForm extends Component{
                         <TouchableOpacity disabled={submitting} onPress={handleSubmit(this.submit)} style={{margin:5,alignSelf:'stretch', height: 65}}>{/* onPress={handleSubmit(submit)} */}
                             <Text style={{
                                 backgroundColor:'black',color:'white',fontSize:20,
-                                height:37,width:'100%',textAlign:'center',padding:5
+                                height:40,width:'100%',textAlign:'center',padding:5
                             }}>Log In</Text>
                         </TouchableOpacity>
 

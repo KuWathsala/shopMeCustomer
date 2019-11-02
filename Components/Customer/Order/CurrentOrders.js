@@ -46,7 +46,7 @@ class CurrentOrders extends Component {
                       <Icon style={styles.icon} name="md-refresh" size={70} color="gray" />
                     </View>;
         
-        let empty=<View  style={{flex: 1,flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
+        let empty=<View  style={{flex: 1,flexDirection:'column', justifyContent: 'center', alignItems:'center', marginTop: 40}}>
                     <Icon style={styles.icon} name="md-clipboard" size={80} color="gray" />
                     <Text>Currently there are no orders</Text>
                   </View>;
