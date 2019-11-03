@@ -22,6 +22,7 @@ class Payment extends Component{
         .then(response=>{
             //alert(response.data.accountNo)
             this.setState({accountNo: response.data.accountNo})
+            console.log("merchantId  "+response.data.accountNo)
         }) 
         .catch (error=>{
             console.log(error);
@@ -38,14 +39,14 @@ class Payment extends Component{
     
     onNavigationStateChange (webViewState) {
         console.log(webViewState.url)
-        if(webViewState.url===`https://www.google.lk/?order_id=${this.state.order_id}`){
+        if(webViewState.url===`return/?order_id=${this.state.order_id}`){
             this.props.navigation.navigate('CartItems')
             this.props.deleteCart();
         }
     }
 
     render(){
-        const url = `https://sandbox.payhere.lk/pay/checkout?merchant_id=${this.state.accountNo}&return_url=https://www.google.lk&cancel_url=https://www.bing.lk&order_id=${this.state.order_id}&items=x&currency=LKR&amount=${this.props.cart.total}&first_name=kumuthu&last_name=wathsala&email=wathdanthasinghe@gmail.com&phone=0715325124&address=Galle&city=Galle&country=SriLanka&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/payments/update`
+        const url = `https://sandbox.payhere.lk/pay/checkout?merchant_id=${this.state.accountNo}&return_url=return&cancel_url=cancel&order_id=${this.state.order_id}&items=x&currency=LKR&amount=${this.props.cart.total}&first_name=kumuthu&last_name=wathsala&email=wathdanthasinghe@gmail.com&phone=0715325124&address=Galle&city=Galle&country=SriLanka&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/orders/update-payment`
         return(
         <View
             style={this.state.loading === true ? styles.stylOld : styles.styleNew}>

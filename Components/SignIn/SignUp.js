@@ -81,7 +81,7 @@ class RegisterForm extends Component{
                     <Field name="ConfirmPassword" keyboardType='default' placeholder='Confirm Password' secureTextEntry={true} component={renderField}
                         validate={[required,passwordMatch]} 
                     />
-                    <TouchableOpacity onPress={handleSubmit(this.submit)} disabled={submitting} style={{margin:5,alignSelf:'stretch'}}>
+                    <TouchableOpacity onPress={handleSubmit(this.submit)} disabled={this.props.auth.loading} style={{margin:5,alignSelf:'stretch'}}>
                             <Text style={{
                                 backgroundColor:'black',color:'white',fontSize:20,
                                 height:40,width:'100%',textAlign:'center',padding:10
@@ -92,7 +92,7 @@ class RegisterForm extends Component{
                         }}>I have already an account. Sign in</Text>
                     </TouchableOpacity>
                     {
-                        (this.props.signUp.loading) ? <ActivityIndicator color="green" size="large" style={styles.activityIndicator}/>: <View></View>
+                        (this.props.signUp.loading) ? <ActivityIndicator color="black" size="large" style={styles.activityIndicator}/>: <View></View>
                     }
                 </KeyboardAvoidingView>
             </ScrollView>

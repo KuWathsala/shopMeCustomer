@@ -50,7 +50,7 @@ class ContactForm extends Component{
 
     submit=(values)=> {
         this.props.authVerify(values.Email,values.Password)
-        window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+        //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
         console.log(values);
     }
 
@@ -75,7 +75,6 @@ class ContactForm extends Component{
                     </Text>
                     
                     
-                    {/*{(this.props.auth.isSuccessed===true) ? <ActivityIndicator   /> : */}
                     <View>
                         <Text style={{fontSize:25,color:"black",paddingTop:'0%',paddingBottom:'15%'}}></Text>
                         <Field name="Email" keyboardType="email-address" placeholder='Email' component={renderField} 
@@ -84,7 +83,7 @@ class ContactForm extends Component{
                         <Field name="Password" keyboardType='default' placeholder='Password' secureTextEntry={true} component={renderField}
                             validate={[required]} 
                         />
-                        <TouchableOpacity disabled={submitting} onPress={handleSubmit(this.submit)} style={{margin:5,alignSelf:'stretch', height: 65}}>{/* onPress={handleSubmit(submit)} */}
+                        <TouchableOpacity disabled={this.props.auth.loading} onPress={handleSubmit(this.submit)} style={{margin:5,alignSelf:'stretch', height: 65}}>{/* onPress={handleSubmit(submit)} */}
                             <Text style={{
                                 backgroundColor:'black',color:'white',fontSize:20,
                                 height:40,width:'100%',textAlign:'center',padding:5
@@ -95,6 +94,9 @@ class ContactForm extends Component{
                             <Text style={{fontSize:18,textAlign:'center',padding:5
                             }}>new to shopMe ? create an account</Text>
                         </TouchableOpacity>
+                        {
+                            (this.props.auth.loading) ? <ActivityIndicator color="black" size="large" style={styles.activityIndicator}/>: <View></View>
+                        }
                     </View>
                 </View>
             </KeyboardAvoidingView>

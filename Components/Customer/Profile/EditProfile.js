@@ -21,39 +21,47 @@ class Edit extends Component {
   }
 
   componentDidMount(){
-    console.log("id=====>"+parseInt(this.props.navigation.getParam('id', '0')),)
     this.setState({
       user:{
-        id: this.props.navigation.getParam('id', '-'),
+        id: this.props.navigation.getParam('id', 0),
         firstName:this.props.navigation.getParam('firstName', '-'),
         lastName:this.props.navigation.getParam('lastName', '-'),
         profileImage: this.props.navigation.getParam('profileImage'),
         mobileNumber: this.props.navigation.getParam('mobileNumber', '-')
       }
     })
-    alert(this.state.user.id)
   }
 
   submit=(values)=> {
     
     let customerData ={
-      id: parseInt(this.state.id),
+      id: parseInt(this.state.user.id),
       firstName: values.firstName,
       lastName: values.lastName,
       mobileNumber: values.mobileNumber
     }
 
-    alert(customerData.id)
+    console.log(customerData)
+    console.log(this.state.user)
+
     window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
 
     if(customerData.firstName!=null || customerData.lastName!=null || customerData.mobileNumber!=null)
-      axios.post('https://backend-webapi20191102020215.azurewebsites.net/api/userauth/Update-customer', customerData) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
+      axios.post('https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/Update-Customer', customerData) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
         .then(response=>{
-            this.props.navigation.navigate('ProfileHeader', response.data)
+          console.log(response)
+          AsyncStorage.removeItem("firstName");
+          AsyncStorage.removeItem("lastName");
+          AsyncStorage.removeItem("mobileNumber");
+          AsyncStorage.setItem("firstName", response.data.firstName);
+          AsyncStorage.setItem("lastName", response.data.lastName);
+          AsyncStorage.setItem("mobileNumber", response.data.mobileNumber);
+          this.props.navigation.navigate('ProfileHeader')
         }) 
         .catch (error=>{
           Alert.alert("update failed")
-          this.props.navigation.navigate('ProfileHeader', response.data)
+          console.log(error)
+          this.props.navigation.navigate('ProfileHeader')
       })
   }
 

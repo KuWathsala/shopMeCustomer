@@ -91,9 +91,9 @@ export const authVerify=(email,password)=>{
         let url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/signin';
         axios.post(url,authVerifyData)
         .then(response=>{
-           console.log("response");
-           console.log(response.data.data.id);
-           const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
+            console.log("response");
+            console.log(response.data);
+            const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
             if(response.data.role==='Customer'){
                 (dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role)));
                 
@@ -114,7 +114,7 @@ export const authVerify=(email,password)=>{
             // dispatch(authSuccess(response.data.token,response.data.id));
         })
         .catch(err=>{
-            console.log("error");
+            window.alert(err.message==="Network Error" ? "no network" : "email or password incorrect" )
             console.log(err);
             dispatch(authFail(err));
         });
