@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import {Field,reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import ImagePicker from 'react-native-image-picker';
 
 class Edit extends Component {
 
@@ -17,6 +18,7 @@ class Edit extends Component {
           profileImage: null,
           mobileNumber: null
         },
+        imgurl: null
     }
   }
 
@@ -32,13 +34,55 @@ class Edit extends Component {
     })
   }
 
+  chooseFile = () => {
+    let options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    ImagePicker.showImagePicker(options, response => {
+      console.log('Response = ', response);
+ 
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        const formData = new FormData();
+        formData.append("file",{uri:response.uri,type:response.type,name:response.fileName});
+        formData.append('api_key', 'N0iPhJFusPjArpBfPbui9j8MkEs');
+        formData.append("upload_preset", 'm0uhbhzz');
+        axios.post('https://api.cloudinary.com/v1_1/dubnsitvx/image/upload',formData,{
+        onUploadProgress: ProgressEvent=>{
+        console.log('Upload Progress:'+Math.round(ProgressEvent.loaded / ProgressEvent.total*100 )+'%')
+    }
+    })
+    .then(res=>{
+        console.log(res)
+        console.log(res.data.url);
+        this.setState({imgurl: res.data.url})
+    })
+    .catch(err=>{
+        console.log(err)
+    });
+          }
+    })    
+  };
+
   submit=(values)=> {
     
     let customerData ={
       id: parseInt(this.state.user.id),
       firstName: values.firstName,
       lastName: values.lastName,
-      mobileNumber: values.mobileNumber
+      mobileNumber: values.mobileNumber,
+      profileImage: values.imgurl
     }
 
     console.log(customerData)
@@ -71,12 +115,15 @@ class Edit extends Component {
     let img= (this.state.user.profileImage===null) ? require('../../../Assets/imageProfile.jpg') : {uri: this.state.profileImage};
     return (
         <View style={styles.container} >
-
         <View style={styles.imageBackground} >
           <Image style={styles.image}
             source={img} 
           />
         </View>
+
+        <TouchableOpacity onPress={this.chooseFile.bind(this)}>
+          <Text>tap to change image</Text>
+        </TouchableOpacity>
 
         <Text style={styles.text}>first name</Text>
         <Field name="firstName" keyboardType="default" placeholder={this.state.user.firstName} component={renderField} />

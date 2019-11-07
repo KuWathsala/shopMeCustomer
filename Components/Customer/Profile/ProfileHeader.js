@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import {logout} from '../Redux/Actions/Auth';
 import {connect} from 'react-redux';
 import SignIn from '../../SignIn/SignIn';
+import Axios from 'axios';
 
 class ProfileHeader extends Component {
   constructor(props){
@@ -19,7 +20,22 @@ class ProfileHeader extends Component {
   }
 
   componentDidMount(){
-    AsyncStorage.getItem("userId").then(x=>this.setState({id: x})).done(),
+
+    AsyncStorage.getItem("userId").then(x=>this.setState({id: x})).done()
+    Axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/customers/${this.state.id}`)//${this.state.id}
+    .then(response=>{
+      console.log(response)
+      this.setState({
+        firstName: response.firstName,
+        lastName: response.lastName,
+        profileImage: response.profileImage,
+        mobileNumber: response.mobileNumber
+      })
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+
     AsyncStorage.getItem("firstName").then(x=>this.setState({firstName: x})).done();
     AsyncStorage.getItem("lastName").then(x=>this.setState({lastName: x})).done();
     AsyncStorage.getItem("email").then(x=>this.setState({email: x})).done();
@@ -27,9 +43,8 @@ class ProfileHeader extends Component {
     AsyncStorage.getItem("mobileNumber").then(x=>this.setState({mobileNumber: x})).done();
   }
 
-  onPressSignOut=()=>{// is Successed==true
-    //alert("signOut");
-    this.props.logout();  //now isSuccessed if false
+  onPressSignOut=()=>{
+    this.props.logout(); 
   }
   
   render () {
@@ -39,9 +54,9 @@ class ProfileHeader extends Component {
   else
   return (
     <View style={styles.container} > 
-
+      
       <View style={styles.imageBackground} >
-        <Image style={styles.image}
+        <Image style={styles.image} 
           //source={require('../../../Assets/imageProfile.jpg')}
           source={img} 
         />

@@ -7,7 +7,8 @@ const initialState={
     error:null,
     loading:false,
     userType:null,
-    isSuccessed: false //update
+    isSuccessed: false, //update
+    isVerified: true
 }
 const authstart =(state,action)=>{
     return updateObject(state,{error:null,loading:true, isSuccessed: false})
@@ -21,6 +22,10 @@ const authSuccess=(state,action)=>{
         loading:false,
         isSuccessed: true   //update
     })
+}
+
+const notVerified=(state,action)=>{
+    return updateObject(state,{loading:false, isSuccessed: false, isVerified: false })
 }
 
 const authfail=(state,action)=>{
@@ -37,6 +42,7 @@ const reducer =( state=initialState,action)=>{
         case actionTypes.AUTH_SUCCESS:return authSuccess(state,action)
         case actionTypes.AUTH_FAIL:return authfail(state,action)
         case actionTypes.AUTH_LOGOUT:return authLogout(state,action)
+        case actionTypes.NOT_VERIFIED:return notVerified(state,action)
         default:
             return state;
     }

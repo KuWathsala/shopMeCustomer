@@ -7,6 +7,8 @@ import {Field,reduxForm} from 'redux-form';
 import {authVerify, authCheckState} from '../Customer/Redux/Actions/Auth';
 import CustomerTab from '../Customer/Tab/Tab';
 import SignUp from './SignUp';
+import ForgetPassword from './ForgetPassword';
+import EnterCode from './EnterCode';
 
 const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,error,warning},input:{onChange, ...restInput}})=>{
     return(<View style={{flexDirection:'column',height:70,alignItems:'flex-start'}}>
@@ -20,32 +22,19 @@ const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,erro
 }
 const required=value=> value ? undefined:'Required';
 const isValidEmail=value=> value && !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(value) ? 'Invalid email address':undefined;
-
+const passwordMatch=(value,allValues)=> value!==allValues.Password ? 'Passwords do not Match':undefined;
 
 class ContactForm extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            signUp: false
+            signUp: false,
+            forgetPassword: false,
         }
     }
 
     componentDidMount(){
         this.props.authCheckState()
-        //alert(this.props.auth.loading)
-    }
-
-    handleRegister=()=>{
-        Alert.alert(
-            'Register ? ',
-            'For register pls visit our site, Press OK',
-            [
-              {text: 'Ask me later', onPress: () => console.log('Ask me later Pressed'),},
-              {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style:'cancel'},
-              {text: 'OK', onPress: () => { Linking.openURL('https://www.google.com')}},
-            ],
-            { cancelable: false }
-          )
     }
 
     submit=(values)=> {
@@ -56,13 +45,18 @@ class ContactForm extends Component{
 
     render(){
         const {submitting,handleSubmit,onSubmit}=this.props;
-        if(this.props.auth.isSuccessed ){
+        if(this.props.auth.isSuccessed){
             console.log("this.props.auth.isSuccessed"+this.props.auth.isSuccessed)
-            return(<CustomerTab/>);
+            return(<CustomerTab />);
+        }
+        else if(!this.props.auth.isVerified){
+            console.log("this.props.auth.isVerified "+this.props.auth.isVerified)
+            return(<EnterCode />);
         } 
         else if(this.state.signUp===true)
-            return(<SignUp/>);
-        else
+            return(<EnterCode />);
+        else if(this.state.forgetPassword===true)
+            return(<ForgetPassword />);
         return(
             <KeyboardAvoidingView style={styles.container} behavior='position'>
                 <View style={{alignItems:"center"}}>
@@ -94,6 +88,11 @@ class ContactForm extends Component{
                             <Text style={{fontSize:18,textAlign:'center',padding:5
                             }}>new to shopMe ? create an account</Text>
                         </TouchableOpacity>
+
+                        <TouchableOpacity onPress={()=>{this.setState({forgetPassword: true})}} style={{}}>
+                            <Text style={{fontSize:18,textAlign:'center',padding:5, color: 'red'
+                            }}>forget password</Text>
+                        </TouchableOpacity>
                         {
                             (this.props.auth.loading) ? <ActivityIndicator color="black" size="large" style={styles.activityIndicator}/>: <View></View>
                         }
@@ -108,8 +107,6 @@ const SignIn=reduxForm({
 })(ContactForm)
 
 const mapStateToProps=state=>{
-    console.log("state")
-    console.log(state)
     return {
       auth: state.auth,
     };

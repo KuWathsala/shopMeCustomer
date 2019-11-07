@@ -31,6 +31,12 @@ export const authFail=(error)=>{
     };
 };
 
+export const notVerified=()=>{
+    return{
+        type:ActionTypes.NOT_VERIFIED,
+    };
+};
+
 export const auth=(authData)=>{
     console.log(authData)
     return dispatch=>{
@@ -94,7 +100,10 @@ export const authVerify=(email,password)=>{
             console.log("response");
             console.log(response.data);
             const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
-            if(response.data.role==='Customer'){
+
+            if(response.data===false)
+                dispatch((notVerified()));
+            else if(response.data.role==='Customer'){
                 (dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role)));
                 
                 AsyncStorage.setItem("userId",response.data.data.id+"");

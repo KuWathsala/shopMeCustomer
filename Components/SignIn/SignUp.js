@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Field,reduxForm,getFormValues,formValueSelector} from 'redux-form';
 //import submit from './submit';
 import {auth} from '../Customer/Redux/Actions/Auth';
-import CustomerTab from '../Customer/Tab/Tab'
+import EnterCode from './EnterCode'
 import SignIn from './SignIn';
 
 const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,error,warning},input:{onChange, ...restInput}})=>{
@@ -55,9 +55,13 @@ class RegisterForm extends Component{
         const {submitting,handleSubmit,onSubmit}=this.props;
         //const vehicles = ["Motor Bicycle", "Three Wheel"];
         if(this.props.signUp.isSuccessed) 
-            return(<CustomerTab/>);
-        else if(this.state.signIn===true)
-            return(<SignIn/>);
+            return(<EnterCode />);
+        else
+        if(this.state.signIn) 
+            return(<SignIn />);
+        else if(this.state.signIn===true){
+            return(<SignIn/>, console.log("this.state.signIn  "+this.state.signIn));
+        }
         else
             return(
             <ScrollView >
