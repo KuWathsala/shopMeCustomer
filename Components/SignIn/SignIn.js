@@ -34,6 +34,7 @@ class ContactForm extends Component{
     }
 
     componentDidMount(){
+        console.log("ooooooooooohhhhhhhh")
         this.props.authCheckState()
     }
 
@@ -49,12 +50,12 @@ class ContactForm extends Component{
             console.log("this.props.auth.isSuccessed"+this.props.auth.isSuccessed)
             return(<CustomerTab />);
         }
-        else if(!this.props.auth.isVerified){
+        else if(!this.props.auth.isVerified  && !this.props.auth.codeCorrected){
             console.log("this.props.auth.isVerified "+this.props.auth.isVerified)
             return(<EnterCode />);
         } 
         else if(this.state.signUp===true)
-            return(<EnterCode />);
+            return(<SignUp />);
         else if(this.state.forgetPassword===true)
             return(<ForgetPassword />);
         return(
@@ -83,6 +84,7 @@ class ContactForm extends Component{
                                 height:40,width:'100%',textAlign:'center',padding:5
                             }}>Log In</Text>
                         </TouchableOpacity>
+                        <Text style={{fontSize:16,textAlign:'center',padding:5, color: 'red'}}>{this.props.auth.error}</Text>
 
                         <TouchableOpacity onPress={()=>{this.setState({signUp: true})}} style={{}}>
                             <Text style={{fontSize:18,textAlign:'center',padding:5
@@ -90,12 +92,13 @@ class ContactForm extends Component{
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={()=>{this.setState({forgetPassword: true})}} style={{}}>
-                            <Text style={{fontSize:18,textAlign:'center',padding:5, color: 'red'
+                            <Text style={{fontSize:18,textAlign:'center',padding:5, color: 'green'
                             }}>forget password</Text>
                         </TouchableOpacity>
                         {
                             (this.props.auth.loading) ? <ActivityIndicator color="black" size="large" style={styles.activityIndicator}/>: <View></View>
                         }
+                        
                     </View>
                 </View>
             </KeyboardAvoidingView>

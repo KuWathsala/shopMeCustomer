@@ -37,7 +37,21 @@ export const notVerified=()=>{
     };
 };
 
+export const correctCode=()=>{
+    return{
+        type:ActionTypes.CORRECT_CODE,
+    };
+};
+
+export const enterCodeIsCorrected=()=>{
+    console.log("enterCodeIsCorrected")
+    return dispatch=>{
+        dispatch(correctCode());
+    }
+}
+
 export const auth=(authData)=>{
+    console.log("now in auth")
     console.log(authData)
     return dispatch=>{
         dispatch(authStart());
@@ -46,22 +60,25 @@ export const auth=(authData)=>{
         url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/Signup-Customer';
         axios.post(url,authData)
         .then(response=>{
-            dispatch(authSuccess(response.data.token,response.data.id,'Customer'));
-            //Actions.login();
-            AsyncStorage.setItem("userId",response.data.id+"");
-            AsyncStorage.setItem("token",response.data.token);
-            //AsyncStorage.setItem("expirationDate",expirationDate);
-            AsyncStorage.setItem("role",response.data.role);
-            AsyncStorage.setItem("firstName", response.data.firstName);
-            AsyncStorage.setItem("lastName", response.data.lastName);
-            AsyncStorage.setItem("email", authData.LoginVM.Email);
-            AsyncStorage.setItem("mobileNumber", response.data.mobileNumber);
-            AsyncStorage.setItem("profileImage", response.data.profileImage);
+            if(response.data.id==0)
+                dispatch((notVerified()));
+            else{
+                dispatch(authSuccess(response.data.token,response.data.id,'Customer'));
+                //Actions.login();
+                AsyncStorage.setItem("userId",response.data.id+"");
+                AsyncStorage.setItem("token",response.data.token);
+                //AsyncStorage.setItem("expirationDate",expirationDate);
+                AsyncStorage.setItem("role",response.data.role);
+                AsyncStorage.setItem("firstName", response.data.firstName);
+                AsyncStorage.setItem("lastName", response.data.lastName);
+                AsyncStorage.setItem("email", authData.LoginVM.Email);
+                AsyncStorage.setItem("mobileNumber", response.data.mobileNumber);
+                AsyncStorage.setItem("profileImage", response.data.profileImage);
 
-            dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
+                dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
+            }
         })
         .catch(err=>{ 
-            alert("err"+err);
             dispatch(authFail(err));
         });
     }
@@ -101,7 +118,11 @@ export const authVerify=(email,password)=>{
             console.log(response.data);
             const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
 
-            if(response.data===false)
+            if(typeof response.data === 'string')
+                dispatch(authFail(response.data));
+            else if(response.data===false)
+                dispatch((notVerified()));
+            else if(response.data.data.id==0)
                 dispatch((notVerified()));
             else if(response.data.role==='Customer'){
                 (dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role)));
@@ -123,9 +144,9 @@ export const authVerify=(email,password)=>{
             // dispatch(authSuccess(response.data.token,response.data.id));
         })
         .catch(err=>{
-            window.alert(err.message==="Network Error" ? "no network" : "email or password incorrect" )
+            //window.alert(err.message==="Network Error" ? "no network" : "email or password incorrect" )
             console.log(err);
-            dispatch(authFail(err));
+            dispatch(authFail(err.message));
         });
     };
 };

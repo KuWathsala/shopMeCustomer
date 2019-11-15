@@ -45,7 +45,6 @@ class RegisterForm extends Component{
             FirstName:values.FirstName,
             LastName:values.LastName,
             MobileNumber:values.MobileNumber,
-            //returnSecureToken: true,
         }
         this.props.auth(authData)
     }

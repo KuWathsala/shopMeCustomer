@@ -32,7 +32,7 @@ class ForgetPasswordForm extends Component{
             loading: false,
             sendEmail: false,
             codeSubmit: false,
-            submitNewPassword: false,
+            submitNewPassword: null,
             email: '',
             text: '',
         }
@@ -47,11 +47,11 @@ class ForgetPasswordForm extends Component{
         axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${values.email}`)
         .then(response=>{
             this.setState({sendEmail: response.data})
-            this.setState({loading: false,  text: (!response.data) ? "your email is not responsed..." : ""});
+            this.setState({loading: false,  text: (!response.data) ? "email is not valid. ": ""});
         })
         .catch(error=>{
             alert(error);
-            this.setState({loading: false, text: error});
+            this.setState({loading: false, text: error.message});
         })
     }
 
@@ -66,7 +66,7 @@ class ForgetPasswordForm extends Component{
         })
         .catch(error=>{
             console.log(error);
-            this.setState({loading: false, text: "your code is invalid"});
+            this.setState({loading: false, text: error.message});
         })
     }
 
@@ -82,11 +82,11 @@ class ForgetPasswordForm extends Component{
         .then(response=>{
             console.log(response)
             this.setState({submitNewPassword: response.data})
-            this.setState({loading: false, text: !response.data ? "something went wrong...try again" : ""});
+            this.setState({loading: false, text: response.data==null ? "something went wrong...try again" : ""});
         })
         .catch(error=>{
             console.log(error);
-            this.setState({loading: false, text: "something went wrong...try again"});
+            this.setState({loading: false, text: error.message});
         })
     }
 
@@ -115,7 +115,7 @@ class ForgetPasswordForm extends Component{
                                         <Text style={styles.submit}>Next</Text>
                                     </TouchableOpacity>
                                 </View>
-        if(this.state.submitNewPassword)
+        if(this.state.submitNewPassword !=null)
             return (<SignIn />);
         else return(
             <KeyboardAvoidingView style={styles.container} behavior='position'>
@@ -133,7 +133,9 @@ class ForgetPasswordForm extends Component{
         
                     {<Text style={{ fontSize: 18, color: 'red', alignSelf:'center'}}>{this.state.text}</Text>}
 
-                    <Text style={{ fontSize: 16, color: 'black', alignSelf:'center'}} >go back to Signin</Text>
+                    <Text style={{ fontSize: 16, color: 'black', alignSelf:'center'}} onPress={()=>this.setState({submitNewPassword: ''})} >
+                        go back to Signin
+                    </Text>
 
                     {/*<TouchableOpacity onPress={()=>{this.setState({signUp: true})}} style={{}}>
                         <Text style={{fontSize:18,textAlign:'center',padding:5

@@ -4,9 +4,9 @@ import {connect} from 'react-redux';
 import * as actions from '../Customer/Redux/Actions/index';
 import {Field,reduxForm} from 'redux-form';
 //import submit from './submit';
-import {authVerify, authCheckState} from '../Customer/Redux/Actions/Auth';
+import {authVerify, authCheckState, enterCodeIsCorrected} from '../Customer/Redux/Actions/Auth';
 import CustomerTab from '../Customer/Tab/Tab';
-import SignUp from './SignUp';
+import SignIn from './SignIn';
 import axios from 'axios';
 
 const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,error,warning},input:{onChange, ...restInput}})=>{
@@ -43,7 +43,7 @@ class EnterCodeForm extends Component{
         .then(response=>{
             console.log(response)
             this.setState({isValidCode: response.data})
-            this.setState({loading: false, text: !isValidCode ? "your code is invalid" : ""});
+            this.setState({loading: false, text: !response.data ? "your code is invalid" : ""});
         })
         .catch(error=>{
             this.setState({loading: false, text: "something went wrong...try again"});
@@ -54,7 +54,8 @@ class EnterCodeForm extends Component{
         const {submitting,handleSubmit,onSubmit}=this.props;
         if(this.state.isValidCode===true ){
             console.log("this.state.isValidEmail  "+this.state.isValidCode)
-            return(<CustomerTab />);
+            this.props.enterCodeIsCorrected();
+            return(<SignIn />);
         } 
         else return(
             <KeyboardAvoidingView style={styles.container} behavior='position'>
@@ -101,7 +102,7 @@ const mapStateToProps=state=>{
 }
 
 export default connect(mapStateToProps,{
-    authVerify, authCheckState
+    authVerify, authCheckState, enterCodeIsCorrected
   })(EnterCode);
 
 
