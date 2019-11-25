@@ -76,6 +76,12 @@ export const auth=(authData)=>{
                 AsyncStorage.setItem("profileImage", response.data.profileImage);
 
                 dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
+                axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${authData.LoginVM.Email}`)
+                .then(response=>{
+                })
+                .catch(error=>{
+                    alert(error);
+                })
             }
         })
         .catch(err=>{ 
