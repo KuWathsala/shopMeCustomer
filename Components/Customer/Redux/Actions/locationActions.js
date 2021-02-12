@@ -30,7 +30,6 @@ export const fetchCustomerLocation=(latitude, longitude, address)=>{
     return dispatch=>{
         dispatch(locationRequest());
         dispatch(locationSuccess(source));
-        //dispatch(locationFailure(error));
     }
 }
 

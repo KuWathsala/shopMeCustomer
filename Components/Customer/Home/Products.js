@@ -11,6 +11,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import ModalSelector from 'react-native-modal-selector';
 import axios from 'axios';
 const KEYS_TO_FILTERS = ['name', 'description', 'shortDescription','category'];
+import baseURL from '../../Base';
 
 class Products extends Component {
   static navigationOptions = { title: "products" };
@@ -26,7 +27,7 @@ class Products extends Component {
 
   componentDidMount(){
       this.props.fetchProductList(this.props.navigation.getParam('id', '-'),);
-      axios.get('https://backend-webapi20191102020215.azurewebsites.net/api/categories')//http://192.168.43.15:5001/api
+      axios.get(`${baseURL}/api/categories`)//http://192.168.43.15:5001/api
       .then(response=>{
         this.setState({ categoriesData: response.data})//[...this.state.categoriesData, response.data]
         console.log(response.data)

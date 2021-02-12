@@ -5,6 +5,7 @@ import {Field,reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
+import { baseURL } from '../../Base';
 
 class Edit extends Component {
 
@@ -91,7 +92,7 @@ class Edit extends Component {
     window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
 
     if(customerData.firstName!=null || customerData.lastName!=null || customerData.mobileNumber!=null)
-      axios.post('https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/Update-Customer', customerData) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
+      axios.post(`${baseURL}/api/UserAuth/Update-Customer`, customerData) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
         .then(response=>{
           console.log(response)
           AsyncStorage.removeItem("firstName");

@@ -5,6 +5,7 @@ import {logout} from '../Redux/Actions/Auth';
 import {connect} from 'react-redux';
 import SignIn from '../../SignIn/SignIn';
 import Axios from 'axios';
+import { baseURL } from '../../Base';
 
 class ProfileHeader extends Component {
   constructor(props){
@@ -22,7 +23,7 @@ class ProfileHeader extends Component {
   componentDidMount(){
 
     AsyncStorage.getItem("userId").then(x=>this.setState({id: x})).done()
-    Axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/customers/${this.state.id}`)//${this.state.id}
+    Axios.post(`${baseURL}/api/customers/${this.state.id}`)//${this.state.id}
     .then(response=>{
       console.log(response)
       this.setState({

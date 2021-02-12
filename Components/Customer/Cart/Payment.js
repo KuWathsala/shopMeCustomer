@@ -4,6 +4,8 @@ import {WebView} from 'react-native-webview';
 import {deleteCart} from '../Redux/Actions/cartActions';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import baseURL from '../../Base';
+
 class Payment extends Component{
     
     constructor(props){
@@ -18,7 +20,7 @@ class Payment extends Component{
 
     componentDidMount(){
         //alert(this.state.sellerId)  
-        axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/sellers/${this.state.sellerId}`) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
+        axios.get(`${baseURL}/api/sellers/${this.state.sellerId}`) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
         .then(response=>{
             //alert(response.data.accountNo)
             this.setState({accountNo: response.data.accountNo})
@@ -46,7 +48,7 @@ class Payment extends Component{
     }
 
     render(){
-        const url = `https://sandbox.payhere.lk/pay/checkout?merchant_id=${this.state.accountNo}&return_url=https://google.com&cancel_url=https://google.com&order_id=${this.state.order_id}&items=xxxx&currency=LKR&amount=${this.props.cart.total}&first_name=xxxx&last_name=xxx&email=xxxx&phone=0716325124&address=xxxx&city=xxxx&country=SriLanka&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/orders/update-payment`//?order_id=${this.state.order_id}&status_codes=${2}
+        const url = `https://sandbox.payhere.lk/pay/checkout?merchant_id=${this.state.accountNo}&return_url=https://google.com&cancel_url=https://google.com&order_id=${this.state.order_id}&items=xxxx&currency=LKR&amount=${this.props.cart.total}&first_name=xxxx&last_name=xxx&email=xxxx&phone=0716325124&address=xxxx&city=xxxx&country=SriLanka&notify_url=${baseURL}/api/orders/update-payment`//?order_id=${this.state.order_id}&status_codes=${2}
         return(
         <View
             style={this.state.loading === true ? styles.stylOld : styles.styleNew}>

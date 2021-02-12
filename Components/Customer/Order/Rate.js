@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity,
 import {Rating} from 'react-native-ratings';
 import {} from '../../Menu/screenNames';
 import axios from 'axios';
+import { baseURL } from '../../Base';
 
 export default class Rate extends Component {
 
@@ -16,11 +17,11 @@ export default class Rate extends Component {
     } 
 
     click=()=>{
-      axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/updateOrderStatus/${this.state.orderId},${"confirm order recieved"}`) 
+      axios.get(`${baseURL}/api/orders/updateOrderStatus/${this.state.orderId},${"confirm order recieved"}`) 
       .then(
         response=>{
           console.log(response)
-          axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/rate/${this.state.orderId},${this.state.shopRate},${this.state.delivererRate}`) 
+          axios.post(`${baseURL}}/api/orders/rate/${this.state.orderId},${this.state.shopRate},${this.state.delivererRate}`) 
           .then(
             res=>{
               console.log(res)

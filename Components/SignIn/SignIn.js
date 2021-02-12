@@ -34,13 +34,11 @@ class ContactForm extends Component{
     }
 
     componentDidMount(){
-        console.log("ooooooooooohhhhhhhh")
         this.props.authCheckState()
     }
 
     submit=(values)=> {
         this.props.authVerify(values.Email,values.Password)
-        //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
         console.log(values);
     }
 

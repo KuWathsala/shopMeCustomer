@@ -7,9 +7,10 @@ import Button from 'react-native-button';
 import {connect} from 'react-redux';
 import Geocoder from 'react-native-geocoding';
 import Geolocation from '@react-native-community/geolocation';
+import { MAP_API_KEY } from '../Constants/Constant';
 //import Geolocation from 'react-native-geolocation-service';
 
-Geocoder.init('AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM');
+Geocoder.init(MAP_API_KEY);
 
 class Map extends React.Component{
   constructor(props){

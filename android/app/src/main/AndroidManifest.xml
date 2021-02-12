@@ -22,7 +22,7 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM"/>
+    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDb-U4LIeHRZ5gue9FlC9i_zD2-_d68UyY"/>
 
     </application>
 

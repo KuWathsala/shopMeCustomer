@@ -1,0 +1,2 @@
+var MAP_API_KEY='AIzaSyDb-U4LIeHRZ5gue9FlC9i_zD2-_d68UyY'
+export {MAP_API_KEY}

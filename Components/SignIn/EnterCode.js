@@ -8,6 +8,7 @@ import {authVerify, authCheckState, enterCodeIsCorrected} from '../Customer/Redu
 import CustomerTab from '../Customer/Tab/Tab';
 import SignIn from './SignIn';
 import axios from 'axios';
+import { baseURL } from '../Base';
 
 const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,error,warning},input:{onChange, ...restInput}})=>{
     return(
@@ -39,7 +40,7 @@ class EnterCodeForm extends Component{
 
     submit=(values)=> {
         this.setState({loading: true})
-        axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/verify/${values.code}`)
+        axios.post(`${baseURL}/api/UserAuth/verify/${values.code}`)
         .then(response=>{
             console.log(response)
             this.setState({isValidCode: response.data})

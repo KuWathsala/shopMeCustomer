@@ -63,7 +63,7 @@ export default class Map extends React.Component{
         getDefaultValue={() => ''}
         
         query={{
-        key: 'AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM',
+        key: MAP_API_KEY,
         language: 'en', 
         types: '(cities)' 
         }}

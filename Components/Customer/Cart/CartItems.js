@@ -9,6 +9,7 @@ import {removeCartItems,fetchCart} from '../Redux/Actions/cartActions';
 import Button from 'react-native-button';
 import {BuyIt, Payment} from  '../../Menu/screenNames';
 import axios from 'axios';
+import baseURL from '../../Base';
 
 class VirticalFlatListItem extends Component{
 
@@ -86,7 +87,7 @@ class CartItems extends Component {
         console.log("order")
         console.log(order)
 
-        axios.post('https://backend-webapi20191102020215.azurewebsites.net/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
+        axios.post(`${base}/api/orders/createNewOrder`, order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
         .then(response=>{
             this.props.navigation.navigate(Payment, response.data)
             this.setState({loading: false})

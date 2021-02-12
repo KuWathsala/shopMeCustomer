@@ -10,8 +10,9 @@ import Button from 'react-native-button';
 import {Shops} from '../Menu/screenNames';
 import Geolocation from 'react-native-geolocation-service';
 import Geocode from 'react-native-geocoding';
+import { MAP_API_KEY } from '../Constants/Constant';
 
-Geocoder.init('AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM');
+Geocoder.init(MAP_API_KEY);
 
 class SearchPlace extends React.Component{
 
@@ -69,7 +70,7 @@ class SearchPlace extends React.Component{
         getDefaultValue={() => ''}
         
         query={{
-        key: 'AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM',
+        key: MAP_API_KEY,
         language: 'en', 
         types: '(cities)' 
         }}
@@ -79,8 +80,6 @@ class SearchPlace extends React.Component{
         filterReverseGeocodingByTypes={['locality', 'administrative_area_level_4']} 
 
         debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-
-        
         styles={{
         textInputContainer: {
           flexDirection: 'column',

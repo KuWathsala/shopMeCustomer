@@ -8,6 +8,7 @@ import {authVerify, authCheckState} from '../Customer/Redux/Actions/Auth';
 import CustomerTab from '../Customer/Tab/Tab';
 import axios from 'axios';
 import SignIn from './SignIn';
+import { baseURL } from '../Base';
 
 const renderField=({keyboardType,placeholder,secureTextEntry, meta:{touched,error,warning},input:{onChange, ...restInput}})=>{
     return(
@@ -44,7 +45,7 @@ class ForgetPasswordForm extends Component{
 
     submitEmail=(values)=> {
         this.setState({loading: true, email: values.email})
-        axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${values.email}`)
+        axios.post(`${baseURL}/api/UserAuth/forgetPassword/${values.email}`)
         .then(response=>{
             this.setState({sendEmail: response.data})
             this.setState({loading: false,  text: (!response.data) ? "email is not valid. ": ""});
@@ -57,7 +58,7 @@ class ForgetPasswordForm extends Component{
 
     submitCode=(values)=> {
         this.setState({loading: true})
-        axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/verify/${values.code}`)
+        axios.post(`${baseURL}/api/UserAuth/verify/${values.code}`)
         .then(response=>{
             console.log(response)
             this.setState({codeSubmit: response.data})
@@ -78,7 +79,7 @@ class ForgetPasswordForm extends Component{
             password: values.password
         }
 
-        axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/resetPassword/`, loginVM)
+        axios.post(`${baseURL}/api/UserAuth/resetPassword/`, loginVM)
         .then(response=>{
             console.log(response)
             this.setState({submitNewPassword: response.data})

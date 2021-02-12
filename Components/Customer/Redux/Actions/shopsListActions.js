@@ -4,6 +4,7 @@ import {
     SHOPS_LIST_FAILURE
 } from './types'; 
 import axios from 'axios';
+import { baseURL } from '../../../Base';
 
 
 export const shopsListRequest=()=>({
@@ -25,7 +26,7 @@ export const fetchShopsList=(latitude, longitude)=>{
     return dispatch=>{
         dispatch(shopsListRequest());
         console.log("shopsList")
-        axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/Sellers/${latitude},${longitude}`)//http://192.168.43.15:5001/api/Sellers
+        axios.get(`${baseURL}/api/Sellers/${latitude},${longitude}`)//http://192.168.43.15:5001/api/Sellers
         .then(json=>{
             dispatch(shopsListSuccess(json.data));
         })

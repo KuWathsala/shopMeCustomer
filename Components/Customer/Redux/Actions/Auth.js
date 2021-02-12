@@ -1,6 +1,7 @@
 import * as ActionTypes from './types';
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
+import { baseURL } from '../../../Base';
 
 export const authStart=()=>{
     return{
@@ -51,13 +52,13 @@ export const enterCodeIsCorrected=()=>{
 }
 
 export const auth=(authData)=>{
-    console.log("now in auth")
+    console.log("now in auth data")
     console.log(authData)
     return dispatch=>{
         dispatch(authStart());
         let url='';
         console.log(authData.role);
-        url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/Signup-Customer';
+        url=`${baseURL}/api/UserAuth/Signup-Customer`;
         axios.post(url,authData)
         .then(response=>{
             if(response.data.id==0)
@@ -76,7 +77,7 @@ export const auth=(authData)=>{
                 AsyncStorage.setItem("profileImage", response.data.profileImage);
 
                 dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
-                axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${authData.LoginVM.Email}`)
+                axios.post(`${baseURL}/api/UserAuth/forgetPassword/${authData.LoginVM.Email}`)
                 .then(response=>{
                 })
                 .catch(error=>{
@@ -117,7 +118,7 @@ export const authVerify=(email,password)=>{
             returnSecureToken: true
         };
         
-        let url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/signin';
+        let url=`${baseURL}/api/UserAuth/signin`;
         axios.post(url,authVerifyData)
         .then(response=>{
             console.log("response");

@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import axios from 'axios';
 import CurrentOrderList from './CurrentOrderList';
 import {connect} from 'react-redux';
-
+import baseURL from '../../Base';
 class CurrentOrders extends Component {
 
   //static navigationOptions = { header: null };
@@ -25,7 +25,7 @@ class CurrentOrders extends Component {
 
   fetchData=async()=>{
     this.setState({refreshing: true})
-    axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/getAllOrderDetailsByCustomer/${this.state.id}`) //backend-webapi20190825122524.azurewebsites.net
+    axios.post(`${baseURL}/api/orders/getAllOrderDetailsByCustomer/${this.state.id}`) //backend-webapi20190825122524.azurewebsites.net
     .then(response=>{
         this.setState({currentOrdersData: response.data})
         this.setState({refreshing: false})
