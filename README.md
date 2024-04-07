@@ -1,0 +1,8 @@
+![Screenshot_20191101-143842](https://github.com/KuWathsala/shopMeCustomer/assets/47837437/6df320c6-d6fe-4409-87b6-aa9b6fe76bd9)
+![Screenshot_20191101-144026](https://github.com/KuWathsala/shopMeCustomer/assets/47837437/26a1b96e-d120-4453-8522-d1948e545548)
+![Screenshot_20191101-144045](https://github.com/KuWathsala/shopMeCustomer/assets/47837437/a9afffe3-b1cd-4dc6-8131-d726d08d0f55)
+![Screenshot_20191101-144102](https://github.com/KuWathsala/shopMeCustomer/assets/47837437/5f513927-4749-4391-8e2c-2ce92accb3ae)
+![Screenshot_20191101-144120](https://github.com/KuWathsala/shopMeCustomer/assets/47837437/c4ec8649-fb05-4d95-a14c-28046c17a681)
+![Screenshot_20191101-144155](https://github.com/KuWathsala/shopMeCustomer/assets/47837437/08b69085-2b68-43c5-a29a-566eba7e7396)
+![Screenshot_20191101-144207](https://github.com/KuWathsala/shopMeCustomer/assets/47837437/2c12bb03-88e0-49bd-8a6b-21e9dde0bcf5)
+![Screenshot_20191101-144230](https://github.com/KuWathsala/shopMeCustomer/assets/47837437/5c0dc703-6230-4330-a34b-67472e4c2643)
